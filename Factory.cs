@@ -2,14 +2,16 @@
 
 public class Factory
 {
-    public List<Shapes> data = new List<Shapes>();
+    private List<Shapes> _data = new List<Shapes>();
+    //新增一個線
     public void AddLine()
     {
-        data.Add(new Line());
+        _data.Add(new Line());
     }
+    //新增一個正方形
     public void AddRectangle()
     {
-        data.Add(new Rectangle());
+        _data.Add(new Rectangle());
     }
 
 }

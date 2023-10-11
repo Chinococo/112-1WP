@@ -11,6 +11,7 @@ public class Model
         this.shape_combobox = shape_combobox;
         this.factory = factory;
     }
+    //新增DataGrid資料
     public object[] AddNewLineDataGrid()
     {
         DataGridViewButtonCell button = new DataGridViewButtonCell();
