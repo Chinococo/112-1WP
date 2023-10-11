@@ -15,8 +15,22 @@ namespace HW2
         public Form1()
         {
             InitializeComponent();
+        }   
+    }
+    public class View
+    {
+        public Model model;
+        View(Model model)
+        {
+            this.model = model;
         }
-
-        
+    }
+    public class Model
+    {
+        public Model model;
+        Model(Model model)
+        {
+            this.model = model;
+        }
     }
 }
