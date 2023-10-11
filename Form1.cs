@@ -14,10 +14,12 @@ namespace HW2
     {
         public MainModel model;
         public View view;
+        public Factory factory;
         public Form1()
         {
             InitializeComponent();
-            model = new MainModel( DataDisplayGrid, shape_combobox);
+            factory = new Factory();
+            model = new MainModel( DataDisplayGrid, shape_combobox,factory);
             view = new View(model,DataDisplayGrid);
         }
 
