@@ -30,6 +30,9 @@ namespace HW2
         private void InitializeComponent()
         {
             this.DataDisplayGrid = new System.Windows.Forms.DataGridView();
+            this.刪除 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.形狀 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.資訊 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.insert_button = new System.Windows.Forms.Button();
             this.shape_combobox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -39,9 +42,6 @@ namespace HW2
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.說明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.關於ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.刪除 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.形狀 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.資訊 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DataDisplayGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -61,6 +61,22 @@ namespace HW2
             this.DataDisplayGrid.RowTemplate.Height = 24;
             this.DataDisplayGrid.Size = new System.Drawing.Size(314, 594);
             this.DataDisplayGrid.TabIndex = 0;
+            this.DataDisplayGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataDisplayGrid_CellContentClick);
+            // 
+            // 刪除
+            // 
+            this.刪除.HeaderText = "刪除";
+            this.刪除.Name = "刪除";
+            // 
+            // 形狀
+            // 
+            this.形狀.HeaderText = "形狀";
+            this.形狀.Name = "形狀";
+            // 
+            // 資訊
+            // 
+            this.資訊.HeaderText = "資訊";
+            this.資訊.Name = "資訊";
             // 
             // insert_button
             // 
@@ -158,21 +174,6 @@ namespace HW2
             this.關於ToolStripMenuItem.Size = new System.Drawing.Size(128, 30);
             this.關於ToolStripMenuItem.Text = "關於";
             // 
-            // 刪除
-            // 
-            this.刪除.HeaderText = "刪除";
-            this.刪除.Name = "刪除";
-            // 
-            // 形狀
-            // 
-            this.形狀.HeaderText = "形狀";
-            this.形狀.Name = "形狀";
-            // 
-            // 資訊
-            // 
-            this.資訊.HeaderText = "資訊";
-            this.資訊.Name = "資訊";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -184,6 +185,7 @@ namespace HW2
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.DataDisplayGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -199,7 +201,6 @@ namespace HW2
 
         private System.Windows.Forms.DataGridView DataDisplayGrid;
         private System.Windows.Forms.Button insert_button;
-        private System.Windows.Forms.ComboBox shape_combobox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_page2;
@@ -210,6 +211,7 @@ namespace HW2
         private System.Windows.Forms.DataGridViewButtonColumn 刪除;
         private System.Windows.Forms.DataGridViewTextBoxColumn 形狀;
         private System.Windows.Forms.DataGridViewTextBoxColumn 資訊;
+        private System.Windows.Forms.ComboBox shape_combobox;
     }
 }
 
