@@ -204,22 +204,6 @@
             </Smell>
             <Smell>
               <Id>2</Id>
-              <SmellType>ICS(空白與空行-16)</SmellType>
-              <HashCode>SpacingAndNewLine16.Form1.DisplayDataGridCellContentClick.0</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.cs</File>
-              <Line>32</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(空白與空行-16) 每個函式之間加一個空行</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>3</Id>
               <SmellType>Unsuitable naming(名不符實)-HW2(hw)</SmellType>
               <HashCode>UnsuitableNaming.Root.HW2.HW2</HashCode>
               <Severity>Red</Severity>
@@ -235,23 +219,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>4</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._關於toolStripMenuItem</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>207</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>5</Id>
+              <Id>3</Id>
               <SmellType>Unsuitable naming(名不符實)-_shapeCombobox(combobox)</SmellType>
               <HashCode>UnsuitableNaming.Form1._shapeCombobox._shapeCombobox</HashCode>
               <Severity>Red</Severity>
@@ -267,7 +235,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>6</Id>
+              <Id>4</Id>
               <SmellType>Unsuitable naming(名不符實)-_deleteCloumn(cloumn)</SmellType>
               <HashCode>UnsuitableNaming.Form1._deleteCloumn._deleteCloumn</HashCode>
               <Severity>Red</Severity>
@@ -283,7 +251,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>7</Id>
+              <Id>5</Id>
               <SmellType>Unsuitable naming(名不符實)-_shapeCloumn(cloumn)</SmellType>
               <HashCode>UnsuitableNaming.Form1._shapeCloumn._shapeCloumn</HashCode>
               <Severity>Red</Severity>
@@ -299,7 +267,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>8</Id>
+              <Id>6</Id>
               <SmellType>Unsuitable naming(名不符實)-_infoCloumn(cloumn)</SmellType>
               <HashCode>UnsuitableNaming.Form1._infoCloumn._infoCloumn</HashCode>
               <Severity>Red</Severity>
@@ -315,23 +283,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>9</Id>
-              <SmellType>Literal constants(字面常數)-"線"</SmellType>
-              <HashCode>LiteralConstants.AddNewLineDataGrid."線"</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>model.cs</File>
-              <Line>26</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>10</Id>
+              <Id>7</Id>
               <SmellType>Unsuitable naming(名不符實)-_shapeCombobox(combobox)</SmellType>
               <HashCode>UnsuitableNaming.Model._shapeCombobox._shapeCombobox</HashCode>
               <Severity>Red</Severity>
@@ -347,14 +299,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>11</Id>
+              <Id>8</Id>
               <SmellType>Unsuitable naming(名不符實)-datagrid(datagrid)</SmellType>
               <HashCode>UnsuitableNaming.Model.Model.datagrid</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>11</Line>
+              <Line>12</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -363,14 +315,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>12</Id>
+              <Id>9</Id>
               <SmellType>Unsuitable naming(名不符實)-combobox(combobox)</SmellType>
               <HashCode>UnsuitableNaming.Model.Model.combobox</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>11</Line>
+              <Line>12</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -379,14 +331,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>13</Id>
+              <Id>10</Id>
               <SmellType>Unsuitable naming(名不符實)-mainfactory(mainfactory)</SmellType>
               <HashCode>UnsuitableNaming.Model.Model.mainfactory</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>11</Line>
+              <Line>12</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -395,23 +347,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>14</Id>
-              <SmellType>Long method(過長函式)</SmellType>
-              <HashCode>LongMethod.Model.AddNewLineDataGrid.23</HashCode>
-              <Severity>Warning</Severity>
-              <Weight>23</Weight>
-              <Project>HW2</Project>
-              <File>model.cs</File>
-              <Line>18</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>15</Id>
+              <Id>11</Id>
               <SmellType>Unsuitable naming(名不符實)-HW2(hw)</SmellType>
               <HashCode>UnsuitableNaming.Root.HW2.HW2</HashCode>
               <Severity>Red</Severity>
@@ -427,7 +363,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>16</Id>
+              <Id>12</Id>
               <SmellType>Unsuitable naming(名不符實)-shapename(shapename)</SmellType>
               <HashCode>UnsuitableNaming.Shape.Shape.shapename</HashCode>
               <Severity>Red</Severity>
@@ -443,7 +379,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>17</Id>
+              <Id>13</Id>
               <SmellType>Unsuitable naming(名不符實)-shapename(shapename)</SmellType>
               <HashCode>UnsuitableNaming.Shapes.Shapes.shapename</HashCode>
               <Severity>Red</Severity>
@@ -459,9 +395,9 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>18</Id>
-              <SmellType>ICS(變數-2)</SmellType>
-              <HashCode>Variable2.View.DataDisplayGrid</HashCode>
+              <Id>14</Id>
+              <SmellType>Unsuitable naming(名不符實)-prmaModel(prma)</SmellType>
+              <HashCode>UnsuitableNaming.View.View.prmaModel</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
@@ -471,7 +407,23 @@
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
               <EndCol>0</EndCol>
-              <Comment>ICS(變數-2) 區域變數-函式參數命名規則與 class 成員變數相似，僅差在不以底線開始</Comment>
+              <Comment />
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>15</Id>
+              <SmellType>Unsuitable naming(名不符實)-prmaDataGrid(prma)</SmellType>
+              <HashCode>UnsuitableNaming.View.View.prmaDataGrid</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>View.cs</File>
+              <Line>7</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment />
               <Auto>false</Auto>
             </Smell>
           </Reviews>
@@ -546,7 +498,7 @@
               </AnalysisFile>
             </AnalysisFiles>
           </AnalysisFileManager>
-          <ProductionLoc>439</ProductionLoc>
+          <ProductionLoc>438</ProductionLoc>
           <TestLoc>0</TestLoc>
         </CodeReview>
       </Data>

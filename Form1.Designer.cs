@@ -38,7 +38,7 @@ namespace HW2
             this._buttonPage1 = new System.Windows.Forms.Button();
             this._menuStrip = new System.Windows.Forms.MenuStrip();
             this._toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._關於toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -140,16 +140,16 @@ namespace HW2
             // _toolStripMenuItem
             // 
             this._toolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._關於toolStripMenuItem});
+            this._aboutToolStripMenuItem});
             this._toolStripMenuItem.Name = "_toolStripMenuItem";
             this._toolStripMenuItem.Size = new System.Drawing.Size(43, 22);
             this._toolStripMenuItem.Text = "說明";
             // 
-            // _關於toolStripMenuItem
+            // _aboutToolStripMenuItem
             // 
-            this._關於toolStripMenuItem.Name = "_關於toolStripMenuItem";
-            this._關於toolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this._關於toolStripMenuItem.Text = "關於";
+            this._aboutToolStripMenuItem.Name = "_aboutToolStripMenuItem";
+            this._aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this._aboutToolStripMenuItem.Text = "關於";
             // 
             // _deleteCloumn
             // 
@@ -204,7 +204,7 @@ namespace HW2
         private System.Windows.Forms.Button _buttonPage1;
         private System.Windows.Forms.MenuStrip _menuStrip;
         private System.Windows.Forms.ToolStripMenuItem _toolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _關於toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _aboutToolStripMenuItem;
         private System.Windows.Forms.ComboBox _shapeCombobox;
         private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;

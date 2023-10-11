@@ -8,6 +8,7 @@ public class Model
     private const string LINE_INFO = "(0,0,50,50)";
     private const string RECTANGLE_INFO = "(25,25,50,50)";
     private const string DELETE = "刪除";
+    private const string LINE = "線";
     public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory)
     {
         this._dataDisplayGrid = datagrid;
@@ -15,15 +16,14 @@ public class Model
         this._factory = mainfactory;
     }
     //新增DataGrid資料
-    public object[] AddNewLineDataGrid()
+    public object[] AddNewLine()
     {
         DataGridViewButtonCell button = new DataGridViewButtonCell();
         button.UseColumnTextForButtonValue = true;
         button.Value = DELETE;
         object shapeComboBoxValue = _shapeCombobox.SelectedItem;
         string data;
-
-        if (shapeComboBoxValue != null && shapeComboBoxValue.ToString() == "線")
+        if (shapeComboBoxValue != null && shapeComboBoxValue.ToString() == LINE)
         {
             data = LINE_INFO;
             _factory.AddLine();
@@ -33,9 +33,7 @@ public class Model
             data = RECTANGLE_INFO;
             _factory.AddRectangle();
         }
-
-        button.UseColumnTextForButtonValue = true; // 设置按钮显示文本
-
+        
         return new object[] { button, shapeComboBoxValue, data };
     }
 }

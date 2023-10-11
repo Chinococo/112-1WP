@@ -29,6 +29,7 @@ namespace HW2
             
         }
         //DataGrid按鈕觸發處理事件
+
         private void DisplayDataGridCellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) // 请替换 deleteColumnIndex 为“删除”按钮所在的列索引
