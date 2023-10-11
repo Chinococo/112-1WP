@@ -12,10 +12,18 @@ namespace HW2
 {
     public partial class Form1 : Form
     {
+        public MainModel model;
         public Form1()
         {
             InitializeComponent();
-        }   
+            model = new MainModel( DataDisplayGrid, shape_combobox);
+        }
+
+        private void Insert_button_Click(object sender, EventArgs e)
+        {
+            model.AddNewLineDataGrid();
+            
+        }
     }
     public class View
     {
@@ -25,12 +33,5 @@ namespace HW2
             this.model = model;
         }
     }
-    public class Model
-    {
-        public Model model;
-        Model(Model model)
-        {
-            this.model = model;
-        }
-    }
+
 }
