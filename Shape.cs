@@ -4,14 +4,16 @@
     {
 
     }
+
     //拿到目前這個形狀的資訊
-    public string Getinfo()
+    public string GetInfo()
     {
-        return this.info;
+        return this._info;
     }
+
     //拿到目前這個形狀的名子
     public string GetShapeName()
     {
-        return this.shapename;
+        return this._shapeName;
     }
 }

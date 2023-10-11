@@ -41,7 +41,7 @@ namespace HW2
             this._ButtonPage1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.關於ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._關於ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this._DisplayDataGrid)).BeginInit();
             this._GroupBox.SuspendLayout();
             this._GroupBox2.SuspendLayout();
@@ -170,16 +170,16 @@ namespace HW2
             // _ToolStripMenuItem
             // 
             this._ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.關於ToolStripMenuItem});
+            this._關於ToolStripMenuItem});
             this._ToolStripMenuItem.Name = "_ToolStripMenuItem";
             this._ToolStripMenuItem.Size = new System.Drawing.Size(62, 27);
             this._ToolStripMenuItem.Text = "說明";
             // 
-            // 關於ToolStripMenuItem
+            // _關於ToolStripMenuItem
             // 
-            this.關於ToolStripMenuItem.Name = "關於ToolStripMenuItem";
-            this.關於ToolStripMenuItem.Size = new System.Drawing.Size(146, 34);
-            this.關於ToolStripMenuItem.Text = "關於";
+            this._關於ToolStripMenuItem.Name = "_關於ToolStripMenuItem";
+            this._關於ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this._關於ToolStripMenuItem.Text = "關於";
             // 
             // Form1
             // 
@@ -214,7 +214,7 @@ namespace HW2
         private System.Windows.Forms.Button _ButtonPage1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem _ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 關於ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _關於ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn 刪除;
         private System.Windows.Forms.DataGridViewTextBoxColumn 形狀;
         private System.Windows.Forms.DataGridViewTextBoxColumn 資訊;

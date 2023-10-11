@@ -2,11 +2,11 @@
 
 public class Shapes
 {
-    public string shapename;
-    public string info;
+    protected string _shapeName;
+    protected string _info;
     public Shapes(string shapename, string info)
     {
-        this.shapename = shapename;
-        this.info = info;
+        this._shapeName = shapename;
+        this._info = info;
     }
 }
