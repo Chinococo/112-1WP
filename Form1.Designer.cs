@@ -29,176 +29,166 @@ namespace HW2
         /// </summary>
         private void InitializeComponent()
         {
-            this._DisplayDataGrid = new System.Windows.Forms.DataGridView();
-            this.刪除 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.形狀 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.資訊 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._InsertButton = new System.Windows.Forms.Button();
-            this._ShapeCombobox = new System.Windows.Forms.ComboBox();
-            this._GroupBox = new System.Windows.Forms.GroupBox();
-            this._GroupBox2 = new System.Windows.Forms.GroupBox();
-            this._ButtonPage2 = new System.Windows.Forms.Button();
-            this._ButtonPage1 = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this._ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._關於ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this._DisplayDataGrid)).BeginInit();
-            this._GroupBox.SuspendLayout();
-            this._GroupBox2.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this._displayDataGrid = new System.Windows.Forms.DataGridView();
+            this._insertButton = new System.Windows.Forms.Button();
+            this._shapeCombobox = new System.Windows.Forms.ComboBox();
+            this._groupBox = new System.Windows.Forms.GroupBox();
+            this._groupBox2 = new System.Windows.Forms.GroupBox();
+            this._buttonPage2 = new System.Windows.Forms.Button();
+            this._buttonPage1 = new System.Windows.Forms.Button();
+            this._menuStrip = new System.Windows.Forms.MenuStrip();
+            this._toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._關於toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
+            this._groupBox.SuspendLayout();
+            this._groupBox2.SuspendLayout();
+            this._menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // _DisplayDataGrid
+            // _displayDataGrid
             // 
-            this._DisplayDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._DisplayDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.刪除,
-            this.形狀,
-            this.資訊});
-            this._DisplayDataGrid.Location = new System.Drawing.Point(9, 102);
-            this._DisplayDataGrid.Margin = new System.Windows.Forms.Padding(4);
-            this._DisplayDataGrid.Name = "_DisplayDataGrid";
-            this._DisplayDataGrid.RowHeadersWidth = 62;
-            this._DisplayDataGrid.RowTemplate.Height = 24;
-            this._DisplayDataGrid.Size = new System.Drawing.Size(525, 594);
-            this._DisplayDataGrid.TabIndex = 0;
-            this._DisplayDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DisplayDataGridCellContentClick);
+            this._displayDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._displayDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._deleteCloumn,
+            this._shapeCloumn,
+            this._infoCloumn});
+            this._displayDataGrid.Location = new System.Drawing.Point(6, 68);
+            this._displayDataGrid.Name = "_displayDataGrid";
+            this._displayDataGrid.RowHeadersWidth = 62;
+            this._displayDataGrid.RowTemplate.Height = 24;
+            this._displayDataGrid.Size = new System.Drawing.Size(350, 396);
+            this._displayDataGrid.TabIndex = 0;
+            this._displayDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DisplayDataGridCellContentClick);
             // 
-            // 刪除
+            // _insertButton
             // 
-            this.刪除.HeaderText = "刪除";
-            this.刪除.MinimumWidth = 8;
-            this.刪除.Name = "刪除";
-            this.刪除.Width = 150;
+            this._insertButton.Location = new System.Drawing.Point(6, 21);
+            this._insertButton.Name = "_insertButton";
+            this._insertButton.Size = new System.Drawing.Size(76, 41);
+            this._insertButton.TabIndex = 1;
+            this._insertButton.Text = "新增";
+            this._insertButton.UseVisualStyleBackColor = true;
+            this._insertButton.Click += new System.EventHandler(this.InsertButtonClick);
             // 
-            // 形狀
+            // _shapeCombobox
             // 
-            this.形狀.HeaderText = "形狀";
-            this.形狀.MinimumWidth = 8;
-            this.形狀.Name = "形狀";
-            this.形狀.Width = 150;
-            // 
-            // 資訊
-            // 
-            this.資訊.HeaderText = "資訊";
-            this.資訊.MinimumWidth = 8;
-            this.資訊.Name = "資訊";
-            this.資訊.Width = 150;
-            // 
-            // _InsertButton
-            // 
-            this._InsertButton.Location = new System.Drawing.Point(9, 32);
-            this._InsertButton.Margin = new System.Windows.Forms.Padding(4);
-            this._InsertButton.Name = "_InsertButton";
-            this._InsertButton.Size = new System.Drawing.Size(114, 62);
-            this._InsertButton.TabIndex = 1;
-            this._InsertButton.Text = "新增";
-            this._InsertButton.UseVisualStyleBackColor = true;
-            this._InsertButton.Click += new System.EventHandler(this.InsertButtonClick);
-            // 
-            // _ShapeCombobox
-            // 
-            this._ShapeCombobox.FormattingEnabled = true;
-            this._ShapeCombobox.Items.AddRange(new object[] {
+            this._shapeCombobox.FormattingEnabled = true;
+            this._shapeCombobox.Items.AddRange(new object[] {
             "線",
             "矩形"});
-            this._ShapeCombobox.Location = new System.Drawing.Point(158, 48);
-            this._ShapeCombobox.Margin = new System.Windows.Forms.Padding(4);
-            this._ShapeCombobox.Name = "_ShapeCombobox";
-            this._ShapeCombobox.Size = new System.Drawing.Size(132, 26);
-            this._ShapeCombobox.TabIndex = 2;
+            this._shapeCombobox.Location = new System.Drawing.Point(105, 32);
+            this._shapeCombobox.Name = "_shapeCombobox";
+            this._shapeCombobox.Size = new System.Drawing.Size(89, 20);
+            this._shapeCombobox.TabIndex = 2;
             // 
-            // _GroupBox
+            // _groupBox
             // 
-            this._GroupBox.Controls.Add(this._InsertButton);
-            this._GroupBox.Controls.Add(this._DisplayDataGrid);
-            this._GroupBox.Controls.Add(this._ShapeCombobox);
-            this._GroupBox.Location = new System.Drawing.Point(726, 3);
-            this._GroupBox.Margin = new System.Windows.Forms.Padding(4);
-            this._GroupBox.Name = "_GroupBox";
-            this._GroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this._GroupBox.Size = new System.Drawing.Size(526, 780);
-            this._GroupBox.TabIndex = 3;
-            this._GroupBox.TabStop = false;
-            this._GroupBox.Text = "資料顯示";
+            this._groupBox.Controls.Add(this._insertButton);
+            this._groupBox.Controls.Add(this._displayDataGrid);
+            this._groupBox.Controls.Add(this._shapeCombobox);
+            this._groupBox.Location = new System.Drawing.Point(484, 2);
+            this._groupBox.Name = "_groupBox";
+            this._groupBox.Size = new System.Drawing.Size(351, 520);
+            this._groupBox.TabIndex = 3;
+            this._groupBox.TabStop = false;
+            this._groupBox.Text = "資料顯示";
             // 
-            // _GroupBox2
+            // _groupBox2
             // 
-            this._GroupBox2.Controls.Add(this._ButtonPage2);
-            this._GroupBox2.Controls.Add(this._ButtonPage1);
-            this._GroupBox2.Location = new System.Drawing.Point(0, 51);
-            this._GroupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this._GroupBox2.Name = "_GroupBox2";
-            this._GroupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this._GroupBox2.Size = new System.Drawing.Size(291, 729);
-            this._GroupBox2.TabIndex = 4;
-            this._GroupBox2.TabStop = false;
-            this._GroupBox2.Text = "投影片選擇";
+            this._groupBox2.Controls.Add(this._buttonPage2);
+            this._groupBox2.Controls.Add(this._buttonPage1);
+            this._groupBox2.Location = new System.Drawing.Point(0, 34);
+            this._groupBox2.Name = "_groupBox2";
+            this._groupBox2.Size = new System.Drawing.Size(194, 486);
+            this._groupBox2.TabIndex = 4;
+            this._groupBox2.TabStop = false;
+            this._groupBox2.Text = "投影片選擇";
             // 
-            // _ButtonPage2
+            // _buttonPage2
             // 
-            this._ButtonPage2.Location = new System.Drawing.Point(15, 170);
-            this._ButtonPage2.Margin = new System.Windows.Forms.Padding(4);
-            this._ButtonPage2.Name = "_ButtonPage2";
-            this._ButtonPage2.Size = new System.Drawing.Size(266, 110);
-            this._ButtonPage2.TabIndex = 0;
-            this._ButtonPage2.Text = "頁面2";
-            this._ButtonPage2.UseVisualStyleBackColor = true;
+            this._buttonPage2.Location = new System.Drawing.Point(10, 113);
+            this._buttonPage2.Name = "_buttonPage2";
+            this._buttonPage2.Size = new System.Drawing.Size(177, 73);
+            this._buttonPage2.TabIndex = 0;
+            this._buttonPage2.Text = "頁面2";
+            this._buttonPage2.UseVisualStyleBackColor = true;
             // 
-            // _ButtonPage1
+            // _buttonPage1
             // 
-            this._ButtonPage1.Location = new System.Drawing.Point(9, 32);
-            this._ButtonPage1.Margin = new System.Windows.Forms.Padding(4);
-            this._ButtonPage1.Name = "_ButtonPage1";
-            this._ButtonPage1.Size = new System.Drawing.Size(266, 110);
-            this._ButtonPage1.TabIndex = 0;
-            this._ButtonPage1.Text = "頁面1";
-            this._ButtonPage1.UseVisualStyleBackColor = true;
+            this._buttonPage1.Location = new System.Drawing.Point(6, 21);
+            this._buttonPage1.Name = "_buttonPage1";
+            this._buttonPage1.Size = new System.Drawing.Size(177, 73);
+            this._buttonPage1.TabIndex = 0;
+            this._buttonPage1.Text = "頁面1";
+            this._buttonPage1.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
+            // _menuStrip
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1252, 31);
-            this.menuStrip1.TabIndex = 5;
-            this.menuStrip1.Text = "menuStrip1";
+            this._menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this._menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._toolStripMenuItem});
+            this._menuStrip.Location = new System.Drawing.Point(0, 0);
+            this._menuStrip.Name = "_menuStrip";
+            this._menuStrip.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this._menuStrip.Size = new System.Drawing.Size(835, 24);
+            this._menuStrip.TabIndex = 5;
+            this._menuStrip.Text = "menuStrip1";
             // 
-            // _ToolStripMenuItem
+            // _toolStripMenuItem
             // 
-            this._ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._關於ToolStripMenuItem});
-            this._ToolStripMenuItem.Name = "_ToolStripMenuItem";
-            this._ToolStripMenuItem.Size = new System.Drawing.Size(62, 27);
-            this._ToolStripMenuItem.Text = "說明";
+            this._toolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._關於toolStripMenuItem});
+            this._toolStripMenuItem.Name = "_toolStripMenuItem";
+            this._toolStripMenuItem.Size = new System.Drawing.Size(43, 22);
+            this._toolStripMenuItem.Text = "說明";
             // 
-            // _關於ToolStripMenuItem
+            // _關於toolStripMenuItem
             // 
-            this._關於ToolStripMenuItem.Name = "_關於ToolStripMenuItem";
-            this._關於ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this._關於ToolStripMenuItem.Text = "關於";
+            this._關於toolStripMenuItem.Name = "_關於toolStripMenuItem";
+            this._關於toolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this._關於toolStripMenuItem.Text = "關於";
+            // 
+            // _deleteCloumn
+            // 
+            this._deleteCloumn.HeaderText = "刪除";
+            this._deleteCloumn.MinimumWidth = 8;
+            this._deleteCloumn.Name = "_deleteCloumn";
+            this._deleteCloumn.Width = 150;
+            // 
+            // _shapeCloumn
+            // 
+            this._shapeCloumn.HeaderText = "形狀";
+            this._shapeCloumn.MinimumWidth = 8;
+            this._shapeCloumn.Name = "_shapeCloumn";
+            this._shapeCloumn.Width = 150;
+            // 
+            // _infoCloumn
+            // 
+            this._infoCloumn.HeaderText = "資訊";
+            this._infoCloumn.MinimumWidth = 8;
+            this._infoCloumn.Name = "_infoCloumn";
+            this._infoCloumn.Width = 150;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 777);
-            this.Controls.Add(this._GroupBox2);
-            this.Controls.Add(this._GroupBox);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.ClientSize = new System.Drawing.Size(835, 518);
+            this.Controls.Add(this._groupBox2);
+            this.Controls.Add(this._groupBox);
+            this.Controls.Add(this._menuStrip);
+            this.MainMenuStrip = this._menuStrip;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this._DisplayDataGrid)).EndInit();
-            this._GroupBox.ResumeLayout(false);
-            this._GroupBox2.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
+            this._groupBox.ResumeLayout(false);
+            this._groupBox2.ResumeLayout(false);
+            this._menuStrip.ResumeLayout(false);
+            this._menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,19 +196,19 @@ namespace HW2
 
         #endregion
 
-        private System.Windows.Forms.DataGridView _DisplayDataGrid;
-        private System.Windows.Forms.Button _InsertButton;
-        private System.Windows.Forms.GroupBox _GroupBox;
-        private System.Windows.Forms.GroupBox _GroupBox2;
-        private System.Windows.Forms.Button _ButtonPage2;
-        private System.Windows.Forms.Button _ButtonPage1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem _ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _關於ToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewButtonColumn 刪除;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 形狀;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 資訊;
-        private System.Windows.Forms.ComboBox _ShapeCombobox;
+        private System.Windows.Forms.DataGridView _displayDataGrid;
+        private System.Windows.Forms.Button _insertButton;
+        private System.Windows.Forms.GroupBox _groupBox;
+        private System.Windows.Forms.GroupBox _groupBox2;
+        private System.Windows.Forms.Button _buttonPage2;
+        private System.Windows.Forms.Button _buttonPage1;
+        private System.Windows.Forms.MenuStrip _menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem _toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _關於toolStripMenuItem;
+        private System.Windows.Forms.ComboBox _shapeCombobox;
+        private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
     }
 }
 

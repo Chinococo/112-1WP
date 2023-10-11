@@ -19,8 +19,8 @@ namespace HW2
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _DisplayDataGrid, _ShapeCombobox, _factory);
-            _view = new View(_model, _DisplayDataGrid);
+            _model = new Model( _displayDataGrid, _shapeCombobox, _factory);
+            _view = new View(_model, _displayDataGrid);
         }
         //新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
@@ -33,8 +33,9 @@ namespace HW2
         {
             if (e.ColumnIndex == 0) // 请替换 deleteColumnIndex 为“删除”按钮所在的列索引
             {
-                _DisplayDataGrid.Rows.RemoveAt(e.RowIndex);
+                _displayDataGrid.Rows.RemoveAt(e.RowIndex);
             }
         }
+
     }    
 }

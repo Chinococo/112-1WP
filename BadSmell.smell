@@ -237,12 +237,12 @@
             <Smell>
               <Id>4</Id>
               <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._DisplayDataGrid</HashCode>
+              <HashCode>Variable1.Form1._關於toolStripMenuItem</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>Form1.Designer.cs</File>
-              <Line>209</Line>
+              <Line>207</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -252,8 +252,40 @@
             </Smell>
             <Smell>
               <Id>5</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._InsertButton</HashCode>
+              <SmellType>Unsuitable naming(名不符實)-_shapeCombobox(combobox)</SmellType>
+              <HashCode>UnsuitableNaming.Form1._shapeCombobox._shapeCombobox</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>Form1.Designer.cs</File>
+              <Line>208</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment />
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>6</Id>
+              <SmellType>Unsuitable naming(名不符實)-_deleteCloumn(cloumn)</SmellType>
+              <HashCode>UnsuitableNaming.Form1._deleteCloumn._deleteCloumn</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>Form1.Designer.cs</File>
+              <Line>209</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment />
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>7</Id>
+              <SmellType>Unsuitable naming(名不符實)-_shapeCloumn(cloumn)</SmellType>
+              <HashCode>UnsuitableNaming.Form1._shapeCloumn._shapeCloumn</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
@@ -263,13 +295,13 @@
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
               <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
+              <Comment />
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>6</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._GroupBox</HashCode>
+              <Id>8</Id>
+              <SmellType>Unsuitable naming(名不符實)-_infoCloumn(cloumn)</SmellType>
+              <HashCode>UnsuitableNaming.Form1._infoCloumn._infoCloumn</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
@@ -279,235 +311,11 @@
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
               <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>7</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._GroupBox2</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>212</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>8</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._ButtonPage2</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>213</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
+              <Comment />
               <Auto>false</Auto>
             </Smell>
             <Smell>
               <Id>9</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._ButtonPage1</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>214</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>10</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1.menuStrip1</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>215</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>11</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._ToolStripMenuItem</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>216</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>12</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._關於ToolStripMenuItem</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>217</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>13</Id>
-              <SmellType>Unsuitable naming(名不符實)-刪除(刪除)</SmellType>
-              <HashCode>UnsuitableNaming.Form1.刪除.刪除</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>218</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>14</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1.刪除</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>218</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>15</Id>
-              <SmellType>Unsuitable naming(名不符實)-形狀(形狀)</SmellType>
-              <HashCode>UnsuitableNaming.Form1.形狀.形狀</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>219</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>16</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1.形狀</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>219</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>17</Id>
-              <SmellType>Unsuitable naming(名不符實)-資訊(資訊)</SmellType>
-              <HashCode>UnsuitableNaming.Form1.資訊.資訊</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>220</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>18</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1.資訊</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>220</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>19</Id>
-              <SmellType>Unsuitable naming(名不符實)-_ShapeCombobox(combobox)</SmellType>
-              <HashCode>UnsuitableNaming.Form1._ShapeCombobox._ShapeCombobox</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>221</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>20</Id>
-              <SmellType>ICS(變數-1)</SmellType>
-              <HashCode>Variable1.Form1._ShapeCombobox</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Form1.Designer.cs</File>
-              <Line>221</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(變數-1) Class 成員變數以底線開始，底線後第一個字母小寫，若由多個單字組成，從第二個單字開始，每個單字的第一個字母大寫，其餘小寫。 不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>21</Id>
               <SmellType>Literal constants(字面常數)-"線"</SmellType>
               <HashCode>LiteralConstants.AddNewLineDataGrid."線"</HashCode>
               <Severity>Red</Severity>
@@ -523,7 +331,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>22</Id>
+              <Id>10</Id>
               <SmellType>Unsuitable naming(名不符實)-_shapeCombobox(combobox)</SmellType>
               <HashCode>UnsuitableNaming.Model._shapeCombobox._shapeCombobox</HashCode>
               <Severity>Red</Severity>
@@ -539,7 +347,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>23</Id>
+              <Id>11</Id>
               <SmellType>Unsuitable naming(名不符實)-datagrid(datagrid)</SmellType>
               <HashCode>UnsuitableNaming.Model.Model.datagrid</HashCode>
               <Severity>Red</Severity>
@@ -555,7 +363,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>24</Id>
+              <Id>12</Id>
               <SmellType>Unsuitable naming(名不符實)-combobox(combobox)</SmellType>
               <HashCode>UnsuitableNaming.Model.Model.combobox</HashCode>
               <Severity>Red</Severity>
@@ -571,7 +379,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>25</Id>
+              <Id>13</Id>
               <SmellType>Unsuitable naming(名不符實)-mainfactory(mainfactory)</SmellType>
               <HashCode>UnsuitableNaming.Model.Model.mainfactory</HashCode>
               <Severity>Red</Severity>
@@ -587,7 +395,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>26</Id>
+              <Id>14</Id>
               <SmellType>Long method(過長函式)</SmellType>
               <HashCode>LongMethod.Model.AddNewLineDataGrid.23</HashCode>
               <Severity>Warning</Severity>
@@ -603,7 +411,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>27</Id>
+              <Id>15</Id>
               <SmellType>Unsuitable naming(名不符實)-HW2(hw)</SmellType>
               <HashCode>UnsuitableNaming.Root.HW2.HW2</HashCode>
               <Severity>Red</Severity>
@@ -619,7 +427,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>28</Id>
+              <Id>16</Id>
               <SmellType>Unsuitable naming(名不符實)-shapename(shapename)</SmellType>
               <HashCode>UnsuitableNaming.Shape.Shape.shapename</HashCode>
               <Severity>Red</Severity>
@@ -635,7 +443,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>29</Id>
+              <Id>17</Id>
               <SmellType>Unsuitable naming(名不符實)-shapename(shapename)</SmellType>
               <HashCode>UnsuitableNaming.Shapes.Shapes.shapename</HashCode>
               <Severity>Red</Severity>
@@ -651,7 +459,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>30</Id>
+              <Id>18</Id>
               <SmellType>ICS(變數-2)</SmellType>
               <HashCode>Variable2.View.DataDisplayGrid</HashCode>
               <Severity>Red</Severity>
@@ -738,7 +546,7 @@
               </AnalysisFile>
             </AnalysisFiles>
           </AnalysisFileManager>
-          <ProductionLoc>448</ProductionLoc>
+          <ProductionLoc>439</ProductionLoc>
           <TestLoc>0</TestLoc>
         </CodeReview>
       </Data>
