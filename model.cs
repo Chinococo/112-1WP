@@ -1,11 +1,11 @@
 ﻿using System.Windows.Forms;
 
-public class MainModel
+public class Model
 {
     public DataGridView DataDisplayGrid;
     public ComboBox shape_combobox;
     public Factory factory;
-    public MainModel(DataGridView DataDisplayGrid, ComboBox shape_combobox, Factory factory)
+    public Model(DataGridView DataDisplayGrid, ComboBox shape_combobox, Factory factory)
     {
         this.DataDisplayGrid = DataDisplayGrid;
         this.shape_combobox = shape_combobox;

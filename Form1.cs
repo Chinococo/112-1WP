@@ -12,14 +12,14 @@ namespace HW2
 {
     public partial class Form1 : Form
     {
-        public MainModel model;
+        public Model model;
         public View view;
         public Factory factory;
         public Form1()
         {
             InitializeComponent();
             factory = new Factory();
-            model = new MainModel( DataDisplayGrid, shape_combobox,factory);
+            model = new Model( DataDisplayGrid, shape_combobox,factory);
             view = new View(model,DataDisplayGrid);
         }
 
@@ -39,9 +39,9 @@ namespace HW2
     }
     public class View
     {
-        public MainModel model;
+        public Model model;
         public DataGridView DataDisplayGrid;
-        public View(MainModel model, DataGridView DataDisplayGrid )
+        public View(Model model, DataGridView DataDisplayGrid )
         {
             this.model = model;
             this.DataDisplayGrid = DataDisplayGrid;
