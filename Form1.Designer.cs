@@ -44,7 +44,7 @@ namespace HW2
             this._toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this._toolStripCirecleButton = new System.Windows.Forms.ToolStripButton();
+            this._toolStripEllipseButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripLineButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripRectangleButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
@@ -189,7 +189,7 @@ namespace HW2
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._toolStripCirecleButton,
+            this._toolStripEllipseButton,
             this._toolStripLineButton,
             this._toolStripRectangleButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
@@ -198,14 +198,15 @@ namespace HW2
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // _toolStripCirecleButton
+            // _toolStripEllipseButton
             // 
-            this._toolStripCirecleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._toolStripCirecleButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripCirecleButton.Image")));
-            this._toolStripCirecleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._toolStripCirecleButton.Name = "_toolStripCirecleButton";
-            this._toolStripCirecleButton.Size = new System.Drawing.Size(28, 28);
-            this._toolStripCirecleButton.Text = "_toolStripCirecleButton";
+            this._toolStripEllipseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripEllipseButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripEllipseButton.Image")));
+            this._toolStripEllipseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripEllipseButton.Name = "_toolStripEllipseButton";
+            this._toolStripEllipseButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripEllipseButton.Text = "_toolStripCirecleButton";
+            this._toolStripEllipseButton.Click += new System.EventHandler(this._toolStripCirecleButton_Click);
             // 
             // _toolStripLineButton
             // 
@@ -215,6 +216,7 @@ namespace HW2
             this._toolStripLineButton.Name = "_toolStripLineButton";
             this._toolStripLineButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripLineButton.Text = "toolStripButton2";
+            this._toolStripLineButton.Click += new System.EventHandler(this._toolStripLineButton_Click);
             // 
             // _toolStripRectangleButton
             // 
@@ -224,6 +226,7 @@ namespace HW2
             this._toolStripRectangleButton.Name = "_toolStripRectangleButton";
             this._toolStripRectangleButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripRectangleButton.Text = "toolStripButton3";
+            this._toolStripRectangleButton.Click += new System.EventHandler(this._toolStripRectangleButton_Click);
             // 
             // Form1
             // 
@@ -238,7 +241,6 @@ namespace HW2
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
-            //this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
             this._groupBox.ResumeLayout(false);
             this._groupBox2.ResumeLayout(false);
@@ -267,7 +269,7 @@ namespace HW2
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton _toolStripCirecleButton;
+        private System.Windows.Forms.ToolStripButton _toolStripEllipseButton;
         private System.Windows.Forms.ToolStripButton _toolStripLineButton;
         private System.Windows.Forms.ToolStripButton _toolStripRectangleButton;
     }

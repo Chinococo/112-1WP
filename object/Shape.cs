@@ -14,8 +14,13 @@ public class Shape : Shapes
         return this._shapeName;
     }
 
-    internal object GetInfo()
+    public object GetInfo()
     {
         return $"({x1},{y1}),({x2},{y2})";
+    }
+
+    public virtual void Draw(IGraphics graphics)
+    {
+        throw new NotImplementedException();
     }
 }

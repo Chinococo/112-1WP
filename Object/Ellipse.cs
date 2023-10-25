@@ -1,11 +1,15 @@
 ﻿using HW2;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Rectangle : Shape
+public class Ellipse : Shape
 {
-    private const string NAME = "矩形";
+    private const string NAME = "圓型";
 
-    public Rectangle() : base(NAME)
+    public Ellipse() : base(NAME)
     {
     }
     public override void Draw(IGraphics graphics)
@@ -14,8 +18,6 @@ public class Rectangle : Shape
         double height = Math.Abs(y2 - y1);
         double left = Math.Min(x1, x2);
         double top = Math.Min(y1, y2);
-
-        graphics.DrawRectangle(left, top, width, height);
+        graphics.DrawEllipse(left, top, width, height);
     }
-
 }

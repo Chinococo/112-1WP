@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 public class Model
 {
+    ToolStripButton _toolStripCirecleButton, _toolStripLineButton, _toolStripRectangleButton;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
@@ -17,13 +18,16 @@ public class Model
     double _firstPointX;
     double _firstPointY;
     bool _isPressed = false;
-    Line _hint = new Line();
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist)
+    Shape _hint;
+    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttoncircle, ToolStripButton buttonline, ToolStripButton buttonrectangle)
     {
         this._dataDisplayGrid = datagrid;
         this._shapeCombobox = combobox;
         this._factory = mainfactory;
         this._shapeList = shapelist;
+        this._toolStripCirecleButton = buttoncircle;
+        this._toolStripLineButton = buttonline;
+        this._toolStripRectangleButton = buttonrectangle;
     }
     //新增DataGrid資料
     public void AddNewLine()
@@ -65,12 +69,33 @@ public class Model
     {
         if (_isPressed)
         {
+            Shape hint;
             _isPressed = false;
-            Line hint = new Line();
-            hint.x1 = _firstPointX;
-            hint.y1 = _firstPointY;
-            hint.x2 = x;
-            hint.y2 = y;
+            if (_toolStripCirecleButton.Checked)
+            {
+                hint = new Ellipse();
+                hint.x1 = _firstPointX;
+                hint.y1 = _firstPointY;
+                hint.x2 = x;
+                hint.y2 = y;
+            }
+            else if(_toolStripLineButton.Checked)
+            {
+                hint = new Line();
+                hint.x1 = _firstPointX;
+                hint.y1 = _firstPointY;
+                hint.x2 = x;
+                hint.y2 = y;
+
+            }
+            else
+            {
+                hint = new Rectangle();
+                hint.x1 = _firstPointX;
+                hint.y1 = _firstPointY;
+                hint.x2 = x;
+                hint.y2 = y;
+            }
             _shapeList.Add(hint);
             NotifyModelChanged();
         }
@@ -89,9 +114,22 @@ public class Model
     public void Draw(IGraphics graphics)
     {
         graphics.ClearAll();
-        foreach (Line aLine in _shapeList)
-            aLine.Draw(graphics);
+        foreach (Shape shape in _shapeList)
+            shape.Draw(graphics);
         if (_isPressed)
             _hint.Draw(graphics);
+    }
+    public void UpdateToolStripButtonCheck(ToolStripButton temp)
+    {
+        _toolStripCirecleButton.Checked = false;
+        _toolStripLineButton.Checked = false;
+        _toolStripRectangleButton.Checked = false;
+        temp.Checked = true;
+        if (temp.Name == "_toolStripEllipseButton")
+            _hint = new Ellipse();
+        else if (temp.Name == "_toolStripLineButton")
+            _hint = new Line();
+        else
+            _hint = new Rectangle();
     }
 }

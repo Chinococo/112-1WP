@@ -10,7 +10,7 @@ public class Line : Shape
     {
         
     }
-    public void Draw(IGraphics graphics)
+    public  override void Draw(IGraphics graphics)
     {
         graphics.DrawLine(x1, y1, x2, y2);
     }

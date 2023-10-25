@@ -16,6 +16,6 @@ namespace HW2
         void DrawRectangle(double x1, double y1, double x2, double y2);
 
         //畫圓形
-        void DrawCircle(double x1, double y1, double x2, double y2);
+        void DrawEllipse(double x1, double y1, double x2, double y2);
     }
 }

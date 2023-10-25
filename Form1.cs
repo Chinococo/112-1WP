@@ -23,7 +23,7 @@ namespace HW2
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList);
+            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton);
             _view = new View(_model, _displayDataGrid, _shapeList);
             // prepare canvas
             //
@@ -35,21 +35,9 @@ namespace HW2
             _canvas.Paint += HandleCanvasPaint;
             Controls.Add(_canvas);
             //
-            // prepare clear button
-            //
-            Button clear = new Button();
-            clear.Text = "Clear";
-            clear.Dock = DockStyle.Top;
-            clear.AutoSize = true;
-            clear.AutoSizeMode =
-           System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            clear.Click += HandleClearButtonClick;
-            Controls.Add(clear);
-            //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model,
-           _canvas);
+            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas);
             _model._modelChanged += HandleModelChanged;
         }
         //新增按鈕觸發事件
@@ -95,5 +83,33 @@ System.Windows.Forms.MouseEventArgs e)
         {
             Invalidate(true);
         }
+
+        private void _toolStripCirecleButton_Click(object sender, EventArgs e)
+        {
+            _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
+        }
+
+        private void _toolStripLineButton_Click(object sender, EventArgs e)
+        {
+            _model.UpdateToolStripButtonCheck(_toolStripLineButton);
+        }
+
+        private void _toolStripRectangleButton_Click(object sender, EventArgs e)
+        {
+            _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+        }
+        private void drawingArea_MouseEnter(object sender, EventArgs e)
+        {
+            // 鼠标进入绘图区域时，设置鼠标光标为十字形
+            this.Cursor = Cursors.Cross;
+        }
+
+        private void drawingArea_MouseLeave(object sender, EventArgs e)
+        {
+            // 鼠标离开绘图区域时，恢复默认光标
+            this.Cursor = Cursors.Default;
+        }
+
+       
     }    
 }

@@ -24,14 +24,13 @@ namespace HW2.PresentationModel
            (float)y2);
         }
 
-        void IGraphics.DrawCircle(double x1, double y1, double x2, double y2)
-        {
-            throw new NotImplementedException();
+        void IGraphics.DrawEllipse(double x1, double y1, double x2, double y2) {
+            _graphics.DrawEllipse(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
         void IGraphics.DrawRectangle(double x1, double y1, double x2, double y2)
         {
-            throw new NotImplementedException();
+            _graphics.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
     }
 }
