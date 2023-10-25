@@ -58,6 +58,8 @@ public class Model
         NotifyModelChanged();
     }
 
+    //滑鼠左鍵事件
+
     public void PressedPointer(double x, double y)
     {
 
@@ -70,6 +72,8 @@ public class Model
         }
     }
 
+    //滑鼠移動事件
+
     public void MovedPointer(double x, double y)
     {
         if (_isPressed)
@@ -78,6 +82,8 @@ public class Model
             NotifyModelChanged();
         }
     }
+
+    //是否鼠標事件
 
     public void ReleasedPointer(double x, double y)
     {
@@ -106,6 +112,7 @@ public class Model
             NotifyModelChanged();
         }
     }
+
     //情除所有在畫面上的物件 並解除按壓
     public void Clear()
     {
@@ -113,13 +120,17 @@ public class Model
         _shapeList.Clear();
         NotifyModelChanged();
     }
+
     //廣播畫面需要更新事件
+
     void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
     }
+
     //獎畫面全部清除在一一畫上去目前最新的圖案
+
     public void Draw(IGraphics graphics)
     {
         graphics.ClearAll();
@@ -128,7 +139,9 @@ public class Model
         if (_isPressed)
             _hint.Draw(graphics);
     }
+
     //依照類別創建物件
+
     public void UpdateToolStripButtonCheck(ToolStripButton temp)
     {
         if (temp.Name == _toolStripEllipseButton.Name)

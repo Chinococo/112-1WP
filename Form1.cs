@@ -62,15 +62,21 @@ namespace HW2
             }
         }
 
+        //清除按鈕觸碰事件
+
         public void HandleClearButtonClick(object sender, System.EventArgs e)
         {
             _model.Clear();
         }
 
+        //Canvas被點擊事件
+
         public void HandleCanvasPressed(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.PressedPointer(e.X, e.Y);
         }
+
+        //Canvas被釋放事件
 
         public void HandleCanvasReleased(object sender, System.Windows.Forms.MouseEventArgs e)
         {
@@ -78,20 +84,28 @@ namespace HW2
             _view.UpdateView();
         }
 
+        //Canvas被移動事件
+
         public void HandleCanvasMoved(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.MovedPointer(e.X, e.Y);
         }
+
+        //Canvas被繪圖事件
 
         public void HandleCanvasPaint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             _presentationModel.Draw(e.Graphics);
         }
 
+        //Canvase更新事件
+
         public void HandleModelChanged()
         {
             Invalidate(true);
         }
+
+        //按下toolstrip按鈕事件
 
         private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
@@ -99,23 +113,29 @@ namespace HW2
             _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
         }
 
+        //按下toolstrip按鈕事件
+
         private void ToolStripLineButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(_toolStripLineButton);
         }
 
+        //按下toolstrip按鈕事件
+
         private void ToolStripRectangleButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
+
         //光標便十字事件
         private void DrawingAreaMouseEnter(object sender, EventArgs e)
         {
             // 鼠标进入绘图区域时，设置鼠标光标为十字形
             this.Cursor = Cursors.Cross;
         }
+
         //離開畫面事件
         private void DrawingAreaMouseLeave(object sender, EventArgs e)
         {

@@ -29,6 +29,8 @@ namespace HW2.PresentationModel
             _model.Draw(new WindowsFormsGraphicsAdaptor(graphics));
         }
 
+        //更新按鈕狀況
+
         public void UpdateToolStripButtonCheck(ToolStripButton temp)
         {
             _toolStripEllipseButton.Checked = false;

@@ -18,6 +18,8 @@ public class Shape : Shapes
         return this._shapeName;
     }
 
+    //回傳資訊
+
     public object GetInfo()
     {
         return $"({_x1},{_y1}),({_x2},{_y2})";
@@ -27,11 +29,17 @@ public class Shape : Shapes
     {
         throw new NotImplementedException();
     }
+
+    //設定終點
+
     public void SetPoint2(double x,double y)
     {
         this._x2 = x;
         this._y2 = y;
     }
+
+    //設定起點
+
     public void SetPoint1(double x, double y)
     {
         this._x1 = x;

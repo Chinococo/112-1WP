@@ -7,6 +7,7 @@ public class Factory
     private const string ENRECTANGLE = "Rectangle";
     private const string ENELLIPS = "Ellipse";
     private const string ENERROR = "Unsupported shape type";
+
     //依照參數產出對應型態物件
     public Shape CreateShape(string shapeType)
     {
@@ -22,6 +23,8 @@ public class Factory
                 throw new ArgumentException(ENERROR);
         }
     }
+
+    //依照參數產出對應型態物件
 
     public Shape CreateShape(string shapeType, double x1, double y1, double x2, double y2)
     {
