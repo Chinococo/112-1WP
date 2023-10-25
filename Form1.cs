@@ -47,7 +47,9 @@ namespace HW2
         private void InsertButtonClick(object sender, EventArgs e)
         {
             _model.AddNewLine();
+            //_presentationModel.Draw(graphics);
             _view.UpdateView();
+
         }
 
         //DataGrid按鈕觸發處理事件

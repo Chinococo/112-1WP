@@ -109,10 +109,15 @@ namespace HW2
             // 
             // _shapeCombobox
             // 
+            this._shapeCombobox.AutoCompleteCustomSource.AddRange(new string[] {
+            "橢圓",
+            "線",
+            "矩形"});
             this._shapeCombobox.FormattingEnabled = true;
             this._shapeCombobox.Items.AddRange(new object[] {
             "線",
-            "矩形"});
+            "矩形",
+            "橢圓"});
             this._shapeCombobox.Location = new System.Drawing.Point(105, 32);
             this._shapeCombobox.Name = "_shapeCombobox";
             this._shapeCombobox.Size = new System.Drawing.Size(89, 20);

@@ -7,6 +7,11 @@ public class Rectangle : Shape
 
     public Rectangle() : base(NAME)
     {
+        Random random = new Random();
+        x1 = random.Next(196, 484);
+        y1 = random.Next(57, 515);
+        x2 = random.Next(196, 484);
+        y2 = random.Next(57, 515);
     }
     public override void Draw(IGraphics graphics)
     {

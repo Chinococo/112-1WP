@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 
 public class Ellipse : Shape
 {
-    private const string NAME = "圓型";
+    private const string NAME = "橢圓";
 
     public Ellipse() : base(NAME)
     {
+        Random random = new Random();
+        x1 = random.Next(196, 484);
+        y1 = random.Next(57, 515);
+        x2 = random.Next(196, 484);
+        y2 = random.Next(57, 515);
     }
     public override void Draw(IGraphics graphics)
     {

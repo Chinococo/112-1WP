@@ -45,14 +45,17 @@ public class Model
         {
             _shapeList.Add(new Ellipse());
         }
+        NotifyModelChanged();
     }
     public void DeleteLineByIndex(int index)
     {
         _shapeList.RemoveAt(index);
+        NotifyModelChanged();
     }
     public void PointerPressed(double x, double y)
     {
-        if (x > 0 && y > 0)
+
+        if (x > 0 && y > 0&&_hint!=null)
         {
             _firstPointX = x;
             _firstPointY = y;
