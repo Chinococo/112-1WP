@@ -530,7 +530,7 @@
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>73</Line>
+              <Line>72</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -546,7 +546,7 @@
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>73</Line>
+              <Line>72</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -562,7 +562,7 @@
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>83</Line>
+              <Line>81</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -578,7 +578,7 @@
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>83</Line>
+              <Line>81</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -589,12 +589,12 @@
             <Smell>
               <Id>26</Id>
               <SmellType>Long method(過長函式)</SmellType>
-              <HashCode>LongMethod.Model.ReleasedPointer.31double x;double y;</HashCode>
-              <Severity>Red</Severity>
-              <Weight>31</Weight>
+              <HashCode>LongMethod.Model.ReleasedPointer.27double x;double y;</HashCode>
+              <Severity>Warning</Severity>
+              <Weight>27</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>83</Line>
+              <Line>81</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -705,7 +705,7 @@
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>Shapes.cs</File>
-              <Line>23</Line>
+              <Line>25</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -715,38 +715,6 @@
             </Smell>
             <Smell>
               <Id>34</Id>
-              <SmellType>ICS(縮排與換行-2)</SmellType>
-              <HashCode>IndentAndNewLine2.Shapes.     }</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Shapes.cs</File>
-              <Line>21</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(縮排與換行-2) 右大括號一律換行-並與左大括號對齊</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>35</Id>
-              <SmellType>ICS(縮排與換行-4)</SmellType>
-              <HashCode>IndentAndNewLine4.Shapes.     }</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Shapes.cs</File>
-              <Line>21</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(縮排與換行-4) 縮排一律使用 tab(空 4 格)</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>36</Id>
               <SmellType>ICS(變數-1)</SmellType>
               <HashCode>Variable1.Shapes.x1</HashCode>
               <Severity>Red</Severity>
@@ -762,23 +730,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>37</Id>
-              <SmellType>ICS(類別宣告-1)</SmellType>
-              <HashCode>ClassDeclaration1.Shapes.x1</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Shapes.cs</File>
-              <Line>6</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(類別宣告-1) 除非為類別常數(static class constants)，成員變數請勿宣告為 public</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>38</Id>
+              <Id>35</Id>
               <SmellType>ICS(變數-1)</SmellType>
               <HashCode>Variable1.Shapes.y1</HashCode>
               <Severity>Red</Severity>
@@ -794,23 +746,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>39</Id>
-              <SmellType>ICS(類別宣告-1)</SmellType>
-              <HashCode>ClassDeclaration1.Shapes.y1</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Shapes.cs</File>
-              <Line>7</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(類別宣告-1) 除非為類別常數(static class constants)，成員變數請勿宣告為 public</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>40</Id>
+              <Id>36</Id>
               <SmellType>ICS(變數-1)</SmellType>
               <HashCode>Variable1.Shapes.x2</HashCode>
               <Severity>Red</Severity>
@@ -826,23 +762,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>41</Id>
-              <SmellType>ICS(類別宣告-1)</SmellType>
-              <HashCode>ClassDeclaration1.Shapes.x2</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Shapes.cs</File>
-              <Line>8</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(類別宣告-1) 除非為類別常數(static class constants)，成員變數請勿宣告為 public</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>42</Id>
+              <Id>37</Id>
               <SmellType>ICS(變數-1)</SmellType>
               <HashCode>Variable1.Shapes.y2</HashCode>
               <Severity>Red</Severity>
@@ -858,30 +778,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>43</Id>
-              <SmellType>ICS(類別宣告-1)</SmellType>
-              <HashCode>ClassDeclaration1.Shapes.y2</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>Shapes.cs</File>
-              <Line>9</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(類別宣告-1) 除非為類別常數(static class constants)，成員變數請勿宣告為 public</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>44</Id>
+              <Id>38</Id>
               <SmellType>Unsuitable naming(名不符實)-shapename(shapename)</SmellType>
               <HashCode>UnsuitableNaming.Shapes.Shapes.shapename</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>Shapes.cs</File>
-              <Line>10</Line>
+              <Line>11</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -890,14 +794,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>45</Id>
+              <Id>39</Id>
               <SmellType>Unsuitable naming(名不符實)-shapename(shapename)</SmellType>
               <HashCode>UnsuitableNaming.Shapes.Shapes.shapename</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>Shapes.cs</File>
-              <Line>14</Line>
+              <Line>16</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -906,7 +810,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>46</Id>
+              <Id>40</Id>
               <SmellType>Unsuitable naming(名不符實)-HW2.PresentationModel(hw)</SmellType>
               <HashCode>UnsuitableNaming.Root.HW2.PresentationModel.HW2.PresentationModel</HashCode>
               <Severity>Red</Severity>
@@ -922,7 +826,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>47</Id>
+              <Id>41</Id>
               <SmellType>ICS(空白與空行-16)</SmellType>
               <HashCode>SpacingAndNewLine16.PresentationModel.UpdateToolStripButtonCheck.0</HashCode>
               <Severity>Red</Severity>
@@ -938,7 +842,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>48</Id>
+              <Id>42</Id>
               <SmellType>Unsuitable naming(名不符實)-_toolStripCirecleButton(cirecle)</SmellType>
               <HashCode>UnsuitableNaming.PresentationModel._toolStripCirecleButton._toolStripCirecleButton</HashCode>
               <Severity>Red</Severity>
@@ -954,7 +858,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>49</Id>
+              <Id>43</Id>
               <SmellType>ICS(變數-3)</SmellType>
               <HashCode>Variable3._toolStripCirecleButton._toolStripCirecleButton</HashCode>
               <Severity>Red</Severity>
@@ -970,7 +874,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>50</Id>
+              <Id>44</Id>
               <SmellType>Unsuitable naming(名不符實)-buttonellipse(buttonellipse)</SmellType>
               <HashCode>UnsuitableNaming.PresentationModel.PresentationModel.buttonellipse</HashCode>
               <Severity>Red</Severity>
@@ -986,7 +890,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>51</Id>
+              <Id>45</Id>
               <SmellType>Unsuitable naming(名不符實)-buttonline(buttonline)</SmellType>
               <HashCode>UnsuitableNaming.PresentationModel.PresentationModel.buttonline</HashCode>
               <Severity>Red</Severity>
@@ -1002,7 +906,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>52</Id>
+              <Id>46</Id>
               <SmellType>Unsuitable naming(名不符實)-buttonrectangle(buttonrectangle)</SmellType>
               <HashCode>UnsuitableNaming.PresentationModel.PresentationModel.buttonrectangle</HashCode>
               <Severity>Red</Severity>
@@ -1018,7 +922,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>53</Id>
+              <Id>47</Id>
               <SmellType>ICS(縮排與換行-1)</SmellType>
               <HashCode>IndentAndNewLine1.IGraphics.DrawEllipse.        void IGraphics.DrawEllipse(double x1, double y1, double x2, double y2) {</HashCode>
               <Severity>Red</Severity>
@@ -1034,7 +938,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>54</Id>
+              <Id>48</Id>
               <SmellType>ICS(縮排與換行-2)</SmellType>
               <HashCode>IndentAndNewLine2.IGraphics.DrawEllipse.        }</HashCode>
               <Severity>Red</Severity>
@@ -1050,7 +954,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>55</Id>
+              <Id>49</Id>
               <SmellType>ICS(縮排與換行-4)</SmellType>
               <HashCode>IndentAndNewLine4.DrawLine.           (float)y2);</HashCode>
               <Severity>Red</Severity>
@@ -1066,7 +970,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>56</Id>
+              <Id>50</Id>
               <SmellType>Unsuitable naming(名不符實)-HW2.PresentationModel(hw)</SmellType>
               <HashCode>UnsuitableNaming.Root.HW2.PresentationModel.HW2.PresentationModel</HashCode>
               <Severity>Red</Severity>
@@ -1082,7 +986,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>57</Id>
+              <Id>51</Id>
               <SmellType>ICS(空白與空行-16)</SmellType>
               <HashCode>SpacingAndNewLine16.WindowsFormsGraphicsAdaptor.DrawLine.0</HashCode>
               <Severity>Red</Severity>
@@ -1098,7 +1002,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>58</Id>
+              <Id>52</Id>
               <SmellType>ICS(函式-1)</SmellType>
               <HashCode>Method1.WindowsFormsGraphicsAdaptor.IGraphics.DrawEllipse</HashCode>
               <Severity>Red</Severity>
@@ -1114,7 +1018,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>59</Id>
+              <Id>53</Id>
               <SmellType>ICS(函式-2)</SmellType>
               <HashCode>Method2.WindowsFormsGraphicsAdaptor.IGraphics.DrawEllipse</HashCode>
               <Severity>Red</Severity>
@@ -1130,7 +1034,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>60</Id>
+              <Id>54</Id>
               <SmellType>ICS(函式-1)</SmellType>
               <HashCode>Method1.WindowsFormsGraphicsAdaptor.IGraphics.DrawRectangle</HashCode>
               <Severity>Red</Severity>
@@ -1146,7 +1050,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>61</Id>
+              <Id>55</Id>
               <SmellType>ICS(函式-2)</SmellType>
               <HashCode>Method2.WindowsFormsGraphicsAdaptor.IGraphics.DrawRectangle</HashCode>
               <Severity>Red</Severity>
@@ -1162,7 +1066,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>62</Id>
+              <Id>56</Id>
               <SmellType>Unsuitable naming(名不符實)-HW2(hw)</SmellType>
               <HashCode>UnsuitableNaming.Root.HW2.HW2</HashCode>
               <Severity>Red</Severity>
@@ -1178,7 +1082,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>63</Id>
+              <Id>57</Id>
               <SmellType>Literal constants(字面常數)-"_deleteCloumn"</SmellType>
               <HashCode>LiteralConstants.UpdateView."_deleteCloumn"</HashCode>
               <Severity>Red</Severity>
@@ -1194,7 +1098,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>64</Id>
+              <Id>58</Id>
               <SmellType>Literal constants(字面常數)-"刪除"</SmellType>
               <HashCode>LiteralConstants.UpdateView."刪除"</HashCode>
               <Severity>Red</Severity>
@@ -1210,7 +1114,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>65</Id>
+              <Id>59</Id>
               <SmellType>Literal constants(字面常數)-"_shapeCloumn"</SmellType>
               <HashCode>LiteralConstants.UpdateView."_shapeCloumn"</HashCode>
               <Severity>Red</Severity>
@@ -1226,7 +1130,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>66</Id>
+              <Id>60</Id>
               <SmellType>Literal constants(字面常數)-"_infoCloumn"</SmellType>
               <HashCode>LiteralConstants.UpdateView."_infoCloumn"</HashCode>
               <Severity>Red</Severity>
@@ -1242,7 +1146,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>67</Id>
+              <Id>61</Id>
               <SmellType>Unsuitable naming(名不符實)-prmaModel(prma)</SmellType>
               <HashCode>UnsuitableNaming.View.View.prmaModel</HashCode>
               <Severity>Red</Severity>
@@ -1258,7 +1162,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>68</Id>
+              <Id>62</Id>
               <SmellType>Unsuitable naming(名不符實)-prmaDataGrid(prma)</SmellType>
               <HashCode>UnsuitableNaming.View.View.prmaDataGrid</HashCode>
               <Severity>Red</Severity>
@@ -1274,7 +1178,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>69</Id>
+              <Id>63</Id>
               <SmellType>Unsuitable naming(名不符實)-shapelist(shapelist)</SmellType>
               <HashCode>UnsuitableNaming.View.View.shapelist</HashCode>
               <Severity>Red</Severity>
@@ -1290,14 +1194,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>70</Id>
+              <Id>64</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Clear 缺乏註解</SmellType>
-              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 Clear 缺乏註解.115</HashCode>
+              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 Clear 缺乏註解.109</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>115</Line>
+              <Line>109</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -1306,7 +1210,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>71</Id>
+              <Id>65</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 ClearAll 缺乏註解</SmellType>
               <HashCode>HW2.IGraphics.cs.Unresolved warnings(忽視警告)-函式 ClearAll 缺乏註解.11</HashCode>
               <Severity>Red</Severity>
@@ -1322,7 +1226,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>72</Id>
+              <Id>66</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 ClearAll 缺乏註解</SmellType>
               <HashCode>HW2.WindowsFormsGraphicsAdaptor.cs.Unresolved warnings(忽視警告)-函式 ClearAll 缺乏註解.17</HashCode>
               <Severity>Red</Severity>
@@ -1338,7 +1242,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>73</Id>
+              <Id>67</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 CreateShape 缺乏註解</SmellType>
               <HashCode>HW2.Factory.cs.Unresolved warnings(忽視警告)-函式 CreateShape 缺乏註解.10</HashCode>
               <Severity>Red</Severity>
@@ -1354,7 +1258,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>74</Id>
+              <Id>68</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 CreateShape 缺乏註解</SmellType>
               <HashCode>HW2.Factory.cs.Unresolved warnings(忽視警告)-函式 CreateShape 缺乏註解.25</HashCode>
               <Severity>Red</Severity>
@@ -1370,7 +1274,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>75</Id>
+              <Id>69</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 DeleteLineByIndex 缺乏註解</SmellType>
               <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 DeleteLineByIndex 缺乏註解.54</HashCode>
               <Severity>Red</Severity>
@@ -1386,14 +1290,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>76</Id>
+              <Id>70</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Draw 缺乏註解</SmellType>
-              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.128</HashCode>
+              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.122</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>128</Line>
+              <Line>122</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -1402,7 +1306,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>77</Id>
+              <Id>71</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Draw 缺乏註解</SmellType>
               <HashCode>HW2.Ellipse.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.27</HashCode>
               <Severity>Red</Severity>
@@ -1418,7 +1322,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>78</Id>
+              <Id>72</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Draw 缺乏註解</SmellType>
               <HashCode>HW2.Line.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.24</HashCode>
               <Severity>Red</Severity>
@@ -1434,7 +1338,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>79</Id>
+              <Id>73</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Draw 缺乏註解</SmellType>
               <HashCode>HW2.Rectangle.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.23</HashCode>
               <Severity>Red</Severity>
@@ -1450,7 +1354,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>80</Id>
+              <Id>74</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Draw 缺乏註解</SmellType>
               <HashCode>HW2.Shape.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.26</HashCode>
               <Severity>Red</Severity>
@@ -1466,7 +1370,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>81</Id>
+              <Id>75</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 Draw 缺乏註解</SmellType>
               <HashCode>HW2.PresentationModel.cs.Unresolved warnings(忽視警告)-函式 Draw 缺乏註解.21</HashCode>
               <Severity>Red</Severity>
@@ -1482,7 +1386,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>82</Id>
+              <Id>76</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 DrawEllipse 缺乏註解</SmellType>
               <HashCode>HW2.WindowsFormsGraphicsAdaptor.cs.Unresolved warnings(忽視警告)-函式 DrawEllipse 缺乏註解.27</HashCode>
               <Severity>Red</Severity>
@@ -1498,7 +1402,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>83</Id>
+              <Id>77</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 DrawingAreaMouseEnter 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 DrawingAreaMouseEnter 缺乏註解.114</HashCode>
               <Severity>Red</Severity>
@@ -1514,7 +1418,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>84</Id>
+              <Id>78</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 DrawingAreaMouseLeave 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 DrawingAreaMouseLeave 缺乏註解.120</HashCode>
               <Severity>Red</Severity>
@@ -1530,7 +1434,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>85</Id>
+              <Id>79</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 DrawLine 缺乏註解</SmellType>
               <HashCode>HW2.WindowsFormsGraphicsAdaptor.cs.Unresolved warnings(忽視警告)-函式 DrawLine 缺乏註解.21</HashCode>
               <Severity>Red</Severity>
@@ -1546,7 +1450,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>86</Id>
+              <Id>80</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 DrawRectangle 缺乏註解</SmellType>
               <HashCode>HW2.WindowsFormsGraphicsAdaptor.cs.Unresolved warnings(忽視警告)-函式 DrawRectangle 缺乏註解.31</HashCode>
               <Severity>Red</Severity>
@@ -1562,7 +1466,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>87</Id>
+              <Id>81</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 GetInfo 缺乏註解</SmellType>
               <HashCode>HW2.Shape.cs.Unresolved warnings(忽視警告)-函式 GetInfo 缺乏註解.21</HashCode>
               <Severity>Red</Severity>
@@ -1578,7 +1482,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>88</Id>
+              <Id>82</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 HandleCanvasMoved 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 HandleCanvasMoved 缺乏註解.81</HashCode>
               <Severity>Red</Severity>
@@ -1594,7 +1498,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>89</Id>
+              <Id>83</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 HandleCanvasPaint 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 HandleCanvasPaint 缺乏註解.86</HashCode>
               <Severity>Red</Severity>
@@ -1610,7 +1514,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>90</Id>
+              <Id>84</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 HandleCanvasPressed 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 HandleCanvasPressed 缺乏註解.70</HashCode>
               <Severity>Red</Severity>
@@ -1626,7 +1530,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>91</Id>
+              <Id>85</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 HandleCanvasReleased 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 HandleCanvasReleased 缺乏註解.75</HashCode>
               <Severity>Red</Severity>
@@ -1642,7 +1546,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>92</Id>
+              <Id>86</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 HandleClearButtonClick 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 HandleClearButtonClick 缺乏註解.65</HashCode>
               <Severity>Red</Severity>
@@ -1658,7 +1562,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>93</Id>
+              <Id>87</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 HandleModelChanged 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 HandleModelChanged 缺乏註解.91</HashCode>
               <Severity>Red</Severity>
@@ -1674,14 +1578,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>94</Id>
+              <Id>88</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 MovedPointer 缺乏註解</SmellType>
-              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 MovedPointer 缺乏註解.73</HashCode>
+              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 MovedPointer 缺乏註解.72</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>73</Line>
+              <Line>72</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -1690,14 +1594,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>95</Id>
+              <Id>89</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 NotifyModelChanged 缺乏註解</SmellType>
-              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 NotifyModelChanged 缺乏註解.122</HashCode>
+              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 NotifyModelChanged 缺乏註解.116</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>122</Line>
+              <Line>116</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -1706,7 +1610,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>96</Id>
+              <Id>90</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 PressedPointer 缺乏註解</SmellType>
               <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 PressedPointer 缺乏註解.60</HashCode>
               <Severity>Red</Severity>
@@ -1722,14 +1626,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>97</Id>
+              <Id>91</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 ReleasedPointer 缺乏註解</SmellType>
-              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 ReleasedPointer 缺乏註解.83</HashCode>
+              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 ReleasedPointer 缺乏註解.81</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>83</Line>
+              <Line>81</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -1738,7 +1642,39 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>98</Id>
+              <Id>92</Id>
+              <SmellType>Unresolved warnings(忽視警告)-函式 SetPoint1 缺乏註解</SmellType>
+              <HashCode>HW2.Shape.cs.Unresolved warnings(忽視警告)-函式 SetPoint1 缺乏註解.35</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>Shape.cs</File>
+              <Line>35</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment />
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>93</Id>
+              <SmellType>Unresolved warnings(忽視警告)-函式 SetPoint2 缺乏註解</SmellType>
+              <HashCode>HW2.Shape.cs.Unresolved warnings(忽視警告)-函式 SetPoint2 缺乏註解.30</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>Shape.cs</File>
+              <Line>30</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment />
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>94</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 ToolStripEllipseButtonClick 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 ToolStripEllipseButtonClick 缺乏註解.96</HashCode>
               <Severity>Red</Severity>
@@ -1754,7 +1690,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>99</Id>
+              <Id>95</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 ToolStripLineButtonClick 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 ToolStripLineButtonClick 缺乏註解.102</HashCode>
               <Severity>Red</Severity>
@@ -1770,7 +1706,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>100</Id>
+              <Id>96</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 ToolStripRectangleButtonClick 缺乏註解</SmellType>
               <HashCode>HW2.Form1.cs.Unresolved warnings(忽視警告)-函式 ToolStripRectangleButtonClick 缺乏註解.108</HashCode>
               <Severity>Red</Severity>
@@ -1786,14 +1722,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>101</Id>
+              <Id>97</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 UpdateToolStripButtonCheck 缺乏註解</SmellType>
-              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 UpdateToolStripButtonCheck 缺乏註解.137</HashCode>
+              <HashCode>HW2.model.cs.Unresolved warnings(忽視警告)-函式 UpdateToolStripButtonCheck 缺乏註解.131</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>137</Line>
+              <Line>131</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -1802,7 +1738,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>102</Id>
+              <Id>98</Id>
               <SmellType>Unresolved warnings(忽視警告)-函式 UpdateToolStripButtonCheck 缺乏註解</SmellType>
               <HashCode>HW2.PresentationModel.cs.Unresolved warnings(忽視警告)-函式 UpdateToolStripButtonCheck 缺乏註解.28</HashCode>
               <Severity>Red</Severity>
@@ -1818,7 +1754,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>103</Id>
+              <Id>99</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>17 HW2.PresentationModel.WindowsFormsGraphicsAdaptor.ClearAll()</HashCode>
               <Severity>Red</Severity>
@@ -1834,7 +1770,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>104</Id>
+              <Id>100</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>21 HW2.PresentationModel.WindowsFormsGraphicsAdaptor.DrawLine(double, double, double, double)</HashCode>
               <Severity>Red</Severity>
@@ -1850,7 +1786,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>105</Id>
+              <Id>101</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>27 HW2.PresentationModel.WindowsFormsGraphicsAdaptor.HW2.IGraphics.DrawEllipse(double, double, double, double)</HashCode>
               <Severity>Red</Severity>
@@ -1866,7 +1802,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>106</Id>
+              <Id>102</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>31 HW2.PresentationModel.WindowsFormsGraphicsAdaptor.HW2.IGraphics.DrawRectangle(double, double, double, double)</HashCode>
               <Severity>Red</Severity>
@@ -1882,7 +1818,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>107</Id>
+              <Id>103</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>23 Rectangle.Draw(HW2.IGraphics)</HashCode>
               <Severity>Red</Severity>
@@ -1898,7 +1834,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>108</Id>
+              <Id>104</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>21 Shape.GetInfo()</HashCode>
               <Severity>Red</Severity>
@@ -1914,7 +1850,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>109</Id>
+              <Id>105</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>26 Shape.Draw(HW2.IGraphics)</HashCode>
               <Severity>Red</Severity>
@@ -1930,7 +1866,39 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>110</Id>
+              <Id>106</Id>
+              <SmellType>Lack of comments(缺乏註解)</SmellType>
+              <HashCode>30 Shape.SetPoint2(double, double)</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>Shape.cs</File>
+              <Line>30</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment>Shape.SetPoint2(double, double)</Comment>
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>107</Id>
+              <SmellType>Lack of comments(缺乏註解)</SmellType>
+              <HashCode>35 Shape.SetPoint1(double, double)</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>Shape.cs</File>
+              <Line>35</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment>Shape.SetPoint1(double, double)</Comment>
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>108</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>24 Line.Draw(HW2.IGraphics)</HashCode>
               <Severity>Red</Severity>
@@ -1946,7 +1914,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>111</Id>
+              <Id>109</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>11 HW2.IGraphics.ClearAll()</HashCode>
               <Severity>Red</Severity>
@@ -1962,7 +1930,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>112</Id>
+              <Id>110</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>10 Factory.CreateShape(string)</HashCode>
               <Severity>Red</Severity>
@@ -1978,7 +1946,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>113</Id>
+              <Id>111</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>25 Factory.CreateShape(string, double, double, double, double)</HashCode>
               <Severity>Red</Severity>
@@ -1994,7 +1962,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>114</Id>
+              <Id>112</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>21 HW2.PresentationModel.PresentationModel.Draw(System.Drawing.Graphics)</HashCode>
               <Severity>Red</Severity>
@@ -2010,7 +1978,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>115</Id>
+              <Id>113</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>28 HW2.PresentationModel.PresentationModel.UpdateToolStripButtonCheck(System.Windows.Forms.ToolStripButton)</HashCode>
               <Severity>Red</Severity>
@@ -2026,7 +1994,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>116</Id>
+              <Id>114</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>54 Model.DeleteLineByIndex(int)</HashCode>
               <Severity>Red</Severity>
@@ -2042,7 +2010,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>117</Id>
+              <Id>115</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>60 Model.PressedPointer(double, double)</HashCode>
               <Severity>Red</Severity>
@@ -2058,14 +2026,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>118</Id>
+              <Id>116</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
-              <HashCode>73 Model.MovedPointer(double, double)</HashCode>
+              <HashCode>72 Model.MovedPointer(double, double)</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>73</Line>
+              <Line>72</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -2074,14 +2042,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>119</Id>
+              <Id>117</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
-              <HashCode>83 Model.ReleasedPointer(double, double)</HashCode>
+              <HashCode>81 Model.ReleasedPointer(double, double)</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>83</Line>
+              <Line>81</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -2090,14 +2058,14 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>120</Id>
+              <Id>118</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
-              <HashCode>115 Model.Clear()</HashCode>
+              <HashCode>109 Model.Clear()</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>115</Line>
+              <Line>109</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -2106,9 +2074,25 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>121</Id>
+              <Id>119</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
-              <HashCode>122 Model.NotifyModelChanged()</HashCode>
+              <HashCode>116 Model.NotifyModelChanged()</HashCode>
+              <Severity>Red</Severity>
+              <Weight>1</Weight>
+              <Project>HW2</Project>
+              <File>model.cs</File>
+              <Line>116</Line>
+              <StartLine>0</StartLine>
+              <StartCol>0</StartCol>
+              <EndLine>0</EndLine>
+              <EndCol>0</EndCol>
+              <Comment>Model.NotifyModelChanged()</Comment>
+              <Auto>false</Auto>
+            </Smell>
+            <Smell>
+              <Id>120</Id>
+              <SmellType>Lack of comments(缺乏註解)</SmellType>
+              <HashCode>122 Model.Draw(HW2.IGraphics)</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
@@ -2118,34 +2102,18 @@
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
               <EndCol>0</EndCol>
-              <Comment>Model.NotifyModelChanged()</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>122</Id>
-              <SmellType>Lack of comments(缺乏註解)</SmellType>
-              <HashCode>128 Model.Draw(HW2.IGraphics)</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>HW2</Project>
-              <File>model.cs</File>
-              <Line>128</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
               <Comment>Model.Draw(HW2.IGraphics)</Comment>
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>123</Id>
+              <Id>121</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
-              <HashCode>137 Model.UpdateToolStripButtonCheck(System.Windows.Forms.ToolStripButton)</HashCode>
+              <HashCode>131 Model.UpdateToolStripButtonCheck(System.Windows.Forms.ToolStripButton)</HashCode>
               <Severity>Red</Severity>
               <Weight>1</Weight>
               <Project>HW2</Project>
               <File>model.cs</File>
-              <Line>137</Line>
+              <Line>131</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -2154,7 +2122,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>124</Id>
+              <Id>122</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>65 HW2.Form1.HandleClearButtonClick(object, System.EventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2170,7 +2138,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>125</Id>
+              <Id>123</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>70 HW2.Form1.HandleCanvasPressed(object, System.Windows.Forms.MouseEventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2186,7 +2154,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>126</Id>
+              <Id>124</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>75 HW2.Form1.HandleCanvasReleased(object, System.Windows.Forms.MouseEventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2202,7 +2170,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>127</Id>
+              <Id>125</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>81 HW2.Form1.HandleCanvasMoved(object, System.Windows.Forms.MouseEventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2218,7 +2186,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>128</Id>
+              <Id>126</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>86 HW2.Form1.HandleCanvasPaint(object, System.Windows.Forms.PaintEventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2234,7 +2202,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>129</Id>
+              <Id>127</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>91 HW2.Form1.HandleModelChanged()</HashCode>
               <Severity>Red</Severity>
@@ -2250,7 +2218,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>130</Id>
+              <Id>128</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>96 HW2.Form1.ToolStripEllipseButtonClick(object, System.EventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2266,7 +2234,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>131</Id>
+              <Id>129</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>102 HW2.Form1.ToolStripLineButtonClick(object, System.EventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2282,7 +2250,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>132</Id>
+              <Id>130</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>108 HW2.Form1.ToolStripRectangleButtonClick(object, System.EventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2298,7 +2266,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>133</Id>
+              <Id>131</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>114 HW2.Form1.DrawingAreaMouseEnter(object, System.EventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2314,7 +2282,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>134</Id>
+              <Id>132</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>120 HW2.Form1.DrawingAreaMouseLeave(object, System.EventArgs)</HashCode>
               <Severity>Red</Severity>
@@ -2330,7 +2298,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>135</Id>
+              <Id>133</Id>
               <SmellType>Lack of comments(缺乏註解)</SmellType>
               <HashCode>27 Ellipse.Draw(HW2.IGraphics)</HashCode>
               <Severity>Red</Severity>
@@ -2346,7 +2314,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>136</Id>
+              <Id>134</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>24 目前物件 Rectangle，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes.x2 以及 Shapes.x1</HashCode>
               <Severity>Warning</Severity>
@@ -2362,7 +2330,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>137</Id>
+              <Id>135</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>25 目前物件 Rectangle，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes.y2 以及 Shapes.y1</HashCode>
               <Severity>Warning</Severity>
@@ -2378,7 +2346,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>138</Id>
+              <Id>136</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>23 目前物件 Shape，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：4次，使用到的方法或屬性為以下：Shapes.x1 以及 Shapes.y1 以及 Shapes.x2 以及 Shapes.y2</HashCode>
               <Severity>Red</Severity>
@@ -2394,7 +2362,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>139</Id>
+              <Id>137</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>28 目前物件 Ellipse，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes.x2 以及 Shapes.x1</HashCode>
               <Severity>Warning</Severity>
@@ -2410,7 +2378,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>140</Id>
+              <Id>138</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>29 目前物件 Ellipse，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes.y2 以及 Shapes.y1</HashCode>
               <Severity>Warning</Severity>
@@ -2522,7 +2490,7 @@
               </AnalysisFile>
             </AnalysisFiles>
           </AnalysisFileManager>
-          <ProductionLoc>917</ProductionLoc>
+          <ProductionLoc>913</ProductionLoc>
           <TestLoc>0</TestLoc>
         </CodeReview>
       </Data>

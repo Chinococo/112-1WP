@@ -64,8 +64,7 @@ public class Model
         {
             _firstPointX = x;
             _firstPointY = y;
-            _hint.x1 = _firstPointX;
-            _hint.y1 = _firstPointY;
+            _hint.SetPoint1(_firstPointX, _firstPointY);
             _isPressed = true;
         }
     }
@@ -74,8 +73,7 @@ public class Model
     {
         if (_isPressed)
         {
-            _hint.x2 = x;
-            _hint.y2 = y;
+            _hint.SetPoint2(x, y);
             NotifyModelChanged();
         }
     }
@@ -89,18 +87,14 @@ public class Model
             if (_toolStripEllipseButton.Checked)
             {
                 hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, x, y);
-                hint.x1 = _firstPointX;
-                hint.y1 = _firstPointY;
-                hint.x2 = x;
-                hint.y2 = y;
+                _hint.SetPoint1(_firstPointX, _firstPointY);
+                _hint.SetPoint2(x, y);
             }
             else if (_toolStripLineButton.Checked)
             {
                 hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
-                hint.x1 = _firstPointX;
-                hint.y1 = _firstPointY;
-                hint.x2 = x;
-                hint.y2 = y;
+                _hint.SetPoint1(_firstPointX, _firstPointY);
+                _hint.SetPoint2(x, y);
 
             }
             else

@@ -32,4 +32,9 @@ public class Shape : Shapes
         this.x2 = x;
         this.y2 = y;
     }
+    public void SetPoint1(double x, double y)
+    {
+        this.x1 = x;
+        this.y1 = y;
+    }
 }
