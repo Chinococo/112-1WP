@@ -7,6 +7,7 @@ public class Factory
     private const string ENRECTANGLE = "Rectangle";
     private const string ENELLIPS = "Ellipse";
     private const string ENERROR = "Unsupported shape type";
+    //依照參數產出對應型態物件
     public Shape CreateShape(string shapeType)
     {
         switch (shapeType)

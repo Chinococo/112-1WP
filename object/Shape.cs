@@ -20,21 +20,21 @@ public class Shape : Shapes
 
     public object GetInfo()
     {
-        return $"({x1},{y1}),({x2},{y2})";
+        return $"({_x1},{_y1}),({_x2},{_y2})";
     }
-
+    //Draw方法 等待覆蓋
     public virtual void Draw(IGraphics graphics)
     {
         throw new NotImplementedException();
     }
     public void SetPoint2(double x,double y)
     {
-        this.x2 = x;
-        this.y2 = y;
+        this._x2 = x;
+        this._y2 = y;
     }
     public void SetPoint1(double x, double y)
     {
-        this.x1 = x;
-        this.y1 = y;
+        this._x1 = x;
+        this._y1 = y;
     }
 }

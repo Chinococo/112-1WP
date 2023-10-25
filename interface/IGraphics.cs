@@ -8,6 +8,7 @@ namespace HW2
 {
     public interface IGraphics
     {
+        //清除整個畫面
         void ClearAll();
         //畫線
         void DrawLine(double x1, double y1, double x2, double y2);

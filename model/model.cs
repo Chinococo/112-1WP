@@ -51,6 +51,7 @@ public class Model
         NotifyModelChanged();
     }
 
+    //刪除特定列的物件
     public void DeleteLineByIndex(int index)
     {
         _shapeList.RemoveAt(index);
@@ -105,20 +106,20 @@ public class Model
             NotifyModelChanged();
         }
     }
-
+    //情除所有在畫面上的物件 並解除按壓
     public void Clear()
     {
         _isPressed = false;
         _shapeList.Clear();
         NotifyModelChanged();
     }
-
+    //廣播畫面需要更新事件
     void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
     }
-
+    //獎畫面全部清除在一一畫上去目前最新的圖案
     public void Draw(IGraphics graphics)
     {
         graphics.ClearAll();
@@ -127,7 +128,7 @@ public class Model
         if (_isPressed)
             _hint.Draw(graphics);
     }
-
+    //依照類別創建物件
     public void UpdateToolStripButtonCheck(ToolStripButton temp)
     {
         if (temp.Name == _toolStripEllipseButton.Name)

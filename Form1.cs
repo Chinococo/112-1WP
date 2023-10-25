@@ -110,13 +110,13 @@ namespace HW2
             _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
-
+        //光標便十字事件
         private void DrawingAreaMouseEnter(object sender, EventArgs e)
         {
             // 鼠标进入绘图区域时，设置鼠标光标为十字形
             this.Cursor = Cursors.Cross;
         }
-
+        //離開畫面事件
         private void DrawingAreaMouseLeave(object sender, EventArgs e)
         {
             // 鼠标离开绘图区域时，恢复默认光标

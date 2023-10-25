@@ -6,6 +6,11 @@ public class View
     private Model _model;
     private DataGridView _dataDisplayGrid;
     private List<Shape> _shapeList;
+    private const string DELETE = "刪除";
+    private const string DELETECOLUMN = "_deleteColumn";
+    private const string SHAPECOLUMN = "_shapeColumn";
+    private const string INFOCOLUMN = "_infoColumn";
+
     public View(Model prmaModel, DataGridView prmaDataGrid, List<Shape> shapelist)
     {
         this._model = prmaModel;
@@ -21,9 +26,9 @@ public class View
         {
             int index = _dataDisplayGrid.Rows.Add();
             DataGridViewRow dataGridViewRow = _dataDisplayGrid.Rows[index];
-            dataGridViewRow.Cells["_deleteCloumn"].Value = "刪除";
-            dataGridViewRow.Cells["_shapeCloumn"].Value = shape.GetShapeName();
-            dataGridViewRow.Cells["_infoCloumn"].Value = shape.GetInfo();
+            dataGridViewRow.Cells[DELETECOLUMN].Value = DELETE;
+            dataGridViewRow.Cells[SHAPECOLUMN].Value = shape.GetShapeName();
+            dataGridViewRow.Cells[INFOCOLUMN].Value = shape.GetInfo();
         }
     }
 }

@@ -3,10 +3,10 @@
 public class Shapes
 {
     protected string _shapeName;
-    protected double x1;
-    protected double y1;
-    protected double x2;
-    protected double y2;
+    protected double _x1;
+    protected double _y1;
+    protected double _x2;
+    protected double _y2;
 
     public Shapes(string shapename)
     {
@@ -16,11 +16,9 @@ public class Shapes
     public Shapes(string shapename, double x1, double y1, double x2, double y2)
     {
         this._shapeName = shapename;
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+        this._x1 = x1;
+        this._x2 = x2;
+        this._y1 = y1;
+        this._y2 = y2;
     }
 }
-
-
