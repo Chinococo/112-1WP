@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HW2;
+using System;
 
 public class Line : Shape
 {
@@ -8,5 +9,9 @@ public class Line : Shape
     public Line() : base(NAME)
     {
         
+    }
+    public void Draw(IGraphics graphics)
+    {
+        graphics.DrawLine(x1, y1, x2, y2);
     }
 }

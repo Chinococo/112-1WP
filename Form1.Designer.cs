@@ -147,6 +147,7 @@ namespace HW2
             this._groupBox2.TabIndex = 4;
             this._groupBox2.TabStop = false;
             this._groupBox2.Text = "投影片選擇";
+            //this._groupBox2.Enter += new System.EventHandler(this._groupBox2_Enter);
             // 
             // _buttonPage2
             // 
@@ -170,6 +171,7 @@ namespace HW2
             // 
             // _menuStrip
             // 
+            this._menuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this._menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this._menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._toolStripMenuItem});
@@ -184,13 +186,13 @@ namespace HW2
             this._toolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._aboutToolStripMenuItem});
             this._toolStripMenuItem.Name = "_toolStripMenuItem";
-            this._toolStripMenuItem.Size = new System.Drawing.Size(58, 27);
+            this._toolStripMenuItem.Size = new System.Drawing.Size(62, 27);
             this._toolStripMenuItem.Text = "說明";
             // 
             // _aboutToolStripMenuItem
             // 
             this._aboutToolStripMenuItem.Name = "_aboutToolStripMenuItem";
-            this._aboutToolStripMenuItem.Size = new System.Drawing.Size(128, 30);
+            this._aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 34);
             this._aboutToolStripMenuItem.Text = "關於";
             // 
             // toolStrip1
@@ -202,7 +204,7 @@ namespace HW2
             this._toolStripRectangleButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 31);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1252, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1252, 33);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -212,7 +214,7 @@ namespace HW2
             this._toolStripCirecleButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripCirecleButton.Image")));
             this._toolStripCirecleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripCirecleButton.Name = "_toolStripCirecleButton";
-            this._toolStripCirecleButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripCirecleButton.Size = new System.Drawing.Size(34, 28);
             this._toolStripCirecleButton.Text = "_toolStripCirecleButton";
             // 
             // _toolStripLineButton
@@ -221,7 +223,7 @@ namespace HW2
             this._toolStripLineButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripLineButton.Image")));
             this._toolStripLineButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripLineButton.Name = "_toolStripLineButton";
-            this._toolStripLineButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripLineButton.Size = new System.Drawing.Size(34, 28);
             this._toolStripLineButton.Text = "toolStripButton2";
             // 
             // _toolStripRectangleButton
@@ -230,7 +232,7 @@ namespace HW2
             this._toolStripRectangleButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripRectangleButton.Image")));
             this._toolStripRectangleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripRectangleButton.Name = "_toolStripRectangleButton";
-            this._toolStripRectangleButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripRectangleButton.Size = new System.Drawing.Size(34, 28);
             this._toolStripRectangleButton.Text = "toolStripButton3";
             // 
             // Form1

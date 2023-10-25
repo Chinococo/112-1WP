@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HW2;
+using System;
 
 public class Shape : Shapes
 {

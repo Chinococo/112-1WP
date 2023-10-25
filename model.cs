@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HW2;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 public class Model
@@ -50,5 +51,47 @@ public class Model
             _hint.y1 = _firstPointY;
             _isPressed = true;
         }
+    }
+    public void PointerMoved(double x, double y)
+    {
+        if (_isPressed)
+        {
+            _hint.x2 = x;
+            _hint.y2 = y;
+            NotifyModelChanged();
+        }
+    }
+    public void PointerReleased(double x, double y)
+    {
+        if (_isPressed)
+        {
+            _isPressed = false;
+            Line hint = new Line();
+            hint.x1 = _firstPointX;
+            hint.y1 = _firstPointY;
+            hint.x2 = x;
+            hint.y2 = y;
+            _shapeList.Add(hint);
+            NotifyModelChanged();
+        }
+    }
+    public void Clear()
+    {
+        _isPressed = false;
+        _shapeList.Clear();
+        NotifyModelChanged();
+    }
+    void NotifyModelChanged()
+    {
+        if (_modelChanged != null)
+            _modelChanged();
+    }
+    public void Draw(IGraphics graphics)
+    {
+        graphics.ClearAll();
+        foreach (Line aLine in _shapeList)
+            aLine.Draw(graphics);
+        if (_isPressed)
+            _hint.Draw(graphics);
     }
 }
