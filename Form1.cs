@@ -15,26 +15,28 @@ namespace HW2
         private Model _model;
         private View _view;
         private Factory _factory;
+        private List<Shape> _shapeList=new List<Shape>();
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _displayDataGrid, _shapeCombobox, _factory);
-            _view = new View(_model, _displayDataGrid);
+            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList);
+            _view = new View(_model, _displayDataGrid, _shapeList);
         }
         //新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            _view.AddNewDataGridData();
-            
+            _model.AddNewLine();
+            _view.UpdateView();
         }
-        //DataGrid按鈕觸發處理事件
 
+        //DataGrid按鈕觸發處理事件
         private void DisplayDataGridCellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) // 请替换 deleteColumnIndex 为“删除”按钮所在的列索引
             {
-                _displayDataGrid.Rows.RemoveAt(e.RowIndex);
+                _model.DeleteLineByIndex(e.RowIndex);
+                _view.UpdateView();
             }
         }
 

@@ -1,39 +1,37 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 public class Model
 {
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
+    private List<Shape> _shapeList;
     private const string LINE_INFO = "(0,0,50,50)";
     private const string RECTANGLE_INFO = "(25,25,50,50)";
     private const string DELETE = "刪除";
     private const string LINE = "線";
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory)
+    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist)
     {
         this._dataDisplayGrid = datagrid;
         this._shapeCombobox = combobox;
         this._factory = mainfactory;
+        this._shapeList = shapelist;
     }
     //新增DataGrid資料
-    public object[] AddNewLine()
+    public void AddNewLine()
     {
-        DataGridViewButtonCell button = new DataGridViewButtonCell();
-        button.UseColumnTextForButtonValue = true;
-        button.Value = DELETE;
-        object shapeComboBoxValue = _shapeCombobox.SelectedItem;
-        string data;
-        if (shapeComboBoxValue != null && shapeComboBoxValue.ToString() == LINE)
+        if (_shapeCombobox != null && _shapeCombobox.Text == LINE)
         {
-            data = LINE_INFO;
-            _factory.AddLine();
+            _shapeList.Add(new Line());
         }
         else
         {
-            data = RECTANGLE_INFO;
-            _factory.AddRectangle();
+            _shapeList.Add(new Rectangle());
         }
-        
-        return new object[] { button, shapeComboBoxValue, data };
+    }
+    public void DeleteLineByIndex(int index)
+    {
+        _shapeList.RemoveAt(index);
     }
 }
