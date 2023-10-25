@@ -13,6 +13,10 @@ public class Rectangle : Shape
         x2 = random.Next(196, 484);
         y2 = random.Next(57, 515);
     }
+    public Rectangle(double x1, double y1, double x2, double y2) : base(NAME,x1,y1,x2,y2)
+    {
+
+    }
     public override void Draw(IGraphics graphics)
     {
         double width = Math.Abs(x2 - x1);

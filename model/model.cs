@@ -20,13 +20,13 @@ public class Model
     double _firstPointY;
     bool _isPressed = false;
     Shape _hint;
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttoncircle, ToolStripButton buttonline, ToolStripButton buttonrectangle)
+    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
     {
         this._dataDisplayGrid = datagrid;
         this._shapeCombobox = combobox;
         this._factory = mainfactory;
         this._shapeList = shapelist;
-        this._toolStripCirecleButton = buttoncircle;
+        this._toolStripCirecleButton = buttonellipse;
         this._toolStripLineButton = buttonline;
         this._toolStripRectangleButton = buttonrectangle;
     }
@@ -35,15 +35,15 @@ public class Model
     {
         if (_shapeCombobox != null && _shapeCombobox.Text == LINE)
         {
-            _shapeList.Add(new Line());
+            _shapeList.Add(_factory.CreateShape("Line"));
         }
         else if(_shapeCombobox != null && _shapeCombobox.Text == RECTANGLE)
         {
-            _shapeList.Add(new Rectangle());
+            _shapeList.Add(_factory.CreateShape("Rectangle"));
         }
         else
         {
-            _shapeList.Add(new Ellipse());
+            _shapeList.Add(_factory.CreateShape("Ellipse"));
         }
         NotifyModelChanged();
     }
@@ -81,7 +81,7 @@ public class Model
             _isPressed = false;
             if (_toolStripCirecleButton.Checked)
             {
-                hint = new Ellipse();
+                hint = _factory.CreateShape("Ellipse", _firstPointX, _firstPointY, x, y);
                 hint.x1 = _firstPointX;
                 hint.y1 = _firstPointY;
                 hint.x2 = x;
@@ -89,7 +89,7 @@ public class Model
             }
             else if(_toolStripLineButton.Checked)
             {
-                hint = new Line();
+                hint = _factory.CreateShape("Line", _firstPointX, _firstPointY, x, y);
                 hint.x1 = _firstPointX;
                 hint.y1 = _firstPointY;
                 hint.x2 = x;
@@ -98,11 +98,7 @@ public class Model
             }
             else
             {
-                hint = new Rectangle();
-                hint.x1 = _firstPointX;
-                hint.y1 = _firstPointY;
-                hint.x2 = x;
-                hint.y2 = y;
+                hint = _factory.CreateShape("Rectangle", _firstPointX, _firstPointY, x, y);
             }
             _shapeList.Add(hint);
             NotifyModelChanged();
@@ -129,15 +125,11 @@ public class Model
     }
     public void UpdateToolStripButtonCheck(ToolStripButton temp)
     {
-        _toolStripCirecleButton.Checked = false;
-        _toolStripLineButton.Checked = false;
-        _toolStripRectangleButton.Checked = false;
-        temp.Checked = true;
         if (temp.Name == "_toolStripEllipseButton")
-            _hint = new Ellipse();
+            _hint = _factory.CreateShape("Ellipse");
         else if (temp.Name == "_toolStripLineButton")
-            _hint = new Line();
+            _hint = _factory.CreateShape("Line");
         else
-            _hint = new Rectangle();
+            _hint = _factory.CreateShape("Rectangle");
     }
 }

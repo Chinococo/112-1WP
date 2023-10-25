@@ -40,7 +40,7 @@ namespace HW2
             //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas);
+            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
             _model._modelChanged += HandleModelChanged;
         }
         //新增按鈕觸發事件
@@ -90,18 +90,21 @@ System.Windows.Forms.MouseEventArgs e)
             Invalidate(true);
         }
 
-        private void _toolStripCirecleButton_Click(object sender, EventArgs e)
+        private void _toolStripEllipseButton_Click(object sender, EventArgs e)
         {
+            _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
         }
 
         private void _toolStripLineButton_Click(object sender, EventArgs e)
         {
+            _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(_toolStripLineButton);
         }
 
         private void _toolStripRectangleButton_Click(object sender, EventArgs e)
         {
+            _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
         private void drawingArea_MouseEnter(object sender, EventArgs e)
@@ -116,6 +119,6 @@ System.Windows.Forms.MouseEventArgs e)
             this.Cursor = Cursors.Default;
         }
 
-       
+        
     }    
 }

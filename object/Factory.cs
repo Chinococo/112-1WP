@@ -1,19 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class Factory
 {
-    private List<Shapes> _data = new List<Shapes>();
 
-    //新增一個線
-    public void AddLine()
+    public Shape CreateShape(string shapeType)
     {
-        _data.Add(new Line());
+        switch (shapeType)
+        {
+            case "Line":
+                return new Line();
+            case "Rectangle":
+                return new Rectangle();
+            case "Ellipse":
+                return new Ellipse();
+            default:
+                throw new ArgumentException("Unsupported shape type");
+        }
     }
-
-    //新增一個正方形
-    public void AddRectangle()
+    public Shape CreateShape(string shapeType, double x1, double y1, double x2, double y2)
     {
-        _data.Add(new Rectangle());
+        switch (shapeType)
+        {
+            case "Line":
+                return new Line(x1,y1,x2,y2);
+            case "Rectangle":
+                return new Rectangle(x1, y1, x2, y2);
+            case "Ellipse":
+                return new Ellipse(x1, y1, x2, y2);
+            default:
+                throw new ArgumentException("Unsupported shape type");
+        }
     }
-
 }
+
