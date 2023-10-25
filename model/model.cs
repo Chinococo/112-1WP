@@ -4,13 +4,14 @@ using System.Windows.Forms;
 
 public class Model
 {
-    ToolStripButton _toolStripCirecleButton, _toolStripLineButton, _toolStripRectangleButton;
+    ToolStripButton _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
     private List<Shape> _shapeList;
-    private const string LINE_INFO = "(0,0,50,50)";
-    private const string RECTANGLE_INFO = "(25,25,50,50)";
+    private const string ENLINE = "Line";
+    private const string ENRECTANGLE = "Rectangle"; 
+    private const string ENELLIPS = "Ellipse";
     private const string DELETE = "刪除";
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
@@ -26,7 +27,7 @@ public class Model
         this._shapeCombobox = combobox;
         this._factory = mainfactory;
         this._shapeList = shapelist;
-        this._toolStripCirecleButton = buttonellipse;
+        this._toolStripEllipseButton = buttonellipse;
         this._toolStripLineButton = buttonline;
         this._toolStripRectangleButton = buttonrectangle;
     }
@@ -35,15 +36,15 @@ public class Model
     {
         if (_shapeCombobox != null && _shapeCombobox.Text == LINE)
         {
-            _shapeList.Add(_factory.CreateShape("Line"));
+            _shapeList.Add(_factory.CreateShape(ENLINE));
         }
-        else if(_shapeCombobox != null && _shapeCombobox.Text == RECTANGLE)
+        else if (_shapeCombobox != null && _shapeCombobox.Text == RECTANGLE)
         {
-            _shapeList.Add(_factory.CreateShape("Rectangle"));
+            _shapeList.Add(_factory.CreateShape(ENRECTANGLE));
         }
         else
         {
-            _shapeList.Add(_factory.CreateShape("Ellipse"));
+            _shapeList.Add(_factory.CreateShape(ENELLIPS));
         }
         NotifyModelChanged();
     }
@@ -55,7 +56,7 @@ public class Model
     public void PointerPressed(double x, double y)
     {
 
-        if (x > 0 && y > 0&&_hint!=null)
+        if (x > 0 && y > 0 && _hint != null)
         {
             _firstPointX = x;
             _firstPointY = y;
@@ -79,17 +80,17 @@ public class Model
         {
             Shape hint;
             _isPressed = false;
-            if (_toolStripCirecleButton.Checked)
+            if (_toolStripEllipseButton.Checked)
             {
-                hint = _factory.CreateShape("Ellipse", _firstPointX, _firstPointY, x, y);
+                hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, x, y);
                 hint.x1 = _firstPointX;
                 hint.y1 = _firstPointY;
                 hint.x2 = x;
                 hint.y2 = y;
             }
-            else if(_toolStripLineButton.Checked)
+            else if (_toolStripLineButton.Checked)
             {
-                hint = _factory.CreateShape("Line", _firstPointX, _firstPointY, x, y);
+                hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
                 hint.x1 = _firstPointX;
                 hint.y1 = _firstPointY;
                 hint.x2 = x;
@@ -98,7 +99,7 @@ public class Model
             }
             else
             {
-                hint = _factory.CreateShape("Rectangle", _firstPointX, _firstPointY, x, y);
+                hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
             }
             _shapeList.Add(hint);
             NotifyModelChanged();
@@ -125,11 +126,11 @@ public class Model
     }
     public void UpdateToolStripButtonCheck(ToolStripButton temp)
     {
-        if (temp.Name == "_toolStripEllipseButton")
-            _hint = _factory.CreateShape("Ellipse");
-        else if (temp.Name == "_toolStripLineButton")
-            _hint = _factory.CreateShape("Line");
+        if (temp.Name == _toolStripEllipseButton.Name)
+            _hint = _factory.CreateShape(ENELLIPS);
+        else if (temp.Name == _toolStripLineButton.Name)
+            _hint = _factory.CreateShape(ENLINE);
         else
-            _hint = _factory.CreateShape("Rectangle");
+            _hint = _factory.CreateShape(ENRECTANGLE);
     }
 }

@@ -43,7 +43,7 @@ namespace HW2
             this._menuStrip = new System.Windows.Forms.MenuStrip();
             this._toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this._toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._toolStripEllipseButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripLineButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripRectangleButton = new System.Windows.Forms.ToolStripButton();
@@ -51,7 +51,7 @@ namespace HW2
             this._groupBox.SuspendLayout();
             this._groupBox2.SuspendLayout();
             this._menuStrip.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this._toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // _displayDataGrid
@@ -190,18 +190,18 @@ namespace HW2
             this._aboutToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this._aboutToolStripMenuItem.Text = "關於";
             // 
-            // toolStrip1
+            // _toolStrip1
             // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this._toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._toolStripEllipseButton,
             this._toolStripLineButton,
             this._toolStripRectangleButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(835, 31);
-            this.toolStrip1.TabIndex = 6;
-            this.toolStrip1.Text = "toolStrip1";
+            this._toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this._toolStrip1.Name = "_toolStrip1";
+            this._toolStrip1.Size = new System.Drawing.Size(835, 31);
+            this._toolStrip1.TabIndex = 6;
+            this._toolStrip1.Text = "toolStrip1";
             // 
             // _toolStripEllipseButton
             // 
@@ -211,7 +211,7 @@ namespace HW2
             this._toolStripEllipseButton.Name = "_toolStripEllipseButton";
             this._toolStripEllipseButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripEllipseButton.Text = "_toolStripCirecleButton";
-            this._toolStripEllipseButton.Click += new System.EventHandler(this._toolStripEllipseButton_Click);
+            this._toolStripEllipseButton.Click += new System.EventHandler(this.ToolStripEllipseButtonClick);
             // 
             // _toolStripLineButton
             // 
@@ -221,7 +221,7 @@ namespace HW2
             this._toolStripLineButton.Name = "_toolStripLineButton";
             this._toolStripLineButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripLineButton.Text = "toolStripButton2";
-            this._toolStripLineButton.Click += new System.EventHandler(this._toolStripLineButton_Click);
+            this._toolStripLineButton.Click += new System.EventHandler(this.ToolStripLineButtonClick);
             // 
             // _toolStripRectangleButton
             // 
@@ -231,14 +231,14 @@ namespace HW2
             this._toolStripRectangleButton.Name = "_toolStripRectangleButton";
             this._toolStripRectangleButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripRectangleButton.Text = "toolStripButton3";
-            this._toolStripRectangleButton.Click += new System.EventHandler(this._toolStripRectangleButton_Click);
+            this._toolStripRectangleButton.Click += new System.EventHandler(this.ToolStripRectangleButtonClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 518);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this._toolStrip1);
             this.Controls.Add(this._groupBox2);
             this.Controls.Add(this._groupBox);
             this.Controls.Add(this._menuStrip);
@@ -246,14 +246,13 @@ namespace HW2
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
-            //this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
             this._groupBox.ResumeLayout(false);
             this._groupBox2.ResumeLayout(false);
             this._menuStrip.ResumeLayout(false);
             this._menuStrip.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this._toolStrip1.ResumeLayout(false);
+            this._toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +273,7 @@ namespace HW2
         private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip _toolStrip1;
         private System.Windows.Forms.ToolStripButton _toolStripEllipseButton;
         private System.Windows.Forms.ToolStripButton _toolStripLineButton;
         private System.Windows.Forms.ToolStripButton _toolStripRectangleButton;

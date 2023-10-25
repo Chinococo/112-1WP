@@ -16,7 +16,7 @@ namespace HW2
         private Model _model;
         private View _view;
         private Factory _factory;
-        private List<Shape> _shapeList=new List<Shape>();
+        private List<Shape> _shapeList = new List<Shape>();
         PresentationModel.PresentationModel _presentationModel;
         Panel _canvas = new DoubleBufferedPanel();
         public Form1()
@@ -33,8 +33,8 @@ namespace HW2
             _canvas.MouseUp += HandleCanvasReleased;
             _canvas.MouseMove += HandleCanvasMoved;
             _canvas.Paint += HandleCanvasPaint;
-            _canvas.MouseEnter += drawingArea_MouseEnter;
-            _canvas.MouseLeave += drawingArea_MouseLeave;
+            _canvas.MouseEnter += DrawingAreaMouseEnter;
+            _canvas.MouseLeave += DrawingAreaMouseLeave;
 
             Controls.Add(_canvas);
             //
@@ -61,64 +61,66 @@ namespace HW2
                 _view.UpdateView();
             }
         }
+
         public void HandleClearButtonClick(object sender, System.EventArgs e)
         {
             _model.Clear();
         }
-        public void HandleCanvasPressed(object sender,System.Windows.Forms.MouseEventArgs e)
+
+        public void HandleCanvasPressed(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.PointerPressed(e.X, e.Y);
         }
-        public void HandleCanvasReleased(object sender,
-System.Windows.Forms.MouseEventArgs e)
+
+        public void HandleCanvasReleased(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.PointerReleased(e.X, e.Y);
             _view.UpdateView();
         }
-        public void HandleCanvasMoved(object sender,
-       System.Windows.Forms.MouseEventArgs e)
+
+        public void HandleCanvasMoved(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.PointerMoved(e.X, e.Y);
         }
-        public void HandleCanvasPaint(object sender,
-       System.Windows.Forms.PaintEventArgs e)
+
+        public void HandleCanvasPaint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             _presentationModel.Draw(e.Graphics);
         }
+
         public void HandleModelChanged()
         {
             Invalidate(true);
         }
 
-        private void _toolStripEllipseButton_Click(object sender, EventArgs e)
+        private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
         }
 
-        private void _toolStripLineButton_Click(object sender, EventArgs e)
+        private void ToolStripLineButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(_toolStripLineButton);
         }
 
-        private void _toolStripRectangleButton_Click(object sender, EventArgs e)
+        private void ToolStripRectangleButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
-        private void drawingArea_MouseEnter(object sender, EventArgs e)
+
+        private void DrawingAreaMouseEnter(object sender, EventArgs e)
         {
             // 鼠标进入绘图区域时，设置鼠标光标为十字形
             this.Cursor = Cursors.Cross;
         }
 
-        private void drawingArea_MouseLeave(object sender, EventArgs e)
+        private void DrawingAreaMouseLeave(object sender, EventArgs e)
         {
             // 鼠标离开绘图区域时，恢复默认光标
             this.Cursor = Cursors.Default;
         }
-
-        
     }    
 }
