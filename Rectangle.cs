@@ -9,7 +9,7 @@ public class Rectangle : Shape
     {
     }
 
-    private string GenerateRandomCoordinate()
+    private static string GenerateRandomCoordinate()
     {
         Random random = new Random();
         int x1 = random.Next(0, 100); // 生成x座標，這裡假設最大值是100
