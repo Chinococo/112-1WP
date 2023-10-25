@@ -13,6 +13,7 @@ public class Model
     private const string RECTANGLE_INFO = "(25,25,50,50)";
     private const string DELETE = "刪除";
     private const string LINE = "線";
+    private const string RECTANGLE = "矩形";
     public event ModelChangedEventHandler _modelChanged;
     public delegate void ModelChangedEventHandler();
     double _firstPointX;
@@ -36,9 +37,13 @@ public class Model
         {
             _shapeList.Add(new Line());
         }
-        else
+        else if(_shapeCombobox != null && _shapeCombobox.Text == RECTANGLE)
         {
             _shapeList.Add(new Rectangle());
+        }
+        else
+        {
+            _shapeList.Add(new Ellipse());
         }
     }
     public void DeleteLineByIndex(int index)

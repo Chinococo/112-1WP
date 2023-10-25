@@ -71,6 +71,7 @@ namespace HW2
 System.Windows.Forms.MouseEventArgs e)
         {
             _model.PointerReleased(e.X, e.Y);
+            _view.UpdateView();
         }
         public void HandleCanvasMoved(object sender,
        System.Windows.Forms.MouseEventArgs e)
