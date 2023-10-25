@@ -1,19 +1,20 @@
-﻿public class Shape : Shapes
+﻿using System;
+
+public class Shape : Shapes
 {
-    public Shape(string shapename, string info) : base(shapename, info)
+    public Shape(string shapename) : base(shapename)
     {
 
-    }
-
-    //拿到目前這個形狀的資訊
-    public string GetInfo()
-    {
-        return this._info;
     }
 
     //拿到目前這個形狀的名子
     public string GetShapeName()
     {
         return this._shapeName;
+    }
+
+    internal object GetInfo()
+    {
+        return $"({x1},{y1}),({x2},{y2})";
     }
 }

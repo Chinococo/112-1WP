@@ -3,10 +3,12 @@
 public class Shapes
 {
     protected string _shapeName;
-    protected string _info;
-    public Shapes(string shapename, string info)
+    public double x1;
+    public double y1;
+    public double x2;
+    public double y2;
+    public Shapes(string shapename)
     {
         this._shapeName = shapename;
-        this._info = info;
     }
 }

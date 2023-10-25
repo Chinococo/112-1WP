@@ -11,6 +11,12 @@ public class Model
     private const string RECTANGLE_INFO = "(25,25,50,50)";
     private const string DELETE = "刪除";
     private const string LINE = "線";
+    public event ModelChangedEventHandler _modelChanged;
+    public delegate void ModelChangedEventHandler();
+    double _firstPointX;
+    double _firstPointY;
+    bool _isPressed = false;
+    Line _hint = new Line();
     public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist)
     {
         this._dataDisplayGrid = datagrid;
@@ -33,5 +39,16 @@ public class Model
     public void DeleteLineByIndex(int index)
     {
         _shapeList.RemoveAt(index);
+    }
+    public void PointerPressed(double x, double y)
+    {
+        if (x > 0 && y > 0)
+        {
+            _firstPointX = x;
+            _firstPointY = y;
+            _hint.x1 = _firstPointX;
+            _hint.y1 = _firstPointY;
+            _isPressed = true;
+        }
     }
 }
