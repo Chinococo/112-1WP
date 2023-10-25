@@ -27,4 +27,9 @@ public class Shape : Shapes
     {
         throw new NotImplementedException();
     }
+    public void SetPoint2(double x,double y)
+    {
+        this.x2 = x;
+        this.y2 = y;
+    }
 }

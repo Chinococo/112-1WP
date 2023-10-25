@@ -4,7 +4,11 @@ using System.Windows.Forms;
 
 public class Model
 {
-    ToolStripButton _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton;
+    public event ModelChangedEventHandler _modelChanged;
+    public delegate void ModelChangedEventHandler();
+    ToolStripButton _toolStripEllipseButton;
+    ToolStripButton _toolStripLineButton;
+    ToolStripButton _toolStripRectangleButton;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
@@ -15,8 +19,6 @@ public class Model
     private const string DELETE = "刪除";
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
-    public event ModelChangedEventHandler _modelChanged;
-    public delegate void ModelChangedEventHandler();
     double _firstPointX;
     double _firstPointY;
     bool _isPressed = false;
@@ -48,12 +50,14 @@ public class Model
         }
         NotifyModelChanged();
     }
+
     public void DeleteLineByIndex(int index)
     {
         _shapeList.RemoveAt(index);
         NotifyModelChanged();
     }
-    public void PointerPressed(double x, double y)
+
+    public void PressedPointer(double x, double y)
     {
 
         if (x > 0 && y > 0 && _hint != null)
@@ -65,7 +69,8 @@ public class Model
             _isPressed = true;
         }
     }
-    public void PointerMoved(double x, double y)
+
+    public void MovedPointer(double x, double y)
     {
         if (_isPressed)
         {
@@ -74,7 +79,8 @@ public class Model
             NotifyModelChanged();
         }
     }
-    public void PointerReleased(double x, double y)
+
+    public void ReleasedPointer(double x, double y)
     {
         if (_isPressed)
         {
@@ -105,17 +111,20 @@ public class Model
             NotifyModelChanged();
         }
     }
+
     public void Clear()
     {
         _isPressed = false;
         _shapeList.Clear();
         NotifyModelChanged();
     }
+
     void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
     }
+
     public void Draw(IGraphics graphics)
     {
         graphics.ClearAll();
@@ -124,6 +133,7 @@ public class Model
         if (_isPressed)
             _hint.Draw(graphics);
     }
+
     public void UpdateToolStripButtonCheck(ToolStripButton temp)
     {
         if (temp.Name == _toolStripEllipseButton.Name)

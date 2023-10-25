@@ -69,18 +69,18 @@ namespace HW2
 
         public void HandleCanvasPressed(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            _model.PointerPressed(e.X, e.Y);
+            _model.PressedPointer(e.X, e.Y);
         }
 
         public void HandleCanvasReleased(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            _model.PointerReleased(e.X, e.Y);
+            _model.ReleasedPointer(e.X, e.Y);
             _view.UpdateView();
         }
 
         public void HandleCanvasMoved(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            _model.PointerMoved(e.X, e.Y);
+            _model.MovedPointer(e.X, e.Y);
         }
 
         public void HandleCanvasPaint(object sender, System.Windows.Forms.PaintEventArgs e)
