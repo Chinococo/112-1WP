@@ -7,9 +7,9 @@ public class View
     private DataGridView _dataDisplayGrid;
     private List<Shape> _shapeList;
     private const string DELETE = "刪除";
-    private const string DELETECOLUMN = "_deleteColumn";
-    private const string SHAPECOLUMN = "_shapeColumn";
-    private const string INFOCOLUMN = "_infoColumn";
+    private const string DELETECOLUMN = "_deleteCloumn";
+    private const string SHAPECOLUMN = "_shapeCloumn";
+    private const string INFOCOLUMN = "_infoCloumn";
 
     public View(Model prmaModel, DataGridView prmaDataGrid, List<Shape> shapelist)
     {
