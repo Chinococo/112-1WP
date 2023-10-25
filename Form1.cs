@@ -33,6 +33,9 @@ namespace HW2
             _canvas.MouseUp += HandleCanvasReleased;
             _canvas.MouseMove += HandleCanvasMoved;
             _canvas.Paint += HandleCanvasPaint;
+            _canvas.MouseEnter += drawingArea_MouseEnter;
+            _canvas.MouseLeave += drawingArea_MouseLeave;
+
             Controls.Add(_canvas);
             //
             // prepare presentation model and model
