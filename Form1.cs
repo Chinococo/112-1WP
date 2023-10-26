@@ -30,6 +30,7 @@ namespace HW2
             _canvas.Paint += HandleCanvasPaint;
             _canvas.MouseEnter += DrawingAreaMouseEnter;
             _canvas.MouseLeave += DrawingAreaMouseLeave;
+            _canvas.
 
             Controls.Add(_canvas);
             //
