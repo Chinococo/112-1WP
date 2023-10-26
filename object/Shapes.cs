@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class Shapes
+﻿public class Shapes
 {
     protected string _shapeName;
     protected double _x1;

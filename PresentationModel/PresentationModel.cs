@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace HW2.PresentationModel
 {
-    class PresentationModel
+    internal class PresentationModel
     {
-        Model _model;
-        ToolStripButton _toolStripEllipseButton;
-        ToolStripButton _toolStripLineButton;
-        ToolStripButton _toolStripRectangleButton;
+        private Model _model;
+        private ToolStripButton _toolStripEllipseButton;
+        private ToolStripButton _toolStripLineButton;
+        private ToolStripButton _toolStripRectangleButton;
+
         public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
         {
             this._model = model;
@@ -20,6 +16,7 @@ namespace HW2.PresentationModel
             this._toolStripLineButton = buttonline;
             this._toolStripRectangleButton = buttonrectangle;
         }
+
         // Draw事件
         public void Draw(System.Drawing.Graphics graphics)
         {
@@ -37,7 +34,6 @@ namespace HW2.PresentationModel
             _toolStripLineButton.Checked = false;
             _toolStripRectangleButton.Checked = false;
             temp.Checked = true;
-            
         }
     }
 }

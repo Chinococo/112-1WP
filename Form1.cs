@@ -1,12 +1,6 @@
 ﻿using HW2.DrawingForm;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HW2
@@ -17,13 +11,14 @@ namespace HW2
         private View _view;
         private Factory _factory;
         private List<Shape> _shapeList = new List<Shape>();
-        PresentationModel.PresentationModel _presentationModel;
-        Panel _canvas = new DoubleBufferedPanel();
+        private PresentationModel.PresentationModel _presentationModel;
+        private Panel _canvas = new DoubleBufferedPanel();
+
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton);
+            _model = new Model(_displayDataGrid, _shapeCombobox, _factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
             _view = new View(_model, _displayDataGrid, _shapeList);
             // prepare canvas
             //
@@ -40,16 +35,16 @@ namespace HW2
             //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
             _model._modelChanged += HandleModelChanged;
         }
+
         //新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
             _model.AddNewLine();
             //_presentationModel.Draw(graphics);
             _view.UpdateView();
-
         }
 
         //DataGrid按鈕觸發處理事件
@@ -142,5 +137,5 @@ namespace HW2
             // 鼠标离开绘图区域时，恢复默认光标
             this.Cursor = Cursors.Default;
         }
-    }    
+    }
 }

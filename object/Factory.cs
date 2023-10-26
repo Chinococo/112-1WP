@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 public class Factory
 {
@@ -15,10 +14,13 @@ public class Factory
         {
             case ENLINE:
                 return new Line();
+
             case ENRECTANGLE:
                 return new Rectangle();
+
             case ENELLIPS:
                 return new Ellipse();
+
             default:
                 throw new ArgumentException(ENERROR);
         }
@@ -31,14 +33,16 @@ public class Factory
         switch (shapeType)
         {
             case ENLINE:
-                return new Line(x1,y1,x2,y2);
+                return new Line(x1, y1, x2, y2);
+
             case ENRECTANGLE:
                 return new Rectangle(x1, y1, x2, y2);
+
             case ENELLIPS:
                 return new Ellipse(x1, y1, x2, y2);
+
             default:
                 throw new ArgumentException(ENERROR);
         }
     }
 }
-

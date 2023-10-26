@@ -5,24 +5,27 @@ using System.Windows.Forms;
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
+
     public delegate void ModelChangedEventHandler();
-    ToolStripButton _toolStripEllipseButton;
-    ToolStripButton _toolStripLineButton;
-    ToolStripButton _toolStripRectangleButton;
+
+    private ToolStripButton _toolStripEllipseButton;
+    private ToolStripButton _toolStripLineButton;
+    private ToolStripButton _toolStripRectangleButton;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
     private List<Shape> _shapeList;
     private const string ENLINE = "Line";
-    private const string ENRECTANGLE = "Rectangle"; 
+    private const string ENRECTANGLE = "Rectangle";
     private const string ENELLIPS = "Ellipse";
     private const string DELETE = "刪除";
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
-    double _firstPointX;
-    double _firstPointY;
-    bool _isPressed = false;
-    Shape _hint;
+    private double _firstPointX;
+    private double _firstPointY;
+    private bool _isPressed = false;
+    private Shape _hint;
+
     public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
     {
         this._dataDisplayGrid = datagrid;
@@ -33,6 +36,7 @@ public class Model
         this._toolStripLineButton = buttonline;
         this._toolStripRectangleButton = buttonrectangle;
     }
+
     //新增DataGrid資料
     public void AddNewLine()
     {
@@ -62,7 +66,6 @@ public class Model
 
     public void PressedPointer(double x, double y)
     {
-
         if (x > 0 && y > 0 && _hint != null)
         {
             _firstPointX = x;
@@ -102,7 +105,6 @@ public class Model
                 hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
-
             }
             else
             {
@@ -123,7 +125,7 @@ public class Model
 
     //廣播畫面需要更新事件
 
-    void NotifyModelChanged()
+    private void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
