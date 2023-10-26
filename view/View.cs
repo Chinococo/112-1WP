@@ -16,7 +16,7 @@ public class View
     private ToolStripButton _toolStripLineButton;
     private ToolStripButton _toolStripRectangleButton;
 
-    public View(Model prmaModel, PresentationModel presentationModel,DataGridView prmaDataGrid, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
+    public View(Model prmaModel, PresentationModel presentationModel,DataGridView prmaDataGrid, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,)
     {
         this._model = prmaModel;
         this._presentationModel = presentationModel;

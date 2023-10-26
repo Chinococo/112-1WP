@@ -8,12 +8,7 @@ public class Model
 
     public delegate void ModelChangedEventHandler();
 
-    private ToolStripButton _toolStripEllipseButton;
-    private ToolStripButton _toolStripLineButton;
-    private ToolStripButton _toolStripRectangleButton;
-    private DataGridView _dataDisplayGrid;
-    private ComboBox _shapeCombobox;
-    private Factory _factory;
+    private Factory _factory = new Factory();
     private List<Shape> _shapeList;
     private const string ENLINE = "Line";
     private const string ENRECTANGLE = "Rectangle";
@@ -25,16 +20,11 @@ public class Model
     private double _firstPointY;
     private bool _isPressed = false;
     private Shape _hint;
+    private string _shapeCombobox;
 
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
+    public Model()
     {
-        this._dataDisplayGrid = datagrid;
-        this._shapeCombobox = combobox;
-        this._factory = mainfactory;
-        this._shapeList = shapelist;
-        this._toolStripEllipseButton = buttonellipse;
-        this._toolStripLineButton = buttonline;
-        this._toolStripRectangleButton = buttonrectangle;
+
     }
 
     //新增DataGrid資料
