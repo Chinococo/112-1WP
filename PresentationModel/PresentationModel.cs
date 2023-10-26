@@ -1,20 +1,18 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace HW2.PresentationModel
 {
-    internal class PresentationModel
+    public  class PresentationModel
     {
         private Model _model;
-        private ToolStripButton _toolStripEllipseButton;
-        private ToolStripButton _toolStripLineButton;
-        private ToolStripButton _toolStripRectangleButton;
+        private bool _toolStripEllipseButtonState = false;
+        private bool _toolStripLineButtonState = false;
+        private bool _toolStripRectangleButtonState = false;
 
-        public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
+        public PresentationModel(Model model, Control canvas)
         {
             this._model = model;
-            this._toolStripEllipseButton = buttonellipse;
-            this._toolStripLineButton = buttonline;
-            this._toolStripRectangleButton = buttonrectangle;
         }
 
         // Draw事件
@@ -28,12 +26,34 @@ namespace HW2.PresentationModel
 
         //更新按鈕狀況
 
-        public void UpdateToolStripButtonCheck(ToolStripButton temp)
+        public void ClearToolStripButtonCheck()
         {
-            _toolStripEllipseButton.Checked = false;
-            _toolStripLineButton.Checked = false;
-            _toolStripRectangleButton.Checked = false;
-            temp.Checked = true;
+            _toolStripEllipseButtonState = false;
+            _toolStripLineButtonState = false;
+            _toolStripRectangleButtonState = false;
+        }
+
+        public void UpdateToolStripButtonCheck(string name)
+        {
+            ClearToolStripButtonCheck();
+            if (name == "Line")
+                _toolStripLineButtonState = true;
+            else if (name == "Ellipse")
+                _toolStripEllipseButtonState = true;
+            else
+                _toolStripRectangleButtonState = true;
+        }
+
+        public Dictionary<string, bool> GetToolStripButtonState()
+        {
+            Dictionary<string, bool> buttonStateDict = new Dictionary<string, bool>
+            {
+                { "Line", _toolStripLineButtonState },
+                { "Ellipse", _toolStripEllipseButtonState },
+                { "Rectangle", _toolStripRectangleButtonState }
+            };
+
+            return buttonStateDict;
         }
     }
 }

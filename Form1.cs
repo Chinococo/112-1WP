@@ -19,7 +19,7 @@ namespace HW2
             InitializeComponent();
             _factory = new Factory();
             _model = new Model(_displayDataGrid, _shapeCombobox, _factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
-            _view = new View(_model, _displayDataGrid, _shapeList);
+            
             // prepare canvas
             //
             _canvas.Dock = DockStyle.Fill;
@@ -35,8 +35,9 @@ namespace HW2
             //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model, _canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _canvas);
             _model._modelChanged += HandleModelChanged;
+            _view = new View(_model, _presentationModel, _displayDataGrid, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
         }
 
         //新增按鈕觸發事件
@@ -104,24 +105,27 @@ namespace HW2
 
         private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
+            _presentationModel.UpdateToolStripButtonCheck("Ellipse");
             _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
+            _view.UpdateView();
         }
 
         //按下toolstrip按鈕事件
 
         private void ToolStripLineButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
+            _presentationModel.UpdateToolStripButtonCheck("Line");
             _model.UpdateToolStripButtonCheck(_toolStripLineButton);
+            _view.UpdateView();
         }
 
         //按下toolstrip按鈕事件
 
         private void ToolStripRectangleButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+            _presentationModel.UpdateToolStripButtonCheck("Rectangle");
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+            _view.UpdateView();
         }
 
         //光標便十字事件
