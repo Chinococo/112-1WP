@@ -6,43 +6,41 @@ public class View
 {
     private Model _model;
     private PresentationModel _presentationModel;
-    private DataGridView _dataDisplayGrid;
+   // private DataGridView _dataDisplayGrid;
     private List<Shape> _shapeList;
     private const string DELETE = "刪除";
     private const string DELETECOLUMN = "_deleteCloumn";
     private const string SHAPECOLUMN = "_shapeCloumn";
     private const string INFOCOLUMN = "_infoCloumn";
-    private ToolStripButton _toolStripEllipseButton;
-    private ToolStripButton _toolStripLineButton;
-    private ToolStripButton _toolStripRectangleButton;
+    //private ToolStripButton _toolStripEllipseButton;
+    //private ToolStripButton _toolStripLineButton;
+    //private ToolStripButton _toolStripRectangleButton;
 
-    public View(Model prmaModel, PresentationModel presentationModel,DataGridView prmaDataGrid, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,)
+    public View(Model prmaModel)
     {
         this._model = prmaModel;
-        this._presentationModel = presentationModel;
-        this._dataDisplayGrid = prmaDataGrid;
-        this._shapeList = shapelist;
-        this._toolStripEllipseButton = buttonellipse;
-        this._toolStripLineButton = buttonline;
-        this._toolStripRectangleButton = buttonrectangle;
     }
 
-    //更新畫面
-    public void UpdateView()
+    //更新DataGrid
+    public DataGridView UpdateDataGrid()
     {
-        _dataDisplayGrid.Rows.Clear();
+        DataGridView newDataGridView = new DataGridView();
+
+        // 在这里对新的 DataGridView 进行任何初始化或设置操作
+        // 例如，设置列、行、样式等
+
         foreach (Shape shape in _shapeList)
         {
-            int index = _dataDisplayGrid.Rows.Add();
-            DataGridViewRow dataGridViewRow = _dataDisplayGrid.Rows[index];
-            dataGridViewRow.Cells[DELETECOLUMN].Value = DELETE;
-            dataGridViewRow.Cells[SHAPECOLUMN].Value = shape.GetShapeName();
-            dataGridViewRow.Cells[INFOCOLUMN].Value = shape.GetInfo();
+            // 在新的 DataGridView 中添加行并设置数据
+            int rowIndex = newDataGridView.Rows.Add();
+            newDataGridView.Rows[rowIndex].Cells[DELETECOLUMN].Value = DELETE;
+            newDataGridView.Rows[rowIndex].Cells[SHAPECOLUMN].Value = shape.GetShapeName();
+            newDataGridView.Rows[rowIndex].Cells[INFOCOLUMN].Value = shape.GetInfo();
         }
-
-        Dictionary<string, bool> State = _presentationModel.GetToolStripButtonState();
-        _toolStripEllipseButton.Checked = State["Ellipse"];
-        _toolStripLineButton.Checked = State["Line"];
-        _toolStripRectangleButton.Checked = State["Rectangle"];
+        return newDataGridView;
+        //Dictionary<string, bool> State = _presentationModel.GetToolStripButtonState();
+        //_toolStripEllipseButton.Checked = State["Ellipse"];
+        //_toolStripLineButton.Checked = State["Line"];
+        //_toolStripRectangleButton.Checked = State["Rectangle"];
     }
 }

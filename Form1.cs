@@ -126,7 +126,7 @@ namespace HW2
         {
             _presentationModel.UpdateToolStripButtonCheck("Rectangle");
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
-            _view.UpdateView();
+            //_dataDisplayGrid =  _view.DataGridView();
         }
 
         //光標便十字事件
@@ -142,5 +142,10 @@ namespace HW2
             // 鼠标离开绘图区域时，恢复默认光标
             this.Cursor = Cursors.Default;
         }
+        private void UpdateAllView()
+        {
+            _displayDataGrid.Rows.Clear();//清除DataGrid
+        }
+
     }
 }
