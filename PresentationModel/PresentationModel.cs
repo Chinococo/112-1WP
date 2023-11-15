@@ -39,5 +39,11 @@ namespace HW2.PresentationModel
             temp.Checked = true;
             
         }
+        public void ClearToolStripButtonCheck()
+        {
+            _toolStripEllipseButton.Checked = false;
+            _toolStripLineButton.Checked = false;
+            _toolStripRectangleButton.Checked = false;
+        }
     }
 }

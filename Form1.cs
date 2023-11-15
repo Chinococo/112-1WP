@@ -83,6 +83,7 @@ namespace HW2
             _model.ReleasedPointer(e.X, e.Y);
             _view.UpdateView();
             this.Cursor = Cursors.Default;
+            _presentationModel.ClearToolStripButtonCheck();
         }
 
         //Canvas被移動事件
