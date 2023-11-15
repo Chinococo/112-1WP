@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,15 @@ namespace HW2.PresentationModel
         ToolStripButton _toolStripLineButton;
         ToolStripButton _toolStripRectangleButton;
         ToolStripButton _toolStripCursorsButton;
-        public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors)
+        Button _buttonPage1;
+        public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
         {
             this._model = model;
             this._toolStripEllipseButton = buttonellipse;
             this._toolStripLineButton = buttonline;
             this._toolStripRectangleButton = buttonrectangle;
             this._toolStripCursorsButton = buttoncursors;
+            this._buttonPage1 = buttonPage1;
         }
         // Draw事件
         public void Draw(System.Drawing.Graphics graphics)
@@ -29,6 +32,10 @@ namespace HW2.PresentationModel
             // 而Adaptor又直接使用graphics，這樣DoubleBuffer才能正確運作
             // 因此，Adaptor不能重複使用，每次都要重新new
             _model.Draw(new WindowsFormsGraphicsAdaptor(graphics));
+            Bitmap myBitmap = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
+            myBitmap.Save("image.png", System.Drawing.Imaging.ImageFormat.Png);
+            _buttonPage1.Image = myBitmap;
+            _buttonPage1.Refresh(); // or _buttonPage1.Update();
         }
 
         //更新按鈕狀況

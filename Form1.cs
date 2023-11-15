@@ -16,17 +16,18 @@ namespace HW2
         private Model _model;
         private View _view;
         private Factory _factory;
-        private List<Shape> _shapeList = new List<Shape>();
+        private BindingList<Shape> _shapeList = new BindingList<Shape>();
         PresentationModel.PresentationModel _presentationModel;
-        Panel _canvas = new DoubleBufferedPanel();
+        //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton,_toolStripCursorsButton);
+            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton,_toolStripCursorsButton,_buttonPage1);
             _view = new View(_model, _displayDataGrid, _shapeList);
             // prepare canvas
             //
+            /*
             _canvas.Dock = DockStyle.Fill;
             _canvas.BackColor = System.Drawing.Color.LightYellow;
             _canvas.MouseDown += HandleCanvasPressed;
@@ -35,12 +36,22 @@ namespace HW2
             _canvas.Paint += HandleCanvasPaint;
             _canvas.MouseEnter += DrawingAreaMouseEnter;
             _canvas.MouseLeave += DrawingAreaMouseLeave;
-
-            Controls.Add(_canvas);
+            _canvas.Location = new System.Drawing.Point(168, 52);
+            _canvas.Size = new System.Drawing.Size(548, 397);
+            */
+            //_panel.Dock = DockStyle.Fill;
+            _panel.BackColor = System.Drawing.Color.LightYellow;
+            _panel.MouseDown += HandleCanvasPressed;
+            _panel.MouseUp += HandleCanvasReleased;
+            _panel.MouseMove += HandleCanvasMoved;
+            _panel.Paint += HandleCanvasPaint;
+            _panel.MouseEnter += DrawingAreaMouseEnter;
+            _panel.MouseLeave += DrawingAreaMouseLeave;
+            Controls.Add(_panel);
             //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton,_toolStripCursorsButton);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _panel, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton,_toolStripCursorsButton, _buttonPage1);
             _model._modelChanged += HandleModelChanged;
         }
         //新增按鈕觸發事件
@@ -105,6 +116,7 @@ namespace HW2
         public void HandleModelChanged()
         {
             Invalidate(true);
+            UpdateButtonPage();
         }
 
         //按下toolstrip按鈕事件
@@ -153,5 +165,13 @@ namespace HW2
             _presentationModel.UpdateToolStripButtonCheck(_toolStripCursorsButton);
             //_model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
+        private void UpdateButtonPage()
+        {
+            Bitmap bitmap = new Bitmap(_panel.Width, _panel.Height);
+            _panel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _panel.Width, _panel.Height));
+            _buttonPage1.BackgroundImage = bitmap;
+            _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
+        }
+
     }    
 }

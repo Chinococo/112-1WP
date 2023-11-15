@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 public class View
 {
     private Model _model;
     private DataGridView _dataDisplayGrid;
-    private List<Shape> _shapeList;
+    private BindingList<Shape> _shapeList;
     private const string DELETE = "刪除";
     private const string DELETECOLUMN = "_deleteCloumn";
     private const string SHAPECOLUMN = "_shapeCloumn";
     private const string INFOCOLUMN = "_infoCloumn";
 
-    public View(Model prmaModel, DataGridView prmaDataGrid, List<Shape> shapelist)
+    public View(Model prmaModel, DataGridView prmaDataGrid, BindingList<Shape> shapelist)
     {
         this._model = prmaModel;
         this._dataDisplayGrid = prmaDataGrid;

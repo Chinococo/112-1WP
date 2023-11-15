@@ -1,5 +1,7 @@
 ﻿using HW2;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 public class Model
@@ -10,21 +12,23 @@ public class Model
     ToolStripButton _toolStripLineButton;
     ToolStripButton _toolStripRectangleButton;
     ToolStripButton _toolStripCursorsButton;
+    Button _buttonPage1;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
-    private List<Shape> _shapeList;
+    private BindingList<Shape> _shapeList;
     private const string ENLINE = "Line";
     private const string ENRECTANGLE = "Rectangle"; 
     private const string ENELLIPS = "Ellipse";
     private const string DELETE = "刪除";
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
+    int _pageIndex = 0;
     double _firstPointX;
     double _firstPointY;
     bool _isPressed = false;
     Shape _hint;
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,ToolStripButton buttoncursors)
+    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,ToolStripButton buttoncursors, Button buttonPage1)
     {
         this._dataDisplayGrid = datagrid;
         this._shapeCombobox = combobox;
@@ -34,6 +38,9 @@ public class Model
         this._toolStripLineButton = buttonline;
         this._toolStripRectangleButton = buttonrectangle;
         this._toolStripCursorsButton = buttoncursors;
+        this._buttonPage1 = buttonPage1;
+
+
     }
     //新增DataGrid資料
     public void AddNewLine()
