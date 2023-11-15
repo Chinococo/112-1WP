@@ -208,7 +208,7 @@ namespace HW2
             this._toolStripCursorsButton.Name = "_toolStripCursorsButton";
             this._toolStripCursorsButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripCursorsButton.Text = "toolStripButton1";
-            this._toolStripCursorsButton.Click += new System.EventHandler(this._toolStripCursorsButton_Click);
+            this._toolStripCursorsButton.Click += new System.EventHandler(this.ToolStripCursorsButtonClick);
             // 
             // _panel
             // 

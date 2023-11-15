@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
-
 namespace HW2.PresentationModel
 {
-    internal class WindowsFormsGraphicsAdaptor : IGraphics
+    class WindowsFormsGraphicsAdaptor : IGraphics
     {
         private Graphics _graphics;
 
@@ -37,6 +36,7 @@ namespace HW2.PresentationModel
             _graphics.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
+        //畫選擇邊框
         void IGraphics.DrawBorder(double x1, double y1, double x2, double y2)
         {
             _graphics.DrawRectangle(Pens.Red, (float)x1, (float)y1, (float)x2, (float)y2);

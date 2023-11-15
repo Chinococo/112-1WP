@@ -1,15 +1,20 @@
-﻿using HW2;
+﻿// 引用必要的命名空間
+using HW2;
 using HW2.Object;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
+// Model 類，負責應用邏輯和數據管理
 public class Model
 {
+    // 事件，當模型發生變化時通知其他部分
     public event ModelChangedEventHandler _modelChanged;
 
+    // 委託定義用於事件處理
     public delegate void ModelChangedEventHandler();
 
+    // 私有字段，存儲界面上的控件
     private ToolStripButton _toolStripEllipseButton;
     private ToolStripButton _toolStripLineButton;
     private ToolStripButton _toolStripRectangleButton;
@@ -24,18 +29,18 @@ public class Model
     private const string ENLINE = "Line";
     private const string ENRECTANGLE = "Rectangle";
     private const string ENELLIPS = "Ellipse";
-    private const string DELETE = "刪除";
+    private const string DELETE = "刪除"; // 刪除按鈕的文字
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
-    private int _pageIndex = 0;
     private double _firstPointX;
     private double _firstPointY;
     private bool _isPressed = false;
     private bool _isSelect = false;
     private int _selectIndex = -1;
-    private Shape _hint;
-    private IState state;
+    private Shape _hint; // 用於顯示提示形狀的變數
+    private IState _state; // 表示當前狀態的接口
 
+    // 構造函數，初始化模型
     public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
     {
         this._dataDisplayGrid = datagrid;
@@ -49,9 +54,10 @@ public class Model
         this._buttonPage1 = buttonPage1;
     }
 
-    //新增DataGrid資料
+    // 新增 DataGrid 資料
     public void AddNewLine()
     {
+        // 根據選擇的形狀類型添加新形狀到列表
         if (_shapeCombobox != null && _shapeCombobox.Text == LINE)
         {
             _shapeList.Add(_factory.CreateShape(ENLINE));
@@ -64,17 +70,20 @@ public class Model
         {
             _shapeList.Add(_factory.CreateShape(ENELLIPS));
         }
+        // 通知模型發生變化
         NotifyModelChanged();
     }
 
-    //刪除特定列的物件
+    // 刪除特定列的物件
     public void DeleteLineByIndex(int index)
     {
+        // 移除指定索引的形狀
         _shapeList.RemoveAt(index);
+        // 通知模型發生變化
         NotifyModelChanged();
     }
 
-    //滑鼠左鍵事件
+    // 滑鼠左鍵按下事件處理
     public void PressPointerDrawing(double x, double y)
     {
         if (_hint != null)
@@ -89,35 +98,38 @@ public class Model
         }
     }
 
+    // 滑鼠左鍵按下事件處理（用於選擇點）
     public void PressPointerPoint(double x, double y)
     {
         _lastClickX = x;
         _lastClickY = y;
         _selectIndex = -1;
         _isSelect = false;
-        // Iterate through the shapes in reverse order
+        // 反向迭代形狀列表，找到包含鼠標點的形狀
         for (int i = _shapeList.Count - 1; i >= 0; i--)
         {
             Shape shape = _shapeList[i];
 
-            // Check if the clicked coordinates fall within the bounding box of the shape
+            // 檢查鼠標點是否在形狀的包圍框內
             if (IsPointWithinBoundingBox(x, y, shape))
             {
                 _selectIndex = i;
                 _isSelect = true;
-                break; // Exit the loop after deleting the first matching shape
+                break; // 找到第一個匹配的形狀後退出循環
             }
         }
+        // 通知模型發生變化
         NotifyModelChanged();
     }
 
+    // 滑鼠按下事件處理（由 IState 接口實現）
     public void PressedPointer(double x, double y)
     {
-        if (state != null)
-            state.MouseDown(x, y);
+        if (_state != null)
+            _state.MouseDown(x, y);
     }
 
-    //滑鼠移動事件
+    // 滑鼠移動事件處理（用於繪製形狀）
     public void MovedPointerDrawing(double x, double y)
     {
         if (_isPressed)
@@ -125,11 +137,13 @@ public class Model
             if (_hint != null)
             {
                 _hint.SetPoint2(x, y);
+                // 通知模型發生變化
                 NotifyModelChanged();
             }
         }
     }
 
+    // 滑鼠移動事件處理（用於移動形狀）
     public void MovedPointerPoint(double x, double y)
     {
         if (_isSelect && _selectIndex >= 0)
@@ -137,22 +151,27 @@ public class Model
             _shapeList[_selectIndex].Move(x - _lastClickX, y - _lastClickY);
             _lastClickX = x;
             _lastClickY = y;
+            // 通知模型發生變化
             NotifyModelChanged();
         }
     }
 
+    // 滑鼠移動事件處理（由 IState 接口實現）
     public void MovedPointer(double x, double y)
     {
-        if (state != null)
-            state.MouseMove(x, y);
+        if (_state != null)
+            _state.MouseMove(x, y);
     }
 
+    // 滑鼠左鍵釋放事件處理（用於選擇點）
     public void ReleasedPointerPoint(double x, double y)
     {
         _isSelect = false;
+        // 通知模型發生變化
         NotifyModelChanged();
     }
 
+    // 滑鼠左鍵釋放事件處理（用於繪製形狀）
     public void ReleasedPointerDrawing(double x, double y)
     {
         _isSelect = false;
@@ -179,41 +198,40 @@ public class Model
                 hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
                 _shapeList.Add(hint);
             }
+            // 通知模型發生變化
             NotifyModelChanged();
             _hint = null;
         }
     }
 
-    //是否鼠標事件
-
+    // 滑鼠左鍵釋放事件處理（由 IState 接口實現）
     public void ReleasedPointer(double x, double y)
     {
-        if (state != null)
-            state.ReleasedPointer(x, y);
+        if (_state != null)
+            _state.ReleasedPointer(x, y);
     }
 
-    //情除所有在畫面上的物件 並解除按壓
+    // 清除所有形狀並解除按壓
     public void Clear()
     {
         _isPressed = false;
         _shapeList.Clear();
+        // 通知模型發生變化
         NotifyModelChanged();
     }
 
-    //廣播畫面需要更新事件
-
+    // 通知畫面需要更新事件
     private void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
     }
 
-    //獎畫面全部清除在一一畫上去目前最新的圖案
-
+    // 根據當前形狀類型繪製所有形狀
     public void Draw(IGraphics graphics)
     {
         graphics.ClearAll();
-        int index = 0; // start with the first shape
+        int index = 0; // 从第一个形状开始
         foreach (Shape shape in _shapeList)
         {
             shape.Draw(graphics, index == _selectIndex);
@@ -224,8 +242,7 @@ public class Model
             _hint.Draw(graphics);
     }
 
-    //依照類別創建物件
-
+    // 更新工具欄按鈕選中狀態
     public void UpdateToolStripButtonCheck(ToolStripButton temp)
     {
         if (temp.Name == _toolStripEllipseButton.Name)
@@ -236,9 +253,9 @@ public class Model
             _hint = _factory.CreateShape(ENRECTANGLE);
     }
 
+    // 檢查點是否在形狀的包圍框內
     private bool IsPointWithinBoundingBox(double x, double y, Shape shape)
     {
-        // Check if the clicked coordinates fall within the bounding box of the shape
         double minX = Math.Min(shape.GetX1(), shape.GetX2());
         double minY = Math.Min(shape.GetY1(), shape.GetY2());
         double maxX = Math.Max(shape.GetX1(), shape.GetX2());
@@ -247,19 +264,22 @@ public class Model
         return (x >= minX && x <= maxX && y >= minY && y <= maxY);
     }
 
-    public void btnDelete_Click()
+    // 按鈕刪除 Click 事件處理
+    public void DeleteBtnClick()
     {
-        // Your delete logic goes here
-        // For example, you might want to delete the selected shape from your _shapeList
+        // 您的刪除邏輯在這裡執行
+        // 例如，您可能想從 _shapeList 中刪除所選形狀
 
-        // Assuming _selectedIndex is the index of the shape you want to delete
+        // 假設 _selectedIndex 是您要刪除的形狀的索引
         if (_selectIndex >= 0 && _selectIndex < _shapeList.Count)
         {
             _shapeList.RemoveAt(_selectIndex);
         }
+        // 通知模型發生變化
         NotifyModelChanged();
     }
 
+    // 清除狀態（解除按壓等）
     public void ClearState()
     {
         this._selectIndex = -1;
@@ -267,11 +287,12 @@ public class Model
         this._isSelect = false;
     }
 
-    public void ChangeState(bool Drawing)
+    // 切換繪製狀態
+    public void ChangeState(bool _drawingstate)
     {
-        if (Drawing)
-            state = new DrawingState(this);
+        if (_drawingstate)
+            _state = new DrawingState(this);
         else
-            state = new PointState(this);
+            _state = new PointState(this);
     }
 }

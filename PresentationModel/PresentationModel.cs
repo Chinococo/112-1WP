@@ -46,6 +46,7 @@ namespace HW2.PresentationModel
             temp.Checked = true;
         }
 
+        //清除toolstrip選取狀態
         public void ClearToolStripButtonCheck()
         {
             _toolStripEllipseButton.Checked = false;
