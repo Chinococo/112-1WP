@@ -78,7 +78,12 @@ public class Model
     public void DeleteLineByIndex(int index)
     {
         // 移除指定索引的形狀
+        if (index < _selectIndex)
+            _selectIndex -= 1;
+        else if (_selectIndex == index)
+            _selectIndex = -1;
         _shapeList.RemoveAt(index);
+
         // 通知模型發生變化
         NotifyModelChanged();
     }
