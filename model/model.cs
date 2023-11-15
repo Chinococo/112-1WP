@@ -288,9 +288,9 @@ public class Model
     }
 
     // 切換繪製狀態
-    public void ChangeState(bool _drawingstate)
+    public void ChangeState(bool drawingstate)
     {
-        if (_drawingstate)
+        if (drawingstate)
             _state = new DrawingState(this);
         else
             _state = new PointState(this);

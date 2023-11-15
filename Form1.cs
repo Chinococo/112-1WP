@@ -7,11 +7,11 @@ namespace HW2
 {
     public partial class Form1 : Form
     {
-        private Model _model;                   // 模型
-        private View _view;                     // 視圖
-        private Factory _factory;               // 工廠
-        private BindingList<Shape> _shapeList = new BindingList<Shape>(); // 形狀列表
-        private PresentationModel.PresentationModel _presentationModel;   // 呈現模型
+        private Model _model;// 模型
+        private View _view;// 視圖
+        private Factory _factory;// 工廠
+        private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
+        private PresentationModel.PresentationModel _presentationModel;// 呈現模型
 
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
