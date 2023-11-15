@@ -50,6 +50,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="interface\IState.cs" />
+    <Compile Include="Object\DrawingState.cs" />
     <Compile Include="Object\Ellipse.cs" />
     <Compile Include="Object\Factory.cs" />
     <Compile Include="Form1.cs">
@@ -61,6 +62,7 @@
     <Compile Include="interface\IGraphics.cs" />
     <Compile Include="Object\Line.cs" />
     <Compile Include="model\model.cs" />
+    <Compile Include="Object\PointState.cs" />
     <Compile Include="PresentationModel\PresentationModel.cs" />
     <Compile Include="PresentationModel\WindowsFormsGraphicsAdaptor.cs" />
     <Compile Include="Program.cs" />

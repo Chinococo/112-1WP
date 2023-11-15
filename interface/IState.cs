@@ -8,7 +8,8 @@ namespace HW2
 {
     interface IState
     {
-        void MouseDown(int x, int y);
-        void MouseMove(int x, int y);
+        void MouseDown(double x, double y);
+        void MouseMove(double x, double y);
+        void ReleasedPointer(double x, double y);
     }
 }

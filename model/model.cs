@@ -1,4 +1,5 @@
 ﻿using HW2;
+using HW2.Object;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,11 +73,10 @@ public class Model
     }
 
     //滑鼠左鍵事件
-
-    public void PressedPointer(double x, double y)
+    public void PressPointerDrawing(double x,double y)
     {
-
-        if (_hint != null) {
+        if (_hint != null)
+        {
             if (x > 0 && y > 0 && _hint != null)
             {
                 _firstPointX = x;
@@ -85,32 +85,36 @@ public class Model
                 _isPressed = true;
             }
         }
-        else if (_toolStripCursorsButton.Checked)
+    }
+    public void PressPointerPoint(double x, double y)
+    {
+        _lastClickX = x;
+        _lastClickY = y;
+        _selectIndex = -1;
+        _isSelect = false;
+        // Iterate through the shapes in reverse order
+        for (int i = _shapeList.Count - 1; i >= 0; i--)
         {
-            _lastClickX = x;
-            _lastClickY = y;
-            _selectIndex = -1;
-            _isSelect = false;
-                // Iterate through the shapes in reverse order
-                for (int i = _shapeList.Count - 1; i >= 0; i--)
-                {
-                    Shape shape = _shapeList[i];
+            Shape shape = _shapeList[i];
 
-                    // Check if the clicked coordinates fall within the bounding box of the shape
-                    if (IsPointWithinBoundingBox(x, y, shape))
-                    {
-                        _selectIndex = i;
-                        _isSelect = true;
-                        break; // Exit the loop after deleting the first matching shape
-                    }
-                }
-            NotifyModelChanged();
+            // Check if the clicked coordinates fall within the bounding box of the shape
+            if (IsPointWithinBoundingBox(x, y, shape))
+            {
+                _selectIndex = i;
+                _isSelect = true;
+                break; // Exit the loop after deleting the first matching shape
+            }
         }
+        NotifyModelChanged();
+    }
+    public void PressedPointer(double x, double y)
+    {
+        if (state != null)
+            state.MouseDown(x, y);
     }
 
     //滑鼠移動事件
-
-    public void MovedPointer(double x, double y)
+    public void MovedPointerDrawing(double x, double y)
     {
         if (_isPressed)
         {
@@ -118,9 +122,12 @@ public class Model
             {
                 _hint.SetPoint2(x, y);
                 NotifyModelChanged();
-            }      
+            }
         }
-        else if (_isSelect&&_selectIndex >= 0)
+    }
+    public void MovedPointerPoint(double x, double y)
+    {
+        if (_isSelect && _selectIndex >= 0)
         {
             _shapeList[_selectIndex].Move(x - _lastClickX, y - _lastClickY);
             _lastClickX = x;
@@ -128,10 +135,17 @@ public class Model
             NotifyModelChanged();
         }
     }
-
-    //是否鼠標事件
-
-    public void ReleasedPointer(double x, double y)
+    public void MovedPointer(double x, double y)
+    {
+        if(state!=null)
+            state.MouseMove(x, y);
+    }
+    public void ReleasedPointerPoint(double x, double y)
+    {
+        _isSelect = false;
+        NotifyModelChanged();
+    }
+    public void ReleasedPointerDrawing(double x,double y)
     {
         _isSelect = false;
         if (_isPressed)
@@ -152,7 +166,7 @@ public class Model
                 _hint.SetPoint2(x, y);
                 _shapeList.Add(hint);
             }
-            else if(_toolStripRectangleButton.Checked)
+            else if (_toolStripRectangleButton.Checked)
             {
                 hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
                 _shapeList.Add(hint);
@@ -160,6 +174,13 @@ public class Model
             NotifyModelChanged();
             _hint = null;
         }
+    }
+    //是否鼠標事件
+
+    public void ReleasedPointer(double x, double y)
+    {
+        if (state != null)
+            state.ReleasedPointer(x, y);
     }
 
     //情除所有在畫面上的物件 並解除按壓
@@ -236,33 +257,8 @@ public class Model
     public void ChangeState(bool Drawing)
     {
         if (Drawing)
-            state = new DrawingState();
+            state = new DrawingState(this);
         else
-            state = new PointState();
-    }
-    public class PointState : IState
-    {
-        public void MouseDown(int x, int y)
-        {
-            Console.WriteLine($"PointState: MouseDown at ({x}, {y})");
-        }
-
-        public void MouseMove(int x, int y)
-        {
-            Console.WriteLine($"PointState: MouseMove to ({x}, {y})");
-        }
-    }
-
-    public class DrawingState : IState
-    {
-        public void MouseDown(int x, int y)
-        {
-            Console.WriteLine($"DrawingState: MouseDown at ({x}, {y})");
-        }
-
-        public void MouseMove(int x, int y)
-        {
-            Console.WriteLine($"DrawingState: MouseMove to ({x}, {y})");
-        }
+            state = new PointState(this);
     }
 }
