@@ -17,10 +17,11 @@ public class Line : Shape
         _x2 = random.Next(MIN_X, MAX_X);
         _y2 = random.Next(MIN_Y, MAX_Y);
     }
+
     public Line(double x1, double y1, double x2, double y2) : base(NAME, x1, y1, x2, y2)
     {
-
     }
+
     //複寫Draw方法
     public override void Draw(IGraphics graphics, bool border)
     {

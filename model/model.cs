@@ -1,20 +1,20 @@
 ﻿using HW2;
 using HW2.Object;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
+
     public delegate void ModelChangedEventHandler();
-    ToolStripButton _toolStripEllipseButton;
-    ToolStripButton _toolStripLineButton;
-    ToolStripButton _toolStripRectangleButton;
-    ToolStripButton _toolStripCursorsButton;
-    Button _buttonPage1;
+
+    private ToolStripButton _toolStripEllipseButton;
+    private ToolStripButton _toolStripLineButton;
+    private ToolStripButton _toolStripRectangleButton;
+    private ToolStripButton _toolStripCursorsButton;
+    private Button _buttonPage1;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
@@ -22,20 +22,21 @@ public class Model
     private double _lastClickY;
     private BindingList<Shape> _shapeList;
     private const string ENLINE = "Line";
-    private const string ENRECTANGLE = "Rectangle"; 
+    private const string ENRECTANGLE = "Rectangle";
     private const string ENELLIPS = "Ellipse";
     private const string DELETE = "刪除";
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
-    int _pageIndex = 0;
-    double _firstPointX;
-    double _firstPointY;
-    bool _isPressed = false;
-    bool _isSelect = false;
-    int _selectIndex = -1;
-    Shape _hint;
-    IState state;
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,ToolStripButton buttoncursors, Button buttonPage1)
+    private int _pageIndex = 0;
+    private double _firstPointX;
+    private double _firstPointY;
+    private bool _isPressed = false;
+    private bool _isSelect = false;
+    private int _selectIndex = -1;
+    private Shape _hint;
+    private IState state;
+
+    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
     {
         this._dataDisplayGrid = datagrid;
         this._shapeCombobox = combobox;
@@ -47,6 +48,7 @@ public class Model
         this._toolStripCursorsButton = buttoncursors;
         this._buttonPage1 = buttonPage1;
     }
+
     //新增DataGrid資料
     public void AddNewLine()
     {
@@ -73,7 +75,7 @@ public class Model
     }
 
     //滑鼠左鍵事件
-    public void PressPointerDrawing(double x,double y)
+    public void PressPointerDrawing(double x, double y)
     {
         if (_hint != null)
         {
@@ -86,6 +88,7 @@ public class Model
             }
         }
     }
+
     public void PressPointerPoint(double x, double y)
     {
         _lastClickX = x;
@@ -107,6 +110,7 @@ public class Model
         }
         NotifyModelChanged();
     }
+
     public void PressedPointer(double x, double y)
     {
         if (state != null)
@@ -125,6 +129,7 @@ public class Model
             }
         }
     }
+
     public void MovedPointerPoint(double x, double y)
     {
         if (_isSelect && _selectIndex >= 0)
@@ -135,17 +140,20 @@ public class Model
             NotifyModelChanged();
         }
     }
+
     public void MovedPointer(double x, double y)
     {
-        if(state!=null)
+        if (state != null)
             state.MouseMove(x, y);
     }
+
     public void ReleasedPointerPoint(double x, double y)
     {
         _isSelect = false;
         NotifyModelChanged();
     }
-    public void ReleasedPointerDrawing(double x,double y)
+
+    public void ReleasedPointerDrawing(double x, double y)
     {
         _isSelect = false;
         if (_isPressed)
@@ -175,6 +183,7 @@ public class Model
             _hint = null;
         }
     }
+
     //是否鼠標事件
 
     public void ReleasedPointer(double x, double y)
@@ -193,7 +202,7 @@ public class Model
 
     //廣播畫面需要更新事件
 
-    void NotifyModelChanged()
+    private void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
@@ -210,7 +219,7 @@ public class Model
             shape.Draw(graphics, index == _selectIndex);
             index++;
         }
-            
+
         if (_isPressed)
             _hint.Draw(graphics);
     }
@@ -226,6 +235,7 @@ public class Model
         else
             _hint = _factory.CreateShape(ENRECTANGLE);
     }
+
     private bool IsPointWithinBoundingBox(double x, double y, Shape shape)
     {
         // Check if the clicked coordinates fall within the bounding box of the shape
@@ -236,6 +246,7 @@ public class Model
 
         return (x >= minX && x <= maxX && y >= minY && y <= maxY);
     }
+
     public void btnDelete_Click()
     {
         // Your delete logic goes here
@@ -248,12 +259,14 @@ public class Model
         }
         NotifyModelChanged();
     }
+
     public void ClearState()
     {
         this._selectIndex = -1;
         this._isPressed = false;
         this._isSelect = false;
     }
+
     public void ChangeState(bool Drawing)
     {
         if (Drawing)

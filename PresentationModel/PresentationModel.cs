@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace HW2.PresentationModel
 {
-    class PresentationModel
+    internal class PresentationModel
     {
-        Model _model;
-        ToolStripButton _toolStripEllipseButton;
-        ToolStripButton _toolStripLineButton;
-        ToolStripButton _toolStripRectangleButton;
-        ToolStripButton _toolStripCursorsButton;
-        Button _buttonPage1;
+        private Model _model;
+        private ToolStripButton _toolStripEllipseButton;
+        private ToolStripButton _toolStripLineButton;
+        private ToolStripButton _toolStripRectangleButton;
+        private ToolStripButton _toolStripCursorsButton;
+        private Button _buttonPage1;
+
         public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
         {
             this._model = model;
@@ -25,6 +21,7 @@ namespace HW2.PresentationModel
             this._toolStripCursorsButton = buttoncursors;
             this._buttonPage1 = buttonPage1;
         }
+
         // Draw事件
         public void Draw(System.Drawing.Graphics graphics)
         {
@@ -47,8 +44,8 @@ namespace HW2.PresentationModel
             _toolStripRectangleButton.Checked = false;
             _toolStripCursorsButton.Checked = false;
             temp.Checked = true;
-            
         }
+
         public void ClearToolStripButtonCheck()
         {
             _toolStripEllipseButton.Checked = false;

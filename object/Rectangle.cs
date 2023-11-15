@@ -8,6 +8,7 @@ public class Rectangle : Shape
     private const int MAX_X = 300;
     private const int MIN_Y = 0;
     private const int MAX_Y = 300;
+
     public Rectangle() : base(NAME)
     {
         Random random = new Random();
@@ -16,10 +17,11 @@ public class Rectangle : Shape
         _x2 = random.Next(MIN_X, MAX_X);
         _y2 = random.Next(MIN_Y, MAX_Y);
     }
-    public Rectangle(double x1, double y1, double x2, double y2) : base(NAME,x1,y1,x2,y2)
-    {
 
+    public Rectangle(double x1, double y1, double x2, double y2) : base(NAME, x1, y1, x2, y2)
+    {
     }
+
     //複寫Draw方法
     public override void Draw(IGraphics graphics, bool border)
     {
@@ -33,5 +35,4 @@ public class Rectangle : Shape
             graphics.DrawBorder(left, top, width, height);
         }
     }
-
 }

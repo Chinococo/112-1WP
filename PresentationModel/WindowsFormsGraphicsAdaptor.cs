@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace HW2.PresentationModel
 {
-    class WindowsFormsGraphicsAdaptor : IGraphics
+    internal class WindowsFormsGraphicsAdaptor : IGraphics
     {
-        Graphics _graphics;
+        private Graphics _graphics;
+
         public WindowsFormsGraphicsAdaptor(Graphics graphics)
         {
             this._graphics = graphics;
             //this._bitmap = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
         }
+
         //清除整個畫面
         public void ClearAll()
         {
@@ -39,10 +36,10 @@ namespace HW2.PresentationModel
         {
             _graphics.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
+
         void IGraphics.DrawBorder(double x1, double y1, double x2, double y2)
         {
             _graphics.DrawRectangle(Pens.Red, (float)x1, (float)y1, (float)x2, (float)y2);
         }
-
     }
 }

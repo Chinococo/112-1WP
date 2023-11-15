@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HW2.Object
+﻿namespace HW2.Object
 {
-    class PointState : IState
+    internal class PointState : IState
     {
         private Model _model;
 
@@ -24,6 +18,7 @@ namespace HW2.Object
         {
             this._model.MovedPointerPoint(x, y);
         }
+
         public void ReleasedPointer(double x, double y)
         {
             this._model.ReleasedPointerPoint(x, y);

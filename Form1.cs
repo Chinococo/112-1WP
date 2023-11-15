@@ -1,12 +1,6 @@
-﻿using HW2.DrawingForm;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HW2
@@ -17,13 +11,14 @@ namespace HW2
         private View _view;
         private Factory _factory;
         private BindingList<Shape> _shapeList = new BindingList<Shape>();
-        PresentationModel.PresentationModel _presentationModel;
+        private PresentationModel.PresentationModel _presentationModel;
+
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton,_toolStripCursorsButton,_buttonPage1);
+            _model = new Model(_displayDataGrid, _shapeCombobox, _factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
             _view = new View(_model, _displayDataGrid, _shapeList);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
@@ -54,16 +49,16 @@ namespace HW2
             //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model, _panel, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton,_toolStripCursorsButton, _buttonPage1);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _panel, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
             _model._modelChanged += HandleModelChanged;
         }
+
         //新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
             _model.AddNewLine();
             //_presentationModel.Draw(graphics);
             _view.UpdateView();
-
         }
 
         //DataGrid按鈕觸發處理事件
@@ -156,8 +151,8 @@ namespace HW2
         private void DrawingAreaMouseEnter(object sender, EventArgs e)
         {
             // 鼠标进入绘图区域时，设置鼠标光标为十字形
-            if(_toolStripRectangleButton.Checked||
-                _toolStripEllipseButton.Checked||
+            if (_toolStripRectangleButton.Checked ||
+                _toolStripEllipseButton.Checked ||
                 _toolStripLineButton.Checked)
                 this.Cursor = Cursors.Cross;
         }
@@ -176,6 +171,7 @@ namespace HW2
             _model.ChangeState(false);
             //_model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
+
         private void UpdateButtonPage()
         {
             Bitmap bitmap = new Bitmap(_panel.Width, _panel.Height);
@@ -183,6 +179,7 @@ namespace HW2
             _buttonPage1.BackgroundImage = bitmap;
             _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
         }
+
         private void Delete_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -191,5 +188,4 @@ namespace HW2
             }
         }
     }
-    
 }
