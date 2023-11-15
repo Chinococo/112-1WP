@@ -47,6 +47,7 @@ namespace HW2
             this._toolStripEllipseButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripLineButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripRectangleButton = new System.Windows.Forms.ToolStripButton();
+            this._toolStripCursorsButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -196,7 +197,8 @@ namespace HW2
             this._toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._toolStripEllipseButton,
             this._toolStripLineButton,
-            this._toolStripRectangleButton});
+            this._toolStripRectangleButton,
+            this._toolStripCursorsButton});
             this._toolStrip1.Location = new System.Drawing.Point(0, 24);
             this._toolStrip1.Name = "_toolStrip1";
             this._toolStrip1.Size = new System.Drawing.Size(835, 31);
@@ -233,6 +235,16 @@ namespace HW2
             this._toolStripRectangleButton.Text = "toolStripButton3";
             this._toolStripRectangleButton.Click += new System.EventHandler(this.ToolStripRectangleButtonClick);
             // 
+            // _toolStripCursorsButton
+            // 
+            this._toolStripCursorsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripCursorsButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripCursorsButton.Image")));
+            this._toolStripCursorsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripCursorsButton.Name = "_toolStripCursorsButton";
+            this._toolStripCursorsButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripCursorsButton.Text = "toolStripButton1";
+            this._toolStripCursorsButton.Click += new System.EventHandler(this._toolStripCursorsButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -246,7 +258,6 @@ namespace HW2
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
-            //this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
             this._groupBox.ResumeLayout(false);
             this._groupBox2.ResumeLayout(false);
@@ -278,6 +289,7 @@ namespace HW2
         private System.Windows.Forms.ToolStripButton _toolStripEllipseButton;
         private System.Windows.Forms.ToolStripButton _toolStripLineButton;
         private System.Windows.Forms.ToolStripButton _toolStripRectangleButton;
+        private System.Windows.Forms.ToolStripButton _toolStripCursorsButton;
     }
 }
 

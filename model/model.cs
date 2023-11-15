@@ -9,6 +9,7 @@ public class Model
     ToolStripButton _toolStripEllipseButton;
     ToolStripButton _toolStripLineButton;
     ToolStripButton _toolStripRectangleButton;
+    ToolStripButton _toolStripCursorsButton;
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
@@ -23,7 +24,7 @@ public class Model
     double _firstPointY;
     bool _isPressed = false;
     Shape _hint;
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
+    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, List<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,ToolStripButton buttoncursors)
     {
         this._dataDisplayGrid = datagrid;
         this._shapeCombobox = combobox;
@@ -32,6 +33,7 @@ public class Model
         this._toolStripEllipseButton = buttonellipse;
         this._toolStripLineButton = buttonline;
         this._toolStripRectangleButton = buttonrectangle;
+        this._toolStripCursorsButton = buttoncursors;
     }
     //新增DataGrid資料
     public void AddNewLine()
@@ -62,14 +64,14 @@ public class Model
 
     public void PressedPointer(double x, double y)
     {
-
-        if (x > 0 && y > 0 && _hint != null)
-        {
-            _firstPointX = x;
-            _firstPointY = y;
-            _hint.SetPoint1(_firstPointX, _firstPointY);
-            _isPressed = true;
-        }
+        if(_hint!=null)
+            if (x > 0 && y > 0 && _hint != null)
+            {
+                _firstPointX = x;
+                _firstPointY = y;
+                _hint.SetPoint1(_firstPointX, _firstPointY);
+                _isPressed = true;
+            }
     }
 
     //滑鼠移動事件
@@ -78,8 +80,12 @@ public class Model
     {
         if (_isPressed)
         {
-            _hint.SetPoint2(x, y);
-            NotifyModelChanged();
+            if (_hint != null)
+            {
+                _hint.SetPoint2(x, y);
+                NotifyModelChanged();
+            }
+                
         }
     }
 
@@ -96,20 +102,22 @@ public class Model
                 hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
+                _shapeList.Add(hint);
             }
             else if (_toolStripLineButton.Checked)
             {
                 hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
-
+                _shapeList.Add(hint);
             }
-            else
+            else if(_toolStripRectangleButton.Checked)
             {
                 hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
+                _shapeList.Add(hint);
             }
-            _shapeList.Add(hint);
             NotifyModelChanged();
+            _hint = null;
         }
     }
 

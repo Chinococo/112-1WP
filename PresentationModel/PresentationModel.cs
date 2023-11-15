@@ -13,12 +13,14 @@ namespace HW2.PresentationModel
         ToolStripButton _toolStripEllipseButton;
         ToolStripButton _toolStripLineButton;
         ToolStripButton _toolStripRectangleButton;
-        public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle)
+        ToolStripButton _toolStripCursorsButton;
+        public PresentationModel(Model model, Control canvas, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors)
         {
             this._model = model;
             this._toolStripEllipseButton = buttonellipse;
             this._toolStripLineButton = buttonline;
             this._toolStripRectangleButton = buttonrectangle;
+            this._toolStripCursorsButton = buttoncursors;
         }
         // Draw事件
         public void Draw(System.Drawing.Graphics graphics)
@@ -36,6 +38,7 @@ namespace HW2.PresentationModel
             _toolStripEllipseButton.Checked = false;
             _toolStripLineButton.Checked = false;
             _toolStripRectangleButton.Checked = false;
+            _toolStripCursorsButton.Checked = false;
             temp.Checked = true;
             
         }

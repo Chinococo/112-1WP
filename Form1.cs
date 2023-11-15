@@ -23,7 +23,7 @@ namespace HW2
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton);
+            _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton,_toolStripCursorsButton);
             _view = new View(_model, _displayDataGrid, _shapeList);
             // prepare canvas
             //
@@ -40,7 +40,7 @@ namespace HW2
             //
             // prepare presentation model and model
             //
-            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton);
+            _presentationModel = new PresentationModel.PresentationModel(_model,_canvas, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton,_toolStripCursorsButton);
             _model._modelChanged += HandleModelChanged;
         }
         //新增按鈕觸發事件
@@ -135,7 +135,10 @@ namespace HW2
         private void DrawingAreaMouseEnter(object sender, EventArgs e)
         {
             // 鼠标进入绘图区域时，设置鼠标光标为十字形
-            this.Cursor = Cursors.Cross;
+            if(_toolStripRectangleButton.Checked||
+                _toolStripEllipseButton.Checked||
+                _toolStripLineButton.Checked)
+                this.Cursor = Cursors.Cross;
         }
 
         //離開畫面事件
@@ -145,5 +148,10 @@ namespace HW2
             this.Cursor = Cursors.Default;
         }
 
+        private void _toolStripCursorsButton_Click(object sender, EventArgs e)
+        {
+            _presentationModel.UpdateToolStripButtonCheck(_toolStripCursorsButton);
+            //_model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+        }
     }    
 }
