@@ -11,7 +11,27 @@ public class Shape : Shapes
     {
 
     }
-
+    public string shape
+    {
+        get
+        {
+            return this._shapeName;
+        }
+    }
+    public string delete
+    {
+        get
+        {
+            return "刪除";
+        }
+    }
+    public string information
+    {
+        get
+        {
+            return (String) GetInfo();
+        }
+    }
     //拿到目前這個形狀的名子
     public string GetShapeName()
     {
@@ -25,7 +45,7 @@ public class Shape : Shapes
         return $"({_x1},{_y1}),({_x2},{_y2})";
     }
     //Draw方法 等待覆蓋
-    public virtual void Draw(IGraphics graphics)
+    public virtual void Draw(IGraphics graphics, bool border=false)
     {
         throw new NotImplementedException();
     }
@@ -44,5 +64,34 @@ public class Shape : Shapes
     {
         this._x1 = x;
         this._y1 = y;
+    }
+    public double GetX1()
+    {
+        return _x1;
+    }
+
+    // Get the Y1 coordinate
+    public double GetY1()
+    {
+        return _y1;
+    }
+
+    // Get the X2 coordinate
+    public double GetX2()
+    {
+        return _x2;
+    }
+
+    // Get the Y2 coordinate
+    public double GetY2()
+    {
+        return _y2;
+    }
+    public void Move(double detX,double detY)
+    {
+        this._x2 += detX;
+        this._y2 += detY;
+        this._x1 += detX;
+        this._y1 += detY;
     }
 }

@@ -22,6 +22,7 @@ public class View
     //更新畫面
     public void UpdateView()
     {
+        /*
         _dataDisplayGrid.Rows.Clear();
         foreach (Shape shape in _shapeList)
         {
@@ -31,5 +32,6 @@ public class View
             dataGridViewRow.Cells[SHAPECOLUMN].Value = shape.GetShapeName();
             dataGridViewRow.Cells[INFOCOLUMN].Value = shape.GetInfo();
         }
+        */
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="interface\IState.cs" />
     <Compile Include="Object\Ellipse.cs" />
     <Compile Include="Object\Factory.cs" />
     <Compile Include="Form1.cs">

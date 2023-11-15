@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 public class Ellipse : Shape
 {
     private const string NAME = "橢圓";
-    private const int MIN_X = 196;
-    private const int MAX_X = 484;
-    private const int MIN_Y = 57;
-    private const int MAX_Y = 515;
+    private const int MIN_X = 0;
+    private const int MAX_X = 300;
+    private const int MIN_Y = 0;
+    private const int MAX_Y = 300;
     public Ellipse() : base(NAME)
     {
         Random random = new Random();
@@ -25,12 +25,16 @@ public class Ellipse : Shape
 
     }
     //複寫Draw方法
-    public override void Draw(IGraphics graphics)
+    public override void Draw(IGraphics graphics,bool border)
     {
         double width = Math.Abs(_x2 - _x1);
         double height = Math.Abs(_y2 - _y1);
         double left = Math.Min(_x1, _x2);
         double top = Math.Min(_y1, _y2);
         graphics.DrawEllipse(left, top, width, height);
+        if (border)
+        {
+            graphics.DrawBorder(left, top, width, height);
+        }
     }
 }

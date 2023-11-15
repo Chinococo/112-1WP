@@ -1,4 +1,5 @@
 ﻿using HW2;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -16,6 +17,8 @@ public class Model
     private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
+    private double _lastClickX;
+    private double _lastClickY;
     private BindingList<Shape> _shapeList;
     private const string ENLINE = "Line";
     private const string ENRECTANGLE = "Rectangle"; 
@@ -27,6 +30,8 @@ public class Model
     double _firstPointX;
     double _firstPointY;
     bool _isPressed = false;
+    bool _isSelect = false;
+    int _selectIndex = -1;
     Shape _hint;
     public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,ToolStripButton buttoncursors, Button buttonPage1)
     {
@@ -71,7 +76,9 @@ public class Model
 
     public void PressedPointer(double x, double y)
     {
-        if(_hint!=null)
+        _lastClickX = x;
+        _lastClickY = y;
+        if (_hint != null) {
             if (x > 0 && y > 0 && _hint != null)
             {
                 _firstPointX = x;
@@ -79,6 +86,26 @@ public class Model
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _isPressed = true;
             }
+        }
+        else if (_toolStripCursorsButton.Checked)
+        {
+                _selectIndex = -1;
+            _isSelect = false;
+                // Iterate through the shapes in reverse order
+                for (int i = _shapeList.Count - 1; i >= 0; i--)
+                {
+                    Shape shape = _shapeList[i];
+
+                    // Check if the clicked coordinates fall within the bounding box of the shape
+                    if (IsPointWithinBoundingBox(x, y, shape))
+                    {
+                        _selectIndex = i;
+                        _isSelect = true;
+                        break; // Exit the loop after deleting the first matching shape
+                    }
+                }
+            NotifyModelChanged();
+        }
     }
 
     //滑鼠移動事件
@@ -91,8 +118,14 @@ public class Model
             {
                 _hint.SetPoint2(x, y);
                 NotifyModelChanged();
-            }
-                
+            }      
+        }
+        else if (_isSelect&&_selectIndex >= 0)
+        {
+            _shapeList[_selectIndex].Move(x - _lastClickX, y - _lastClickY);
+            _lastClickX = x;
+            _lastClickY = y;
+            NotifyModelChanged();
         }
     }
 
@@ -100,6 +133,7 @@ public class Model
 
     public void ReleasedPointer(double x, double y)
     {
+        _isSelect = false;
         if (_isPressed)
         {
             Shape hint;
@@ -149,8 +183,13 @@ public class Model
     public void Draw(IGraphics graphics)
     {
         graphics.ClearAll();
+        int index = 0; // start with the first shape
         foreach (Shape shape in _shapeList)
-            shape.Draw(graphics);
+        {
+            shape.Draw(graphics, index == _selectIndex);
+            index++;
+        }
+            
         if (_isPressed)
             _hint.Draw(graphics);
     }
@@ -165,5 +204,58 @@ public class Model
             _hint = _factory.CreateShape(ENLINE);
         else
             _hint = _factory.CreateShape(ENRECTANGLE);
+    }
+    private bool IsPointWithinBoundingBox(double x, double y, Shape shape)
+    {
+        // Check if the clicked coordinates fall within the bounding box of the shape
+        double minX = Math.Min(shape.GetX1(), shape.GetX2());
+        double minY = Math.Min(shape.GetY1(), shape.GetY2());
+        double maxX = Math.Max(shape.GetX1(), shape.GetX2());
+        double maxY = Math.Max(shape.GetY1(), shape.GetY2());
+
+        return (x >= minX && x <= maxX && y >= minY && y <= maxY);
+    }
+    public void btnDelete_Click()
+    {
+        // Your delete logic goes here
+        // For example, you might want to delete the selected shape from your _shapeList
+
+        // Assuming _selectedIndex is the index of the shape you want to delete
+        if (_selectIndex >= 0 && _selectIndex < _shapeList.Count)
+        {
+            _shapeList.RemoveAt(_selectIndex);
+        }
+        NotifyModelChanged();
+    }
+    public void ClearState()
+    {
+        this._selectIndex = -1;
+        this._isPressed = false;
+        this._isSelect = false;
+    }
+    public class PointState : IState
+    {
+        public void MouseDown(int x, int y)
+        {
+            Console.WriteLine($"PointState: MouseDown at ({x}, {y})");
+        }
+
+        public void MouseMove(int x, int y)
+        {
+            Console.WriteLine($"PointState: MouseMove to ({x}, {y})");
+        }
+    }
+
+    public class DrawingState : IState
+    {
+        public void MouseDown(int x, int y)
+        {
+            Console.WriteLine($"DrawingState: MouseDown at ({x}, {y})");
+        }
+
+        public void MouseMove(int x, int y)
+        {
+            Console.WriteLine($"DrawingState: MouseMove to ({x}, {y})");
+        }
     }
 }

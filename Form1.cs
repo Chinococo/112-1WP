@@ -25,6 +25,9 @@ namespace HW2
             _factory = new Factory();
             _model = new Model( _displayDataGrid, _shapeCombobox, _factory, _shapeList,_toolStripEllipseButton,_toolStripLineButton,_toolStripRectangleButton,_toolStripCursorsButton,_buttonPage1);
             _view = new View(_model, _displayDataGrid, _shapeList);
+            _displayDataGrid.DataSource = _shapeList;
+            this.KeyPreview = true;
+            this.KeyDown += Delete_KeyDown;
             // prepare canvas
             //
             /*
@@ -66,7 +69,7 @@ namespace HW2
         //DataGrid按鈕觸發處理事件
         private void DisplayDataGridCellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0) // 请替换 deleteColumnIndex 为“删除”按钮所在的列索引
+            if (e.ColumnIndex == 1) // 请替换 deleteColumnIndex 为“删除”按钮所在的列索引
             {
                 _model.DeleteLineByIndex(e.RowIndex);
                 _view.UpdateView();
@@ -125,6 +128,7 @@ namespace HW2
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
+            _model.ClearState();
         }
 
         //按下toolstrip按鈕事件
@@ -133,6 +137,7 @@ namespace HW2
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(_toolStripLineButton);
+            _model.ClearState();
         }
 
         //按下toolstrip按鈕事件
@@ -141,6 +146,7 @@ namespace HW2
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+            _model.ClearState();
         }
 
         //光標便十字事件
@@ -163,6 +169,7 @@ namespace HW2
         private void _toolStripCursorsButton_Click(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripCursorsButton);
+            _model.ClearState();
             //_model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
         private void UpdateButtonPage()
@@ -172,6 +179,13 @@ namespace HW2
             _buttonPage1.BackgroundImage = bitmap;
             _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
         }
-
-    }    
+        private void Delete_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                _model.btnDelete_Click();
+            }
+        }
+    }
+    
 }

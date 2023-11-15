@@ -221,6 +221,7 @@ namespace HW2
             // _deleteCloumn
             // 
             this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this._deleteCloumn.DataPropertyName = "delete";
             this._deleteCloumn.HeaderText = "刪除";
             this._deleteCloumn.MinimumWidth = 8;
             this._deleteCloumn.Name = "_deleteCloumn";
@@ -229,6 +230,7 @@ namespace HW2
             // 
             // _shapeCloumn
             // 
+            this._shapeCloumn.DataPropertyName = "shape";
             this._shapeCloumn.HeaderText = "形狀";
             this._shapeCloumn.MinimumWidth = 8;
             this._shapeCloumn.Name = "_shapeCloumn";
@@ -237,6 +239,7 @@ namespace HW2
             // 
             // _infoCloumn
             // 
+            this._infoCloumn.DataPropertyName = "information";
             this._infoCloumn.HeaderText = "資訊";
             this._infoCloumn.MinimumWidth = 8;
             this._infoCloumn.Name = "_infoCloumn";

@@ -10,29 +10,19 @@ namespace HW2.PresentationModel
     class WindowsFormsGraphicsAdaptor : IGraphics
     {
         Graphics _graphics;
-        private Bitmap _bitmap;
         public WindowsFormsGraphicsAdaptor(Graphics graphics)
         {
             this._graphics = graphics;
-            this._bitmap = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
+            //this._bitmap = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
         }
         //清除整個畫面
         public void ClearAll()
         {
-            // Clear the bitmap
-            using (Graphics g = Graphics.FromImage(_bitmap))
-            {
-                g.Clear(Color.White); // You can choose any background color
-            }
         }
 
         //畫線
         public void DrawLine(double x1, double y1, double x2, double y2)
         {
-            using (Graphics g = Graphics.FromImage(_bitmap))
-            {
-                g.DrawLine(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
-            }
             _graphics.DrawLine(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
@@ -40,10 +30,6 @@ namespace HW2.PresentationModel
 
         void IGraphics.DrawEllipse(double x1, double y1, double x2, double y2)
         {
-            using (Graphics g = Graphics.FromImage(_bitmap))
-            {
-                g.DrawEllipse(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
-            }
             _graphics.DrawEllipse(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
@@ -51,15 +37,11 @@ namespace HW2.PresentationModel
 
         void IGraphics.DrawRectangle(double x1, double y1, double x2, double y2)
         {
-            using (Graphics g = Graphics.FromImage(_bitmap))
-            {
-                g.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
-            }
             _graphics.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
-        Bitmap IGraphics.GetImage()
+        void IGraphics.DrawBorder(double x1, double y1, double x2, double y2)
         {
-            return _bitmap;
+            _graphics.DrawRectangle(Pens.Red, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
     }
