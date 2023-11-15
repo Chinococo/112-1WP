@@ -82,6 +82,7 @@ namespace HW2
         {
             _model.ReleasedPointer(e.X, e.Y);
             _view.UpdateView();
+            this.Cursor = Cursors.Default;
         }
 
         //Canvas被移動事件
@@ -142,5 +143,6 @@ namespace HW2
             // 鼠标离开绘图区域时，恢复默认光标
             this.Cursor = Cursors.Default;
         }
+
     }    
 }
