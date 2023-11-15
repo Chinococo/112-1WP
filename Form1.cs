@@ -129,6 +129,7 @@ namespace HW2
             _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.ClearState();
+            _model.ChangeState(true);
         }
 
         //按下toolstrip按鈕事件
@@ -138,6 +139,7 @@ namespace HW2
             _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.ClearState();
+            _model.ChangeState(true);
         }
 
         //按下toolstrip按鈕事件
@@ -147,6 +149,7 @@ namespace HW2
             _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.ClearState();
+            _model.ChangeState(true);
         }
 
         //光標便十字事件
@@ -170,6 +173,7 @@ namespace HW2
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripCursorsButton);
             _model.ClearState();
+            _model.ChangeState(false);
             //_model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
         }
         private void UpdateButtonPage()

@@ -33,6 +33,7 @@ public class Model
     bool _isSelect = false;
     int _selectIndex = -1;
     Shape _hint;
+    IState state;
     public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle,ToolStripButton buttoncursors, Button buttonPage1)
     {
         this._dataDisplayGrid = datagrid;
@@ -44,8 +45,6 @@ public class Model
         this._toolStripRectangleButton = buttonrectangle;
         this._toolStripCursorsButton = buttoncursors;
         this._buttonPage1 = buttonPage1;
-
-
     }
     //新增DataGrid資料
     public void AddNewLine()
@@ -76,8 +75,7 @@ public class Model
 
     public void PressedPointer(double x, double y)
     {
-        _lastClickX = x;
-        _lastClickY = y;
+
         if (_hint != null) {
             if (x > 0 && y > 0 && _hint != null)
             {
@@ -89,7 +87,9 @@ public class Model
         }
         else if (_toolStripCursorsButton.Checked)
         {
-                _selectIndex = -1;
+            _lastClickX = x;
+            _lastClickY = y;
+            _selectIndex = -1;
             _isSelect = false;
                 // Iterate through the shapes in reverse order
                 for (int i = _shapeList.Count - 1; i >= 0; i--)
@@ -232,6 +232,13 @@ public class Model
         this._selectIndex = -1;
         this._isPressed = false;
         this._isSelect = false;
+    }
+    public void ChangeState(bool Drawing)
+    {
+        if (Drawing)
+            state = new DrawingState();
+        else
+            state = new PointState();
     }
     public class PointState : IState
     {
