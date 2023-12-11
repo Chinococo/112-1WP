@@ -1,6 +1,6 @@
 ﻿// 引用必要的命名空間
-using HW2;
-using HW2.Object;
+using powerpoint;
+using powerpoint.Object;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;

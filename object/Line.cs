@@ -1,4 +1,4 @@
-﻿using HW2;
+﻿using powerpoint;
 using System;
 
 public class Line : Shape

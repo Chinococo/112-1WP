@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace HW2.PresentationModel
+namespace powerpoint.PresentationModel
 {
     internal class PresentationModel
     {

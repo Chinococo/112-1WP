@@ -1,4 +1,4 @@
-﻿namespace HW2
+﻿namespace powerpoint
 {
     using System.Windows.Forms;
 

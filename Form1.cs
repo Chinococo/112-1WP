@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace HW2
+namespace powerpoint
 {
     public partial class Form1 : Form
     {

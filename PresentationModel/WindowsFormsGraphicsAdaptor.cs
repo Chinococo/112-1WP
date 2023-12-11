@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-namespace HW2.PresentationModel
+namespace powerpoint.PresentationModel
 {
     class WindowsFormsGraphicsAdaptor : IGraphics
     {

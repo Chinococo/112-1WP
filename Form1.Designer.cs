@@ -1,5 +1,5 @@
 ﻿
-namespace HW2
+namespace powerpoint
 {
     partial class Form1
     {
@@ -31,6 +31,9 @@ namespace HW2
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this._displayDataGrid = new System.Windows.Forms.DataGridView();
+            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._insertButton = new System.Windows.Forms.Button();
             this._shapeCombobox = new System.Windows.Forms.ComboBox();
             this._groupBox = new System.Windows.Forms.GroupBox();
@@ -45,9 +48,6 @@ namespace HW2
             this._toolStripRectangleButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripCursorsButton = new System.Windows.Forms.ToolStripButton();
             this._panel = new System.Windows.Forms.Panel();
-            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -73,6 +73,34 @@ namespace HW2
             this._displayDataGrid.Size = new System.Drawing.Size(344, 379);
             this._displayDataGrid.TabIndex = 0;
             this._displayDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DisplayDataGridCellContentClick);
+            // 
+            // _deleteCloumn
+            // 
+            this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this._deleteCloumn.DataPropertyName = "delete";
+            this._deleteCloumn.HeaderText = "刪除";
+            this._deleteCloumn.MinimumWidth = 8;
+            this._deleteCloumn.Name = "_deleteCloumn";
+            this._deleteCloumn.ReadOnly = true;
+            this._deleteCloumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // _shapeCloumn
+            // 
+            this._shapeCloumn.DataPropertyName = "shape";
+            this._shapeCloumn.HeaderText = "形狀";
+            this._shapeCloumn.MinimumWidth = 8;
+            this._shapeCloumn.Name = "_shapeCloumn";
+            this._shapeCloumn.ReadOnly = true;
+            this._shapeCloumn.Width = 40;
+            // 
+            // _infoCloumn
+            // 
+            this._infoCloumn.DataPropertyName = "information";
+            this._infoCloumn.HeaderText = "資訊";
+            this._infoCloumn.MinimumWidth = 8;
+            this._infoCloumn.Name = "_infoCloumn";
+            this._infoCloumn.ReadOnly = true;
+            this._infoCloumn.Width = 150;
             // 
             // _insertButton
             // 
@@ -218,34 +246,6 @@ namespace HW2
             this._panel.Size = new System.Drawing.Size(362, 461);
             this._panel.TabIndex = 7;
             // 
-            // _deleteCloumn
-            // 
-            this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this._deleteCloumn.DataPropertyName = "delete";
-            this._deleteCloumn.HeaderText = "刪除";
-            this._deleteCloumn.MinimumWidth = 8;
-            this._deleteCloumn.Name = "_deleteCloumn";
-            this._deleteCloumn.ReadOnly = true;
-            this._deleteCloumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // _shapeCloumn
-            // 
-            this._shapeCloumn.DataPropertyName = "shape";
-            this._shapeCloumn.HeaderText = "形狀";
-            this._shapeCloumn.MinimumWidth = 8;
-            this._shapeCloumn.Name = "_shapeCloumn";
-            this._shapeCloumn.ReadOnly = true;
-            this._shapeCloumn.Width = 40;
-            // 
-            // _infoCloumn
-            // 
-            this._infoCloumn.DataPropertyName = "information";
-            this._infoCloumn.HeaderText = "資訊";
-            this._infoCloumn.MinimumWidth = 8;
-            this._infoCloumn.Name = "_infoCloumn";
-            this._infoCloumn.ReadOnly = true;
-            this._infoCloumn.Width = 150;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -260,6 +260,7 @@ namespace HW2
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
+            //this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
             this._groupBox.ResumeLayout(false);
             this._groupBox2.ResumeLayout(false);

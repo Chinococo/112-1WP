@@ -1,4 +1,4 @@
-﻿namespace HW2
+﻿namespace powerpoint
 {
     /// <summary>
     /// Interface defining the contract for a state in the context of user interactions.
