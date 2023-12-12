@@ -18,21 +18,21 @@
         }
 
         // Handles the mouse down event by triggering pointer press in the associated model.
-        public void MouseDown(double pos_x, double y)
+        public void MouseDown(double pressX, double pressY)
         {
-            this._model.PressPointerDrawing(pos_x, y);
+            this._model.PressPointerDrawing(pressX, pressY);
         }
 
         // Handles the mouse move event by triggering pointer movement in the associated model.
-        public void MouseMove(double x, double y)
+        public void MouseMove(double pressX, double pressY)
         {
-            this._model.MovedPointerDrawing(x, y);
+            this._model.MovedPointerDrawing(pressX, pressY);
         }
 
         // Handles the released pointer event by triggering pointer release in the associated model.
-        public void ReleasedPointer(double x, double y)
+        public void ReleasedPointer(double pressX, double pressY)
         {
-            this._model.ReleasedPointerDrawing(x, y);
+            this._model.ReleasedPointerDrawing(pressX, pressY);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace PowerPoint
         private DoubleBufferedPanel _doubleBufferedPanel = new DoubleBufferedPanel();
         private const string SYMBOL_LINE = "線";
         private const string SYMBOL_RECTANGLE = "矩形";
-        private const string SYMBOL_ELLIPS = "橢圓";
+        private const string SYMBOL_ELLIPSE = "橢圓";
 
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
@@ -57,7 +57,7 @@ namespace PowerPoint
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            _model.AddNewLine(_shapeCombobox.Text);
+            _model.AddNewLine(_shapeComboBox.Text);
         }
 
         // DataGrid 按鈕觸發處理事件
@@ -114,7 +114,7 @@ namespace PowerPoint
         private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
             UpdateToolStripButtonCheck(_toolStripEllipseButton);
-            _model.UpdateToolStripButtonCheck(SYMBOL_ELLIPS);
+            _model.UpdateToolStripButtonCheck(SYMBOL_ELLIPSE);
             _model.ClearState();
             _model.ChangeState(true);
         }
@@ -176,7 +176,7 @@ namespace PowerPoint
         {
             if (e.KeyCode == Keys.Delete)
             {
-                _model.DeleteBtnClick();
+                _model.DeleteButtonClick();
             }
         }
 

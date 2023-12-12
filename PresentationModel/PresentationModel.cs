@@ -7,6 +7,7 @@ namespace PowerPoint.PresentationModel
     {
         private Model _model;
         private Bitmap _bitmap;
+        private const string IMAGE = "image.png";
 
         public PresentationModel(Model model)
         {
@@ -21,9 +22,10 @@ namespace PowerPoint.PresentationModel
             // 因此，Adaptor不能重複使用，每次都要重新new
             _model.Draw(new WindowsFormsGraphicsAdaptor(graphics));
             Bitmap myBitmap = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
-            myBitmap.Save("image.png", System.Drawing.Imaging.ImageFormat.Png);
+            myBitmap.Save(IMAGE, System.Drawing.Imaging.ImageFormat.Png);
             _bitmap = myBitmap;
         }
+
         // 拿bitmap
         public Bitmap GetBitmap()
         {

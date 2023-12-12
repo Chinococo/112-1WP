@@ -2,7 +2,7 @@
 
 namespace PowerPoint.PresentationModel
 {
-    internal class WindowsFormsGraphicsAdaptor : IGraphics
+    internal class WindowsFormsGraphicsAdaptor : customGraphics
     {
         private Graphics _graphics;
 
@@ -25,20 +25,20 @@ namespace PowerPoint.PresentationModel
 
         //畫橢圓
 
-        void IGraphics.DrawEllipse(double x1, double y1, double x2, double y2)
+        void customGraphics.DrawEllipse(double x1, double y1, double x2, double y2)
         {
             _graphics.DrawEllipse(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
         //畫長方形
 
-        void IGraphics.DrawRectangle(double x1, double y1, double x2, double y2)
+        void customGraphics.DrawRectangle(double x1, double y1, double x2, double y2)
         {
             _graphics.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
         }
 
         //畫選擇邊框
-        void IGraphics.DrawBorder(double x1, double y1, double x2, double y2)
+        void customGraphics.DrawBorder(double x1, double y1, double x2, double y2)
         {
             _graphics.DrawRectangle(Pens.Red, (float)x1, (float)y1, (float)x2, (float)y2);
         }

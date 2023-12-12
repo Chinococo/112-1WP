@@ -19,31 +19,31 @@
         /// <summary>
         /// Handles the mouse down event when the user presses the mouse button.
         /// </summary>
-        /// <param name="x">The x-coordinate of the mouse position.</param>
-        /// <param name="y">The y-coordinate of the mouse position.</param>
-        public void MouseDown(double x, double y)
+        /// <param name="pressX">The x-coordinate of the mouse position.</param>
+        /// <param name="pressY">The y-coordinate of the mouse position.</param>
+        public void MouseDown(double pressX, double pressY)
         {
-            this._model.PressPointerPoint(x, y);
+            this._model.PressPointerPoint(pressX, pressY);
         }
 
         /// <summary>
         /// Handles the mouse move event when the user moves the mouse.
         /// </summary>
-        /// <param name="x">The x-coordinate of the mouse position.</param>
-        /// <param name="y">The y-coordinate of the mouse position.</param>
-        public void MouseMove(double x, double y)
+        /// <param name="pressX">The x-coordinate of the mouse position.</param>
+        /// <param name="pressY">The y-coordinate of the mouse position.</param>
+        public void MouseMove(double pressX, double pressY)
         {
-            this._model.MovedPointerPoint(x, y);
+            this._model.MovedPointerPoint(pressX, pressY);
         }
 
         /// <summary>
         /// Handles the released pointer event when the user releases the mouse button.
         /// </summary>
-        /// <param name="x">The x-coordinate of the mouse position.</param>
-        /// <param name="y">The y-coordinate of the mouse position.</param>
-        public void ReleasedPointer(double x, double y)
+        /// <param name="pressX">The x-coordinate of the mouse position.</param>
+        /// <param name="pressY">The y-coordinate of the mouse position.</param>
+        public void ReleasedPointer(double pressX, double pressY)
         {
-            this._model.ReleasedPointerPoint(x, y);
+            this._model.ReleasedPointerPoint(pressX, pressY);
         }
     }
 }

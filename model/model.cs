@@ -199,10 +199,10 @@ public class Model
     }
 
     // 滑鼠左鍵釋放事件處理（由 IState 接口實現）
-    public void ReleasedPointer(double x, double y)
+    public void ReleasedPointer(double pressX, double pressY)
     {
         if (_state != null)
-            _state.ReleasedPointer(x, y);
+            _state.ReleasedPointer(pressX, pressY);
     }
 
     // 清除所有形狀並解除按壓
@@ -222,7 +222,7 @@ public class Model
     }
 
     // 根據當前形狀類型繪製所有形狀
-    public void Draw(IGraphics graphics)
+    public void Draw(customGraphics graphics)
     {
         graphics.ClearAll();
         int index = 0; // 从第一个形状开始
@@ -271,7 +271,7 @@ public class Model
     }
 
     // 按鈕刪除 Click 事件處理
-    public void DeleteBtnClick()
+    public void DeleteButtonClick()
     {
         // 您的刪除邏輯在這裡執行
         // 例如，您可能想從 _shapeList 中刪除所選形狀
@@ -294,9 +294,9 @@ public class Model
     }
 
     // 切換繪製狀態
-    public void ChangeState(bool drawingstate)
+    public void ChangeState(bool drawingState)
     {
-        if (drawingstate)
+        if (drawingState)
             _state = new DrawingState(this);
         else
             _state = new PointState(this);

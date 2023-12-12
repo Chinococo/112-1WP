@@ -4,13 +4,14 @@ using System;
 // 定義 Shape 類，繼承自 Shapes 類
 public class Shape : Shapes
 {
+    private const string DELETE = "刪除";
     // 建構函式，初始化 Shape 對象的形狀名稱
-    public Shape(string shapename) : base(shapename)
+    public Shape(string shapeName) : base(shapeName)
     {
     }
 
     // 建構函式，初始化 Shape 對象的形狀名稱和座標
-    public Shape(string shapename, double x1, double y1, double x2, double y2) : base(shapename, x1, y1, x2, y2)
+    public Shape(string shapeName, double x1, double y1, double x2, double y2) : base(shapeName, x1, y1, x2, y2)
     {
     }
 
@@ -28,7 +29,7 @@ public class Shape : Shapes
     {
         get
         {
-            return "刪除";
+            return DELETE;
         }
     }
 
@@ -48,29 +49,29 @@ public class Shape : Shapes
     }
 
     // 取得形狀資訊的方法
-    public object GetInfo()
+    public string GetInfo()
     {
-        return $"({_x1},{_y1}),({_x2},{_y2})";
+        return string.Format("({0}, {1}), ({2}, {3})", _x1, _y1, _x2, _y2);
     }
 
     // Draw 方法，等待被覆寫
-    public virtual void Draw(IGraphics graphics, bool border = false)
+    public virtual void Draw(customGraphics graphics, bool border = false)
     {
         throw new NotImplementedException();
     }
 
     // 設定終點座標的方法
-    public void SetPoint2(double x, double y)
+    public void SetPoint2(double pressX, double pressY)
     {
-        this._x2 = x;
-        this._y2 = y;
+        this._x2 = pressX;
+        this._y2 = pressY;
     }
 
     // 設定起點座標的方法
-    public void SetPoint1(double x, double y)
+    public void SetPoint1(double pressX, double pressY)
     {
-        this._x1 = x;
-        this._y1 = y;
+        this._x1 = pressX;
+        this._y1 = pressY;
     }
 
     // 取得 X1 座標的方法
@@ -98,11 +99,11 @@ public class Shape : Shapes
     }
 
     // 移動形狀的方法
-    public void Move(double detX, double detY)
+    public void Move(double deltaX, double deltaY)
     {
-        this._x2 += detX;
-        this._y2 += detY;
-        this._x1 += detX;
-        this._y1 += detY;
+        this._x2 += deltaX;
+        this._y2 += deltaY;
+        this._x1 += deltaX;
+        this._y1 += deltaY;
     }
 }

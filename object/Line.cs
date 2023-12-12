@@ -23,7 +23,7 @@ public class Line : Shape
     }
 
     //複寫Draw方法
-    public override void Draw(IGraphics graphics, bool border)
+    public override void Draw(customGraphics graphics, bool border)
     {
         graphics.DrawLine(_x1, _y1, _x2, _y2);
         if (border)

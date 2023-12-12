@@ -2,27 +2,27 @@
 
 public class Factory
 {
-    private const string ENLINE = "Line";
-    private const string ENRECTANGLE = "Rectangle";
-    private const string ENELLIPS = "Ellipse";
-    private const string ENERROR = "Unsupported shape type";
+    private const string NAME_LINE = "Line";
+    private const string NAME_RECTANGLE = "Rectangle";
+    private const string NAME_ELLIPSE = "Ellipse";
+    private const string NAME_ERROR = "Unsupported shape type";
 
     //依照參數產出對應型態物件
     public Shape CreateShape(string shapeType)
     {
         switch (shapeType)
         {
-            case ENLINE:
+            case NAME_LINE:
                 return new Line();
 
-            case ENRECTANGLE:
+            case NAME_RECTANGLE:
                 return new Rectangle();
 
-            case ENELLIPS:
+            case NAME_ELLIPSE:
                 return new Ellipse();
 
             default:
-                throw new ArgumentException(ENERROR);
+                throw new ArgumentException(NAME_ERROR);
         }
     }
 
@@ -32,17 +32,17 @@ public class Factory
     {
         switch (shapeType)
         {
-            case ENLINE:
+            case NAME_LINE:
                 return new Line(x1, y1, x2, y2);
 
-            case ENRECTANGLE:
+            case NAME_RECTANGLE:
                 return new Rectangle(x1, y1, x2, y2);
 
-            case ENELLIPS:
+            case NAME_ELLIPSE:
                 return new Ellipse(x1, y1, x2, y2);
 
             default:
-                throw new ArgumentException(ENERROR);
+                throw new ArgumentException(NAME_ERROR);
         }
     }
 }

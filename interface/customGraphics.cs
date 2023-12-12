@@ -1,6 +1,6 @@
 ﻿namespace PowerPoint
 {
-    public interface IGraphics
+    public interface customGraphics
     {
         //清除整個畫面
         void ClearAll();

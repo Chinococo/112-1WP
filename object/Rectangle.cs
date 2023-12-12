@@ -23,7 +23,7 @@ public class Rectangle : Shape
     }
 
     //複寫Draw方法
-    public override void Draw(IGraphics graphics, bool border)
+    public override void Draw(customGraphics graphics, bool border)
     {
         double width = Math.Abs(_x2 - _x1);
         double height = Math.Abs(_y2 - _y1);

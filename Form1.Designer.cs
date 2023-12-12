@@ -31,11 +31,11 @@ namespace PowerPoint
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this._displayDataGrid = new System.Windows.Forms.DataGridView();
-            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._deleteColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._shapeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._infoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._insertButton = new System.Windows.Forms.Button();
-            this._shapeCombobox = new System.Windows.Forms.ComboBox();
+            this._shapeComboBox = new System.Windows.Forms.ComboBox();
             this._groupBox = new System.Windows.Forms.GroupBox();
             this._groupBox2 = new System.Windows.Forms.GroupBox();
             this._buttonPage1 = new System.Windows.Forms.Button();
@@ -60,9 +60,9 @@ namespace PowerPoint
             this._displayDataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this._displayDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._displayDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._deleteCloumn,
-            this._shapeCloumn,
-            this._infoCloumn});
+            this._deleteColumn,
+            this._shapeColumn,
+            this._infoColumn});
             this._displayDataGrid.Location = new System.Drawing.Point(6, 68);
             this._displayDataGrid.Name = "_displayDataGrid";
             this._displayDataGrid.ReadOnly = true;
@@ -75,31 +75,31 @@ namespace PowerPoint
             // 
             // _deleteCloumn
             // 
-            this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this._deleteCloumn.DataPropertyName = "delete";
-            this._deleteCloumn.HeaderText = "刪除";
-            this._deleteCloumn.MinimumWidth = 8;
-            this._deleteCloumn.Name = "_deleteCloumn";
-            this._deleteCloumn.ReadOnly = true;
-            this._deleteCloumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this._deleteColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this._deleteColumn.DataPropertyName = "delete";
+            this._deleteColumn.HeaderText = "刪除";
+            this._deleteColumn.MinimumWidth = 8;
+            this._deleteColumn.Name = "_deleteCloumn";
+            this._deleteColumn.ReadOnly = true;
+            this._deleteColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // _shapeCloumn
             // 
-            this._shapeCloumn.DataPropertyName = "shape";
-            this._shapeCloumn.HeaderText = "形狀";
-            this._shapeCloumn.MinimumWidth = 8;
-            this._shapeCloumn.Name = "_shapeCloumn";
-            this._shapeCloumn.ReadOnly = true;
-            this._shapeCloumn.Width = 40;
+            this._shapeColumn.DataPropertyName = "shape";
+            this._shapeColumn.HeaderText = "形狀";
+            this._shapeColumn.MinimumWidth = 8;
+            this._shapeColumn.Name = "_shapeCloumn";
+            this._shapeColumn.ReadOnly = true;
+            this._shapeColumn.Width = 40;
             // 
             // _infoCloumn
             // 
-            this._infoCloumn.DataPropertyName = "information";
-            this._infoCloumn.HeaderText = "資訊";
-            this._infoCloumn.MinimumWidth = 8;
-            this._infoCloumn.Name = "_infoCloumn";
-            this._infoCloumn.ReadOnly = true;
-            this._infoCloumn.Width = 150;
+            this._infoColumn.DataPropertyName = "information";
+            this._infoColumn.HeaderText = "資訊";
+            this._infoColumn.MinimumWidth = 8;
+            this._infoColumn.Name = "_infoCloumn";
+            this._infoColumn.ReadOnly = true;
+            this._infoColumn.Width = 150;
             // 
             // _insertButton
             // 
@@ -113,25 +113,25 @@ namespace PowerPoint
             // 
             // _shapeCombobox
             // 
-            this._shapeCombobox.AutoCompleteCustomSource.AddRange(new string[] {
+            this._shapeComboBox.AutoCompleteCustomSource.AddRange(new string[] {
             "橢圓",
             "線",
             "矩形"});
-            this._shapeCombobox.FormattingEnabled = true;
-            this._shapeCombobox.Items.AddRange(new object[] {
+            this._shapeComboBox.FormattingEnabled = true;
+            this._shapeComboBox.Items.AddRange(new object[] {
             "線",
             "矩形",
             "橢圓"});
-            this._shapeCombobox.Location = new System.Drawing.Point(105, 32);
-            this._shapeCombobox.Name = "_shapeCombobox";
-            this._shapeCombobox.Size = new System.Drawing.Size(89, 20);
-            this._shapeCombobox.TabIndex = 2;
+            this._shapeComboBox.Location = new System.Drawing.Point(105, 32);
+            this._shapeComboBox.Name = "_shapeCombobox";
+            this._shapeComboBox.Size = new System.Drawing.Size(89, 20);
+            this._shapeComboBox.TabIndex = 2;
             // 
             // _groupBox
             // 
             this._groupBox.Controls.Add(this._insertButton);
             this._groupBox.Controls.Add(this._displayDataGrid);
-            this._groupBox.Controls.Add(this._shapeCombobox);
+            this._groupBox.Controls.Add(this._shapeComboBox);
             this._groupBox.Location = new System.Drawing.Point(484, 59);
             this._groupBox.Name = "_groupBox";
             this._groupBox.Size = new System.Drawing.Size(351, 447);
@@ -272,15 +272,15 @@ namespace PowerPoint
         private System.Windows.Forms.MenuStrip _menuStrip;
         private System.Windows.Forms.ToolStripMenuItem _toolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _aboutToolStripMenuItem;
-        private System.Windows.Forms.ComboBox _shapeCombobox;
+        private System.Windows.Forms.ComboBox _shapeComboBox;
         private System.Windows.Forms.ToolStrip _toolStrip1;
         private System.Windows.Forms.ToolStripButton _toolStripEllipseButton;
         private System.Windows.Forms.ToolStripButton _toolStripLineButton;
         private System.Windows.Forms.ToolStripButton _toolStripRectangleButton;
         private System.Windows.Forms.ToolStripButton _toolStripCursorsButton;
-        private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
+        private System.Windows.Forms.DataGridViewButtonColumn _deleteColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _shapeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _infoColumn;
     }
 }
 

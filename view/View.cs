@@ -5,13 +5,13 @@ public class View
 {
     private Model _model;
     private const string DELETE = "刪除";
-    private const string DELETECOLUMN = "_deleteCloumn";
-    private const string SHAPECOLUMN = "_shapeCloumn";
-    private const string INFOCOLUMN = "_infoCloumn";
+    private const string DELETE_COLUMN = "_deleteCloumn";
+    private const string SHAPE_COLUMN = "_shapeCloumn";
+    private const string INFO_COLUMN = "_infoCloumn";
 
-    public View(Model prmaModel)
+    public View(Model parameterModel)
     {
-        this._model = prmaModel;
+        this._model = parameterModel;
     }
 
     //更新畫面
