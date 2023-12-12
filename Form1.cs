@@ -13,9 +13,9 @@ namespace PowerPoint
         private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
         private DoubleBufferedPanel _doubleBufferedPanel = new DoubleBufferedPanel();
-        private const string LINE = "線";
-        private const string RECTANGLE = "矩形";
-        private const string ELLIPS = "橢圓";
+        private const string SYMBOL_LINE = "線";
+        private const string SYMBOL_RECTANGLE = "矩形";
+        private const string SYMBOL_ELLIPS = "橢圓";
 
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
@@ -114,7 +114,7 @@ namespace PowerPoint
         private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
             UpdateToolStripButtonCheck(_toolStripEllipseButton);
-            _model.UpdateToolStripButtonCheck(ELLIPS);
+            _model.UpdateToolStripButtonCheck(SYMBOL_ELLIPS);
             _model.ClearState();
             _model.ChangeState(true);
         }
@@ -123,7 +123,7 @@ namespace PowerPoint
         private void ToolStripLineButtonClick(object sender, EventArgs e)
         {
             UpdateToolStripButtonCheck(_toolStripLineButton);
-            _model.UpdateToolStripButtonCheck(LINE);
+            _model.UpdateToolStripButtonCheck(SYMBOL_LINE);
             _model.ClearState();
             _model.ChangeState(true);
         }
@@ -132,7 +132,7 @@ namespace PowerPoint
         private void ToolStripRectangleButtonClick(object sender, EventArgs e)
         {
             UpdateToolStripButtonCheck(_toolStripRectangleButton);
-            _model.UpdateToolStripButtonCheck(RECTANGLE);
+            _model.UpdateToolStripButtonCheck(SYMBOL_RECTANGLE);
             _model.ClearState();
             _model.ChangeState(true);
         }

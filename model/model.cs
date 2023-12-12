@@ -78,14 +78,14 @@ public class Model
     }
 
     // 滑鼠左鍵按下事件處理
-    public void PressPointerDrawing(double x, double y)
+    public void PressPointerDrawing(double pressX, double pressY)
     {
         if (_hint != null)
         {
-            if (x > 0 && y > 0 && _hint != null)
+            if (pressX > 0 && pressY > 0 && _hint != null)
             {
-                _firstPointX = x;
-                _firstPointY = y;
+                _firstPointX = pressX;
+                _firstPointY = pressY;
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _isPressed = true;
             }
@@ -93,10 +93,10 @@ public class Model
     }
 
     // 滑鼠左鍵按下事件處理（用於選擇點）
-    public void PressPointerPoint(double x, double y)
+    public void PressPointerPoint(double pressX, double pressY)
     {
-        _lastClickX = x;
-        _lastClickY = y;
+        _lastClickX = pressX;
+        _lastClickY = pressY;
         _selectIndex = -1;
         _isSelect = false;
         // 反向迭代形狀列表，找到包含鼠標點的形狀
@@ -105,7 +105,7 @@ public class Model
             Shape shape = _shapeList[i];
 
             // 檢查鼠標點是否在形狀的包圍框內
-            if (IsPointWithinBoundingBox(x, y, shape))
+            if (IsPointWithinBoundingBox(pressX, pressY, shape))
             {
                 _selectIndex = i;
                 _isSelect = true;
@@ -117,20 +117,20 @@ public class Model
     }
 
     // 滑鼠按下事件處理（由 IState 接口實現）
-    public void PressedPointer(double x, double y)
+    public void PressedPointer(double pressX, double pressY)
     {
         if (_state != null)
-            _state.MouseDown(x, y);
+            _state.MouseDown(pressX, pressY);
     }
 
     // 滑鼠移動事件處理（用於繪製形狀）
-    public void MovedPointerDrawing(double x, double y)
+    public void MovedPointerDrawing(double pressX, double pressY)
     {
         if (_isPressed)
         {
             if (_hint != null)
             {
-                _hint.SetPoint2(x, y);
+                _hint.SetPoint2(pressX, pressY);
                 // 通知模型發生變化
                 NotifyModelChanged();
             }
@@ -138,27 +138,27 @@ public class Model
     }
 
     // 滑鼠移動事件處理（用於移動形狀）
-    public void MovedPointerPoint(double x, double y)
+    public void MovedPointerPoint(double pressX, double pressY)
     {
         if (_isSelect && _selectIndex >= 0)
         {
-            _shapeList[_selectIndex].Move(x - _lastClickX, y - _lastClickY);
-            _lastClickX = x;
-            _lastClickY = y;
+            _shapeList[_selectIndex].Move(pressX - _lastClickX, pressY - _lastClickY);
+            _lastClickX = pressX;
+            _lastClickY = pressY;
             // 通知模型發生變化
             NotifyModelChanged();
         }
     }
 
     // 滑鼠移動事件處理（由 IState 接口實現）
-    public void MovedPointer(double x, double y)
+    public void MovedPointer(double pressX, double pressY)
     {
         if (_state != null)
-            _state.MouseMove(x, y);
+            _state.MouseMove(pressX, pressY);
     }
 
     // 滑鼠左鍵釋放事件處理（用於選擇點）
-    public void ReleasedPointerPoint(double x, double y)
+    public void ReleasedPointerPoint(double pressX, double pressY)
     {
         _isSelect = false;
         // 通知模型發生變化
@@ -166,7 +166,7 @@ public class Model
     }
 
     // 滑鼠左鍵釋放事件處理（用於繪製形狀）
-    public void ReleasedPointerDrawing(double x, double y)
+    public void ReleasedPointerDrawing(double pressX, double pressY)
     {
         _isSelect = false;
         if (_isPressed)
@@ -175,21 +175,21 @@ public class Model
             _isPressed = false;
             if (_toolStripEllipseButtonState)
             {
-                hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, x, y);
+                hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, pressX, pressY);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
-                _hint.SetPoint2(x, y);
+                _hint.SetPoint2(pressX, pressY);
                 _shapeList.Add(hint);
             }
             else if (_toolStripLineButtonState)
             {
-                hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
+                hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, pressX, pressY);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
-                _hint.SetPoint2(x, y);
+                _hint.SetPoint2(pressX, pressY);
                 _shapeList.Add(hint);
             }
             else if (_toolStripRectangleButtonState)
             {
-                hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
+                hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, pressX, pressY);
                 _shapeList.Add(hint);
             }
             // 通知模型發生變化
@@ -260,14 +260,14 @@ public class Model
     }
 
     // 檢查點是否在形狀的包圍框內
-    private bool IsPointWithinBoundingBox(double x, double y, Shape shape)
+    private bool IsPointWithinBoundingBox(double pressX, double pressY, Shape shape)
     {
         double minX = Math.Min(shape.GetX1(), shape.GetX2());
         double minY = Math.Min(shape.GetY1(), shape.GetY2());
         double maxX = Math.Max(shape.GetX1(), shape.GetX2());
         double maxY = Math.Max(shape.GetY1(), shape.GetY2());
 
-        return (x >= minX && x <= maxX && y >= minY && y <= maxY);
+        return (pressX >= minX && pressX <= maxX && pressY >= minY && pressY <= maxY);
     }
 
     // 按鈕刪除 Click 事件處理

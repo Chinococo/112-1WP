@@ -8,22 +8,22 @@
         /// <summary>
         /// Method called when the mouse button is pressed.
         /// </summary>
-        /// <param name="x">The X-coordinate of the mouse pointer.</param>
-        /// <param name="y">The Y-coordinate of the mouse pointer.</param>
-        void MouseDown(double x, double y);
+        /// <param name="pressX">The X-coordinate of the mouse pointer.</param>
+        /// <param name="pressY">The Y-coordinate of the mouse pointer.</param>
+        void MouseDown(double pressX, double pressY);
 
         /// <summary>
         /// Method called when the mouse is moved.
         /// </summary>
-        /// <param name="x">The X-coordinate of the mouse pointer.</param>
-        /// <param name="y">The Y-coordinate of the mouse pointer.</param>
-        void MouseMove(double x, double y);
+        /// <param name="pressX">The X-coordinate of the mouse pointer.</param>
+        /// <param name="pressY">The Y-coordinate of the mouse pointer.</param>
+        void MouseMove(double pressX, double pressY);
 
         /// <summary>
         /// Method called when the mouse button is released.
         /// </summary>
-        /// <param name="x">The X-coordinate of the mouse pointer.</param>
-        /// <param name="y">The Y-coordinate of the mouse pointer.</param>
-        void ReleasedPointer(double x, double y);
+        /// <param name="pressX">The X-coordinate of the mouse pointer.</param>
+        /// <param name="pressY">The Y-coordinate of the mouse pointer.</param>
+        void ReleasedPointer(double pressX, double pressY);
     }
 }

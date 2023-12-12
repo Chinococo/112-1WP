@@ -18,9 +18,9 @@
         }
 
         // Handles the mouse down event by triggering pointer press in the associated model.
-        public void MouseDown(double x, double y)
+        public void MouseDown(double pos_x, double y)
         {
-            this._model.PressPointerDrawing(x, y);
+            this._model.PressPointerDrawing(pos_x, y);
         }
 
         // Handles the mouse move event by triggering pointer movement in the associated model.
