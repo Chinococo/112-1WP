@@ -33,9 +33,9 @@ public class Model
     private int _selectIndex = -1;
     private Shape _hint; // 用於顯示提示形狀的變數
     private IState _state; // 表示當前狀態的接口
-    private bool _toolStripEllipseButton = false;
-    private bool _toolStripLineButton = false;
-    private bool _toolStripRectangleButton = false;
+    private bool _toolStripEllipseButtonState = false;
+    private bool _toolStripLineButtonState = false;
+    private bool _toolStripRectangleButtonState = false;
 
     // 構造函數，初始化模型
     public Model(BindingList<Shape> shapelist)
@@ -44,18 +44,18 @@ public class Model
     }
 
     // 新增 DataGrid 資料
-    public void AddNewLine(string _shapeCombobox)
+    public void AddNewLine(string state)
     {
         // 根據選擇的形狀類型添加新形狀到列表
-        if (_shapeCombobox == LINE)
+        if (state == LINE)
         {
             _shapeList.Add(_factory.CreateShape(ENLINE));
         }
-        else if (_shapeCombobox == RECTANGLE)
+        else if (state == RECTANGLE)
         {
             _shapeList.Add(_factory.CreateShape(ENRECTANGLE));
         }
-        else if (_shapeCombobox == ELLIPS)
+        else if (state == ELLIPS)
         {
             _shapeList.Add(_factory.CreateShape(ENELLIPS));
         }
@@ -173,21 +173,21 @@ public class Model
         {
             Shape hint;
             _isPressed = false;
-            if (_toolStripEllipseButton)
+            if (_toolStripEllipseButtonState)
             {
                 hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
                 _shapeList.Add(hint);
             }
-            else if (_toolStripLineButton)
+            else if (_toolStripLineButtonState)
             {
                 hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
                 _shapeList.Add(hint);
             }
-            else if (_toolStripRectangleButton)
+            else if (_toolStripRectangleButtonState)
             {
                 hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
                 _shapeList.Add(hint);
@@ -239,23 +239,23 @@ public class Model
     // 更新工具欄按鈕選中狀態
     public void UpdateToolStripButtonCheck(string temp)
     {
-        _toolStripEllipseButton = false;
-        _toolStripLineButton = false;
-        _toolStripRectangleButton = false;
+        _toolStripEllipseButtonState = false;
+        _toolStripLineButtonState = false;
+        _toolStripRectangleButtonState = false;
         if (temp == ELLIPS)
         {
             _hint = _factory.CreateShape(ENELLIPS);
-            _toolStripEllipseButton = true;
+            _toolStripEllipseButtonState = true;
         }
         else if (temp == LINE)
         {
             _hint = _factory.CreateShape(ENLINE);
-            _toolStripLineButton = true;
+            _toolStripLineButtonState = true;
         }
         else if (temp == RECTANGLE)
         {
             _hint = _factory.CreateShape(ENRECTANGLE);
-            _toolStripRectangleButton = true;
+            _toolStripRectangleButtonState = true;
         }
     }
 

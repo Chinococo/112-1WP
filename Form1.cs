@@ -179,12 +179,14 @@ namespace PowerPoint
                 _model.DeleteBtnClick();
             }
         }
+
         //更新toolstrip選取狀態
         public void UpdateToolStripButtonCheck(ToolStripButton temp)
         {
             ClearToolStripButtonCheck();
             temp.Checked = true;
         }
+
         //清除toolstrip選取狀態
         public void ClearToolStripButtonCheck()
         {
