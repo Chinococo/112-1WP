@@ -24,7 +24,7 @@ namespace PowerPoint
             InitializeComponent();
             _factory = new Factory();
             _model = new Model(_shapeList);
-            _view = new View(_model, _shapeList);
+            _view = new View(_model);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
@@ -41,9 +41,9 @@ namespace PowerPoint
             doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
             doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
             doubleBufferedPanel.Size = new System.Drawing.Size(
-               _groupBox.Location.X - (_groupBox2.Location.X + _groupBox2.Width),
-               _groupBox.Location.Y + _groupBox.Size.Height - _groupBox2.Location.Y
-           );
+                _groupBox.Location.X - (_groupBox2.Location.X + _groupBox2.Width),
+                _groupBox.Location.Y + _groupBox.Size.Height - _groupBox2.Location.Y
+            );
             doubleBufferedPanel.Location = new System.Drawing.Point(
                 _groupBox2.Location.X + _groupBox2.Width,
                 _groupBox2.Location.Y

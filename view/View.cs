@@ -4,17 +4,14 @@ using System.Windows.Forms;
 public class View
 {
     private Model _model;
-    private DataGridView _dataDisplayGrid;
-    private BindingList<Shape> _shapeList;
     private const string DELETE = "刪除";
     private const string DELETECOLUMN = "_deleteCloumn";
     private const string SHAPECOLUMN = "_shapeCloumn";
     private const string INFOCOLUMN = "_infoCloumn";
 
-    public View(Model prmaModel, BindingList<Shape> shapelist)
+    public View(Model prmaModel)
     {
         this._model = prmaModel;
-        this._shapeList = shapelist;
     }
 
     //更新畫面
