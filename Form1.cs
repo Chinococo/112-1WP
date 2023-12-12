@@ -16,6 +16,7 @@ namespace PowerPoint
         private const string SYMBOL_LINE = "線";
         private const string SYMBOL_RECTANGLE = "矩形";
         private const string SYMBOL_ELLIPSE = "橢圓";
+        private bool _zoom = false;
 
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
@@ -108,11 +109,14 @@ namespace PowerPoint
                 if (isMouseInGrip)
                 {
                     this.Cursor = Cursors.SizeNWSE;
+                    _zoom = true;
                 }
                 else
                 {
                     this.Cursor = Cursors.Default;
+                    _zoom = false;
                 }
+                _model.SetZoom(_zoom);
 
             }
         }

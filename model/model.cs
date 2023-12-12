@@ -35,11 +35,21 @@ public class Model
     private int _selectIndex = -1;
     private Shape _hint; // 用於顯示提示形狀的變數
     private IState _state; // 表示當前狀態的接口
+    private bool _zoom = false;
 
     // 構造函數，初始化模型
     public Model(BindingList<Shape> shapeList)
     {
         this._shapeList = shapeList;
+    }
+
+    /// <summary>
+    /// 更新zoom
+    /// </summary>
+    /// <param name="zoom"></param>
+    public void SetZoom(bool zoom)
+    {
+        this._zoom = zoom;
     }
 
     // 新增 DataGrid 資料
@@ -95,20 +105,30 @@ public class Model
     // 滑鼠左鍵按下事件處理（用於選擇點）
     public void PressPoint(double pressX, double pressY)
     {
-        _lastClickX = pressX;
-        _lastClickY = pressY;
-        _selectIndex = -1;
-        _isSelect = false;
-        for (int i = _shapeList.Count - 1; i >= 0; i--)
+        if (_zoom)
         {
-            Shape shape = _shapeList[i];
-            if (IsPointWithinBoundingBox(pressX, pressY, shape))
+            _firstPointX = pressX;
+            _firstPointY = pressY;
+            _isPressed = true;
+        }
+        else
+        {
+            _lastClickX = pressX;
+            _lastClickY = pressY;
+            _selectIndex = -1;
+            _isSelect = false;
+            for (int i = _shapeList.Count - 1; i >= 0; i--)
             {
-                _selectIndex = i;
-                _isSelect = true;
-                break; // 找到第一個匹配的形狀後退出循環
+                Shape shape = _shapeList[i];
+                if (IsPointWithinBoundingBox(pressX, pressY, shape))
+                {
+                    _selectIndex = i;
+                    _isSelect = true;
+                    break; // 找到第一個匹配的形狀後退出循環
+                }
             }
         }
+   
         NotifyModelChanged();
     }
 
@@ -136,14 +156,25 @@ public class Model
     // 滑鼠移動事件處理（用於移動形狀）
     public void MovedPointerPoint(double pressX, double pressY)
     {
-        if (_isSelect && _selectIndex >= 0)
+        if (_zoom&&_isPressed)
+        {
+            Shape temp = _shapeList[_selectIndex];
+            double deltaX = pressX - _firstPointX;
+            double deltaY = pressY - _firstPointY;
+            Console.WriteLine($"deltaX: {deltaX}, pressY: {deltaX}");
+            temp.SetPoint2(temp.GetX2()+ deltaX, temp.GetY2() + deltaY);
+            _firstPointX = pressX;
+            _firstPointY = pressY;
+        }
+        else if (_isSelect && _selectIndex >= 0)
         {
             _shapeList[_selectIndex].Move(pressX - _lastClickX, pressY - _lastClickY);
             _lastClickX = pressX;
             _lastClickY = pressY;
             // 通知模型發生變化
-            NotifyModelChanged();
+            
         }
+        NotifyModelChanged();
     }
 
     // 滑鼠移動事件處理（由 IState 接口實現）
@@ -157,6 +188,7 @@ public class Model
     public void ReleasedPointerPoint(double pressX, double pressY)
     {
         _isSelect = false;
+        _isPressed = false;
         // 通知模型發生變化
         NotifyModelChanged();
     }
@@ -209,7 +241,7 @@ public class Model
             index++;
         }
 
-        if (_isPressed)
+        if (_isPressed && _hint != null)
             _hint.Draw(graphics);
     }
 
