@@ -23,7 +23,7 @@
         /// <param name="pressY">The y-coordinate of the mouse position.</param>
         public void MouseDown(double pressX, double pressY)
         {
-            this._model.PressPointerPoint(pressX, pressY);
+            this._model.PressPoint(pressX, pressY);
         }
 
         /// <summary>

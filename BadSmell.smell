@@ -188,13 +188,13 @@
           <Reviews>
             <Smell>
               <Id>1</Id>
-              <SmellType>Unsuitable naming(名不符實)-ENLINE(enline)</SmellType>
-              <HashCode>UnsuitableNaming.Model.ENLINE.ENLINE</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
+              <SmellType>Long method(過長函式)</SmellType>
+              <HashCode>LongMethod.Model.PressPoint.22double pressX;double pressY;</HashCode>
+              <Severity>Warning</Severity>
+              <Weight>22</Weight>
               <Project>PowerPoint</Project>
               <File>model.cs</File>
-              <Line>22</Line>
+              <Line>97</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -204,13 +204,13 @@
             </Smell>
             <Smell>
               <Id>2</Id>
-              <SmellType>Unsuitable naming(名不符實)-ENRECTANGLE(enrectangle)</SmellType>
-              <HashCode>UnsuitableNaming.Model.ENRECTANGLE.ENRECTANGLE</HashCode>
+              <SmellType>Long method(過長函式)</SmellType>
+              <HashCode>LongMethod.Model.ReleasedPointerDrawing.33double pressX;double pressY;</HashCode>
               <Severity>Red</Severity>
-              <Weight>1</Weight>
+              <Weight>33</Weight>
               <Project>PowerPoint</Project>
               <File>model.cs</File>
-              <Line>23</Line>
+              <Line>170</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -220,13 +220,13 @@
             </Smell>
             <Smell>
               <Id>3</Id>
-              <SmellType>Unsuitable naming(名不符實)-ENELLIPS(enellips)</SmellType>
-              <HashCode>UnsuitableNaming.Model.ENELLIPS.ENELLIPS</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
+              <SmellType>Long method(過長函式)</SmellType>
+              <HashCode>LongMethod.Model.UpdateToolStripButtonCheck.21string temp;</HashCode>
+              <Severity>Warning</Severity>
+              <Weight>21</Weight>
               <Project>PowerPoint</Project>
               <File>model.cs</File>
-              <Line>24</Line>
+              <Line>243</Line>
               <StartLine>0</StartLine>
               <StartCol>0</StartCol>
               <EndLine>0</EndLine>
@@ -236,166 +236,6 @@
             </Smell>
             <Smell>
               <Id>4</Id>
-              <SmellType>Unsuitable naming(名不符實)-ELLIPS(ellips)</SmellType>
-              <HashCode>UnsuitableNaming.Model.ELLIPS.ELLIPS</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>PowerPoint</Project>
-              <File>model.cs</File>
-              <Line>28</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>5</Id>
-              <SmellType>Unsuitable naming(名不符實)-shapelist(shapelist)</SmellType>
-              <HashCode>UnsuitableNaming.Model.Model.shapelist</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>PowerPoint</Project>
-              <File>model.cs</File>
-              <Line>41</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>6</Id>
-              <SmellType>Long method(過長函式)</SmellType>
-              <HashCode>LongMethod.Model.PressPointerPoint.22double pressX;double pressY;</HashCode>
-              <Severity>Warning</Severity>
-              <Weight>22</Weight>
-              <Project>PowerPoint</Project>
-              <File>model.cs</File>
-              <Line>96</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>7</Id>
-              <SmellType>Long method(過長函式)</SmellType>
-              <HashCode>LongMethod.Model.ReleasedPointerDrawing.31double pressX;double pressY;</HashCode>
-              <Severity>Red</Severity>
-              <Weight>31</Weight>
-              <Project>PowerPoint</Project>
-              <File>model.cs</File>
-              <Line>169</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>8</Id>
-              <SmellType>Long method(過長函式)</SmellType>
-              <HashCode>LongMethod.Model.UpdateToolStripButtonCheck.21string temp;</HashCode>
-              <Severity>Warning</Severity>
-              <Weight>21</Weight>
-              <Project>PowerPoint</Project>
-              <File>model.cs</File>
-              <Line>240</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>9</Id>
-              <SmellType>Long parameter list(過長參數列)</SmellType>
-              <HashCode>LongParameterList.Factory.CreateShape.string shapeType;double x1;double y1;double x2;double y2;</HashCode>
-              <Severity>Warning</Severity>
-              <Weight>5</Weight>
-              <Project>PowerPoint</Project>
-              <File>Factory.cs</File>
-              <Line>31</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>10</Id>
-              <SmellType>Literal constants(字面常數)-"({0}, {1}), ({2}, {3})"</SmellType>
-              <HashCode>LiteralConstants.GetInfo."({0}, {1}), ({2}, {3})"</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>PowerPoint</Project>
-              <File>Shape.cs</File>
-              <Line>54</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment />
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>11</Id>
-              <SmellType>ICS(函式-1)</SmellType>
-              <HashCode>Method1.WindowsFormsGraphicsAdaptor.customGraphics.DrawEllipse</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>PowerPoint</Project>
-              <File>WindowsFormsGraphicsAdaptor.cs</File>
-              <Line>28</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(函式-1) 函式命名一律大寫開始，若由多個單字組成，每個單字的第一個字母大寫，其餘小寫。不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>12</Id>
-              <SmellType>ICS(函式-1)</SmellType>
-              <HashCode>Method1.WindowsFormsGraphicsAdaptor.customGraphics.DrawRectangle</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>PowerPoint</Project>
-              <File>WindowsFormsGraphicsAdaptor.cs</File>
-              <Line>35</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(函式-1) 函式命名一律大寫開始，若由多個單字組成，每個單字的第一個字母大寫，其餘小寫。不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>13</Id>
-              <SmellType>ICS(函式-1)</SmellType>
-              <HashCode>Method1.WindowsFormsGraphicsAdaptor.customGraphics.DrawBorder</HashCode>
-              <Severity>Red</Severity>
-              <Weight>1</Weight>
-              <Project>PowerPoint</Project>
-              <File>WindowsFormsGraphicsAdaptor.cs</File>
-              <Line>41</Line>
-              <StartLine>0</StartLine>
-              <StartCol>0</StartCol>
-              <EndLine>0</EndLine>
-              <EndCol>0</EndCol>
-              <Comment>ICS(函式-1) 函式命名一律大寫開始，若由多個單字組成，每個單字的第一個字母大寫，其餘小寫。不以底線區隔單字</Comment>
-              <Auto>false</Auto>
-            </Smell>
-            <Smell>
-              <Id>14</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>30 目前物件 Line，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes._x2 以及 Shapes._x1</HashCode>
               <Severity>Warning</Severity>
@@ -411,7 +251,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>15</Id>
+              <Id>5</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>31 目前物件 Line，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes._y2 以及 Shapes._y1</HashCode>
               <Severity>Warning</Severity>
@@ -427,7 +267,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>16</Id>
+              <Id>6</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>27 目前物件 Rectangle，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes._x2 以及 Shapes._x1</HashCode>
               <Severity>Warning</Severity>
@@ -443,7 +283,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>17</Id>
+              <Id>7</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>28 目前物件 Rectangle，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes._y2 以及 Shapes._y1</HashCode>
               <Severity>Warning</Severity>
@@ -459,7 +299,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>18</Id>
+              <Id>8</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>27 目前物件 Ellipse，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes._x2 以及 Shapes._x1</HashCode>
               <Severity>Warning</Severity>
@@ -475,7 +315,7 @@
               <Auto>false</Auto>
             </Smell>
             <Smell>
-              <Id>19</Id>
+              <Id>9</Id>
               <SmellType>Feature Envy(依戀情節)</SmellType>
               <HashCode>28 目前物件 Ellipse，使用物件的方法或屬性次數：0次，Envy到對象物件 Shapes，使用物件方法或屬性次數：2次，使用到的方法或屬性為以下：Shapes._y2 以及 Shapes._y1</HashCode>
               <Severity>Warning</Severity>
@@ -511,7 +351,7 @@
                 <AnalysisFileType>Designer</AnalysisFileType>
               </AnalysisFile>
               <AnalysisFile>
-                <RelativePath>interface\customGraphics.cs</RelativePath>
+                <RelativePath>interface\CustomGraphics.cs</RelativePath>
                 <ProjectName>PowerPoint</ProjectName>
                 <AnalysisFileType>Model</AnalysisFileType>
               </AnalysisFile>
@@ -602,7 +442,7 @@
               </AnalysisFile>
             </AnalysisFiles>
           </AnalysisFileManager>
-          <ProductionLoc>1400</ProductionLoc>
+          <ProductionLoc>1405</ProductionLoc>
           <TestLoc>0</TestLoc>
         </CodeReview>
       </Data>

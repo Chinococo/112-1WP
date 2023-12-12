@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 public class Factory
 {
@@ -28,18 +29,18 @@ public class Factory
 
     //依照參數產出對應型態物件
 
-    public Shape CreateShape(string shapeType, double x1, double y1, double x2, double y2)
+    public Shape CreateShape(string shapeType, Point startPoint, Point endPoint)
     {
         switch (shapeType)
         {
             case NAME_LINE:
-                return new Line(x1, y1, x2, y2);
+                return new Line(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
 
             case NAME_RECTANGLE:
-                return new Rectangle(x1, y1, x2, y2);
+                return new Rectangle(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
 
             case NAME_ELLIPSE:
-                return new Ellipse(x1, y1, x2, y2);
+                return new Ellipse(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
 
             default:
                 throw new ArgumentException(NAME_ERROR);

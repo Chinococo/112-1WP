@@ -5,6 +5,7 @@ using System;
 public class Shape : Shapes
 {
     private const string DELETE = "刪除";
+    private const string COORDINATES_FORMAT = "({0}, {1}), ({2}, {3})";
     // 建構函式，初始化 Shape 對象的形狀名稱
     public Shape(string shapeName) : base(shapeName)
     {
@@ -51,11 +52,11 @@ public class Shape : Shapes
     // 取得形狀資訊的方法
     public string GetInfo()
     {
-        return string.Format("({0}, {1}), ({2}, {3})", _x1, _y1, _x2, _y2);
+        return string.Format(COORDINATES_FORMAT, _x1, _y1, _x2, _y2);
     }
 
     // Draw 方法，等待被覆寫
-    public virtual void Draw(customGraphics graphics, bool border = false)
+    public virtual void Draw(CustomGraphics graphics, bool border = false)
     {
         throw new NotImplementedException();
     }

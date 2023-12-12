@@ -3,6 +3,7 @@ using PowerPoint;
 using PowerPoint.Object;
 using System;
 using System.ComponentModel;
+using System.Drawing;
 
 // Model 類，負責應用邏輯和數據管理
 public class Model
@@ -19,13 +20,13 @@ public class Model
     private double _lastClickX;
     private double _lastClickY;
     private BindingList<Shape> _shapeList;
-    private const string ENLINE = "Line";
-    private const string ENRECTANGLE = "Rectangle";
-    private const string ENELLIPS = "Ellipse";
+    private const string NAME_LINE = "Line";
+    private const string NAME_RECTANGLE = "Rectangle";
+    private const string NAME_ELLIPSE = "Ellipse";
     private const string DELETE = "刪除"; // 刪除按鈕的文字
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
-    private const string ELLIPS = "橢圓";
+    private const string ELLIPSE = "橢圓";
     private double _firstPointX;
     private double _firstPointY;
     private bool _isPressed = false;
@@ -38,9 +39,9 @@ public class Model
     private bool _toolStripRectangleButtonState = false;
 
     // 構造函數，初始化模型
-    public Model(BindingList<Shape> shapelist)
+    public Model(BindingList<Shape> shapeList)
     {
-        this._shapeList = shapelist;
+        this._shapeList = shapeList;
     }
 
     // 新增 DataGrid 資料
@@ -49,15 +50,15 @@ public class Model
         // 根據選擇的形狀類型添加新形狀到列表
         if (state == LINE)
         {
-            _shapeList.Add(_factory.CreateShape(ENLINE));
+            _shapeList.Add(_factory.CreateShape(NAME_LINE));
         }
         else if (state == RECTANGLE)
         {
-            _shapeList.Add(_factory.CreateShape(ENRECTANGLE));
+            _shapeList.Add(_factory.CreateShape(NAME_RECTANGLE));
         }
-        else if (state == ELLIPS)
+        else if (state == ELLIPSE)
         {
-            _shapeList.Add(_factory.CreateShape(ENELLIPS));
+            _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
         }
         // 通知模型發生變化
         NotifyModelChanged();
@@ -93,7 +94,7 @@ public class Model
     }
 
     // 滑鼠左鍵按下事件處理（用於選擇點）
-    public void PressPointerPoint(double pressX, double pressY)
+    public void PressPoint(double pressX, double pressY)
     {
         _lastClickX = pressX;
         _lastClickY = pressY;
@@ -173,23 +174,25 @@ public class Model
         {
             Shape hint;
             _isPressed = false;
+            Point startPoint = new Point((int)_firstPointX, (int)_firstPointY);
+            Point endPoint = new Point((int)pressX, (int)pressY);
             if (_toolStripEllipseButtonState)
             {
-                hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, pressX, pressY);
+                hint = _factory.CreateShape(NAME_ELLIPSE, startPoint, endPoint);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(pressX, pressY);
                 _shapeList.Add(hint);
             }
             else if (_toolStripLineButtonState)
             {
-                hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, pressX, pressY);
+                hint = _factory.CreateShape(NAME_LINE, startPoint, endPoint);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(pressX, pressY);
                 _shapeList.Add(hint);
             }
             else if (_toolStripRectangleButtonState)
             {
-                hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, pressX, pressY);
+                hint = _factory.CreateShape(NAME_RECTANGLE, startPoint, endPoint);
                 _shapeList.Add(hint);
             }
             // 通知模型發生變化
@@ -222,7 +225,7 @@ public class Model
     }
 
     // 根據當前形狀類型繪製所有形狀
-    public void Draw(customGraphics graphics)
+    public void Draw(CustomGraphics graphics)
     {
         graphics.ClearAll();
         int index = 0; // 从第一个形状开始
@@ -242,19 +245,19 @@ public class Model
         _toolStripEllipseButtonState = false;
         _toolStripLineButtonState = false;
         _toolStripRectangleButtonState = false;
-        if (temp == ELLIPS)
+        if (temp == ELLIPSE)
         {
-            _hint = _factory.CreateShape(ENELLIPS);
+            _hint = _factory.CreateShape(NAME_ELLIPSE);
             _toolStripEllipseButtonState = true;
         }
         else if (temp == LINE)
         {
-            _hint = _factory.CreateShape(ENLINE);
+            _hint = _factory.CreateShape(NAME_LINE);
             _toolStripLineButtonState = true;
         }
         else if (temp == RECTANGLE)
         {
-            _hint = _factory.CreateShape(ENRECTANGLE);
+            _hint = _factory.CreateShape(NAME_RECTANGLE);
             _toolStripRectangleButtonState = true;
         }
     }
