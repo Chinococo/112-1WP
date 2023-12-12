@@ -14,12 +14,15 @@ namespace powerpoint
         private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
         private DoubleBufferedPanel doubleBufferedPanel = new DoubleBufferedPanel();
+        private const string LINE = "線";
+        private const string RECTANGLE = "矩形";
+        private const string ELLIPS = "橢圓";
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model(_shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
+            _model = new Model(_shapeList, _buttonPage1);
             _view = new View(_model, _displayDataGrid, _shapeList);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
@@ -113,7 +116,7 @@ namespace powerpoint
         private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
-            _model.UpdateToolStripButtonCheck(_toolStripEllipseButton);
+            _model.UpdateToolStripButtonCheck(ELLIPS);
             _model.ClearState();
             _model.ChangeState(true);
         }
@@ -122,7 +125,7 @@ namespace powerpoint
         private void ToolStripLineButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
-            _model.UpdateToolStripButtonCheck(_toolStripLineButton);
+            _model.UpdateToolStripButtonCheck(LINE);
             _model.ClearState();
             _model.ChangeState(true);
         }
@@ -131,7 +134,7 @@ namespace powerpoint
         private void ToolStripRectangleButtonClick(object sender, EventArgs e)
         {
             _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
-            _model.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+            _model.UpdateToolStripButtonCheck(RECTANGLE);
             _model.ClearState();
             _model.ChangeState(true);
         }

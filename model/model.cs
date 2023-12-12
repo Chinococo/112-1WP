@@ -15,10 +15,6 @@ public class Model
     public delegate void ModelChangedEventHandler();
 
     // 私有字段，存儲界面上的控件
-    private ToolStripButton _toolStripEllipseButton;
-    private ToolStripButton _toolStripLineButton;
-    private ToolStripButton _toolStripRectangleButton;
-    private ToolStripButton _toolStripCursorsButton;
     private Button _buttonPage1;
     private Factory _factory= new Factory();
     private double _lastClickX;
@@ -38,15 +34,14 @@ public class Model
     private int _selectIndex = -1;
     private Shape _hint; // 用於顯示提示形狀的變數
     private IState _state; // 表示當前狀態的接口
+    private bool _toolStripEllipseButton = false;
+    private bool _toolStripLineButton = false;
+    private bool _toolStripRectangleButton = false;
 
     // 構造函數，初始化模型
-    public Model( BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
+    public Model( BindingList<Shape> shapelist, Button buttonPage1)
     { 
         this._shapeList = shapelist;
-        this._toolStripEllipseButton = buttonellipse;
-        this._toolStripLineButton = buttonline;
-        this._toolStripRectangleButton = buttonrectangle;
-        this._toolStripCursorsButton = buttoncursors;
         this._buttonPage1 = buttonPage1;
     }
 
@@ -180,21 +175,21 @@ public class Model
         {
             Shape hint;
             _isPressed = false;
-            if (_toolStripEllipseButton.Checked)
+            if (_toolStripEllipseButton)
             {
                 hint = _factory.CreateShape(ENELLIPS, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
                 _shapeList.Add(hint);
             }
-            else if (_toolStripLineButton.Checked)
+            else if (_toolStripLineButton)
             {
                 hint = _factory.CreateShape(ENLINE, _firstPointX, _firstPointY, x, y);
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _hint.SetPoint2(x, y);
                 _shapeList.Add(hint);
             }
-            else if (_toolStripRectangleButton.Checked)
+            else if (_toolStripRectangleButton)
             {
                 hint = _factory.CreateShape(ENRECTANGLE, _firstPointX, _firstPointY, x, y);
                 _shapeList.Add(hint);
@@ -244,14 +239,27 @@ public class Model
     }
 
     // 更新工具欄按鈕選中狀態
-    public void UpdateToolStripButtonCheck(ToolStripButton temp)
+    public void UpdateToolStripButtonCheck(string temp)
     {
-        if (temp.Name == _toolStripEllipseButton.Name)
+        _toolStripEllipseButton = false;
+        _toolStripLineButton = false;
+        _toolStripRectangleButton = false;
+        if (temp == ELLIPS)
+        {
             _hint = _factory.CreateShape(ENELLIPS);
-        else if (temp.Name == _toolStripLineButton.Name)
+            _toolStripEllipseButton = true;
+        }
+        else if (temp == LINE)
+        {
             _hint = _factory.CreateShape(ENLINE);
-        else
+            _toolStripLineButton = true;
+        }
+        else if(temp== RECTANGLE)
+        {
             _hint = _factory.CreateShape(ENRECTANGLE);
+            _toolStripRectangleButton = true;
+        }
+            
     }
 
     // 檢查點是否在形狀的包圍框內
