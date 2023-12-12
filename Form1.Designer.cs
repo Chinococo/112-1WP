@@ -47,7 +47,6 @@ namespace powerpoint
             this._toolStripLineButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripRectangleButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripCursorsButton = new System.Windows.Forms.ToolStripButton();
-            this._panel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -238,20 +237,11 @@ namespace powerpoint
             this._toolStripCursorsButton.Text = "toolStripButton1";
             this._toolStripCursorsButton.Click += new System.EventHandler(this.ToolStripCursorsButtonClick);
             // 
-            // _panel
-            // 
-            this._panel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this._panel.Location = new System.Drawing.Point(122, 62);
-            this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(362, 461);
-            this._panel.TabIndex = 7;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 518);
-            this.Controls.Add(this._panel);
             this.Controls.Add(this._toolStrip1);
             this.Controls.Add(this._groupBox2);
             this.Controls.Add(this._groupBox);
@@ -260,7 +250,6 @@ namespace powerpoint
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
-            //this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
             this._groupBox.ResumeLayout(false);
             this._groupBox2.ResumeLayout(false);
@@ -289,7 +278,6 @@ namespace powerpoint
         private System.Windows.Forms.ToolStripButton _toolStripLineButton;
         private System.Windows.Forms.ToolStripButton _toolStripRectangleButton;
         private System.Windows.Forms.ToolStripButton _toolStripCursorsButton;
-        private System.Windows.Forms.Panel _panel;
         private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;

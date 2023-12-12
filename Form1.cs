@@ -1,4 +1,5 @@
-﻿using System;
+﻿using powerpoint.DrawingForm;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ namespace powerpoint
         private Factory _factory;// 工廠
         private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
-
+        private DoubleBufferedPanel doubleBufferedPanel = new DoubleBufferedPanel();
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
@@ -28,17 +29,25 @@ namespace powerpoint
             // ...
 
             //_panel.Dock = DockStyle.Fill;
-            _panel.BackColor = System.Drawing.Color.LightYellow;
-            _panel.MouseDown += HandleCanvasPressed;
-            _panel.MouseUp += HandleCanvasReleased;
-            _panel.MouseMove += HandleCanvasMoved;
-            _panel.Paint += HandleCanvasPaint;
-            _panel.MouseEnter += DrawingAreaMouseEnter;
-            _panel.MouseLeave += DrawingAreaMouseLeave;
-            Controls.Add(_panel);
+            doubleBufferedPanel.BackColor = System.Drawing.Color.LightYellow;
+            doubleBufferedPanel.MouseDown += HandleCanvasPressed;
+            doubleBufferedPanel.MouseUp += HandleCanvasReleased;
+            doubleBufferedPanel.MouseMove += HandleCanvasMoved;
+            doubleBufferedPanel.Paint += HandleCanvasPaint;
+            doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
+            doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
+            doubleBufferedPanel.Size = new System.Drawing.Size(
+               _groupBox.Location.X - (_groupBox2.Location.X + _groupBox2.Width),
+               _groupBox.Location.Y + _displayDataGrid.Size.Height - _groupBox2.Location.Y
+           );
+            doubleBufferedPanel.Location = new System.Drawing.Point(
+                _groupBox2.Location.X + _groupBox2.Width,
+                _groupBox2.Location.Y
+            );
+            Controls.Add(doubleBufferedPanel);
 
             // 初始化呈現模型和模型
-            _presentationModel = new PresentationModel.PresentationModel(_model, _panel, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
+            _presentationModel = new PresentationModel.PresentationModel(_model, doubleBufferedPanel, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
@@ -155,8 +164,8 @@ namespace powerpoint
         //更新目前預覽圖狀態
         private void UpdateButtonPage()
         {
-            Bitmap bitmap = new Bitmap(_panel.Width, _panel.Height);
-            _panel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _panel.Width, _panel.Height));
+            Bitmap bitmap = new Bitmap(doubleBufferedPanel.Width, doubleBufferedPanel.Height);
+            doubleBufferedPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, doubleBufferedPanel.Width, doubleBufferedPanel.Height));
             _buttonPage1.BackgroundImage = bitmap;
             _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
         }
