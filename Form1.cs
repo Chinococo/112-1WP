@@ -23,7 +23,7 @@ namespace powerpoint
             InitializeComponent();
             _factory = new Factory();
             _model = new Model(_shapeList);
-            _view = new View(_model, _displayDataGrid, _shapeList);
+            _view = new View(_model, _shapeList);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
