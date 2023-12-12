@@ -38,7 +38,7 @@ namespace powerpoint
             doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
             doubleBufferedPanel.Size = new System.Drawing.Size(
                _groupBox.Location.X - (_groupBox2.Location.X + _groupBox2.Width),
-               _groupBox.Location.Y + _displayDataGrid.Size.Height - _groupBox2.Location.Y
+               _groupBox.Location.Y + _groupBox.Size.Height - _groupBox2.Location.Y
            );
             doubleBufferedPanel.Location = new System.Drawing.Point(
                 _groupBox2.Location.X + _groupBox2.Width,

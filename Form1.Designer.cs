@@ -134,7 +134,7 @@ namespace powerpoint
             this._groupBox.Controls.Add(this._shapeCombobox);
             this._groupBox.Location = new System.Drawing.Point(484, 59);
             this._groupBox.Name = "_groupBox";
-            this._groupBox.Size = new System.Drawing.Size(351, 520);
+            this._groupBox.Size = new System.Drawing.Size(351, 447);
             this._groupBox.TabIndex = 3;
             this._groupBox.TabStop = false;
             this._groupBox.Text = "資料顯示";
