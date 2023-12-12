@@ -15,7 +15,6 @@ public class Model
     public delegate void ModelChangedEventHandler();
 
     // 私有字段，存儲界面上的控件
-    private Button _buttonPage1;
     private Factory _factory= new Factory();
     private double _lastClickX;
     private double _lastClickY;
@@ -39,10 +38,9 @@ public class Model
     private bool _toolStripRectangleButton = false;
 
     // 構造函數，初始化模型
-    public Model( BindingList<Shape> shapelist, Button buttonPage1)
+    public Model( BindingList<Shape> shapelist)
     { 
         this._shapeList = shapelist;
-        this._buttonPage1 = buttonPage1;
     }
 
     // 新增 DataGrid 資料
