@@ -17,6 +17,7 @@ namespace powerpoint
         private const string LINE = "線";
         private const string RECTANGLE = "矩形";
         private const string ELLIPS = "橢圓";
+
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {

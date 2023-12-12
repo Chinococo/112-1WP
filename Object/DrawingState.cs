@@ -12,9 +12,9 @@
         }
 
         // Gets the associated model for this drawing state.
-        public Model Model 
-        { 
-            get; 
+        public Model Model
+        {
+            get;
         }
 
         // Handles the mouse down event by triggering pointer press in the associated model.

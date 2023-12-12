@@ -3,7 +3,6 @@ using powerpoint;
 using powerpoint.Object;
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 // Model 類，負責應用邏輯和數據管理
 public class Model
@@ -15,7 +14,8 @@ public class Model
     public delegate void ModelChangedEventHandler();
 
     // 私有字段，存儲界面上的控件
-    private Factory _factory= new Factory();
+    private Factory _factory = new Factory();
+
     private double _lastClickX;
     private double _lastClickY;
     private BindingList<Shape> _shapeList;
@@ -38,8 +38,8 @@ public class Model
     private bool _toolStripRectangleButton = false;
 
     // 構造函數，初始化模型
-    public Model( BindingList<Shape> shapelist)
-    { 
+    public Model(BindingList<Shape> shapelist)
+    {
         this._shapeList = shapelist;
     }
 
@@ -55,7 +55,7 @@ public class Model
         {
             _shapeList.Add(_factory.CreateShape(ENRECTANGLE));
         }
-        else if(_shapeCombobox == ELLIPS)
+        else if (_shapeCombobox == ELLIPS)
         {
             _shapeList.Add(_factory.CreateShape(ENELLIPS));
         }
@@ -252,12 +252,11 @@ public class Model
             _hint = _factory.CreateShape(ENLINE);
             _toolStripLineButton = true;
         }
-        else if(temp== RECTANGLE)
+        else if (temp == RECTANGLE)
         {
             _hint = _factory.CreateShape(ENRECTANGLE);
             _toolStripRectangleButton = true;
         }
-            
     }
 
     // 檢查點是否在形狀的包圍框內

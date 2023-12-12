@@ -11,7 +11,7 @@ public class View
     private const string SHAPECOLUMN = "_shapeCloumn";
     private const string INFOCOLUMN = "_infoCloumn";
 
-    public View(Model prmaModel ,BindingList<Shape> shapelist)
+    public View(Model prmaModel, BindingList<Shape> shapelist)
     {
         this._model = prmaModel;
         this._shapeList = shapelist;

@@ -1,7 +1,8 @@
 ﻿using System.Drawing;
+
 namespace powerpoint.PresentationModel
 {
-    class WindowsFormsGraphicsAdaptor : IGraphics
+    internal class WindowsFormsGraphicsAdaptor : IGraphics
     {
         private Graphics _graphics;
 
