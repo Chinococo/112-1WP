@@ -93,6 +93,28 @@ namespace PowerPoint
         public void HandleCanvasMoved(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.MovedPointer(e.X, e.Y);
+            int selectIndex = _model.GetSelectIndex();
+            if (selectIndex != -1)
+            {
+                Shape selectedShape = _shapeList[selectIndex];
+
+                double x1 = selectedShape.GetX1();
+                double y1 = selectedShape.GetY1();
+                double x2 = selectedShape.GetX2();
+                double y2 = selectedShape.GetY2();
+                double GripSize = 10;
+                // Check if the mouse is in the resizing grip
+                bool isMouseInGrip = e.X >= x2 - GripSize && e.Y >= y2 - GripSize;
+                if (isMouseInGrip)
+                {
+                    this.Cursor = Cursors.SizeNWSE;
+                }
+                else
+                {
+                    this.Cursor = Cursors.Default;
+                }
+
+            }
         }
 
         // Canvas 被繪圖事件

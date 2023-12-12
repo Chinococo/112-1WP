@@ -53,6 +53,20 @@ namespace PowerPoint.PresentationModel
             double left = Math.Min(x1, x2);
             double top = Math.Min(y1, y2);
             _graphics.DrawRectangle(Pens.Red, (float)left, (float)top, (float)width, (float)height);
+            DrawCornerEllipse(left, top);
+            DrawCornerEllipse(left + width, top);
+            DrawCornerEllipse(left, top + height);
+            DrawCornerEllipse(left + width, top + height);
+            DrawCornerEllipse(left + width / 2, top);
+            DrawCornerEllipse(left, top + height / 2);
+            DrawCornerEllipse(left + width, top + height / 2);
+            DrawCornerEllipse(left + width / 2, top + height);
+        }
+        // 畫邊框
+        private void DrawCornerEllipse(double x, double y)
+        {
+            // Draw a small ellipse at the specified corner
+            _graphics.DrawEllipse(Pens.Black, (float)x - 5, (float)y - 5, 10, 10);
         }
     }
 }

@@ -256,6 +256,11 @@ public class Model
         NotifyModelChanged();
     }
 
+    // 回傳selectindex
+    public int GetSelectIndex()
+    {
+        return _selectIndex;
+    }
     // 清除狀態（解除按壓等）
     public void ClearState()
     {
