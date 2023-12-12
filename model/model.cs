@@ -20,7 +20,7 @@ public class Model
     private ToolStripButton _toolStripRectangleButton;
     private ToolStripButton _toolStripCursorsButton;
     private Button _buttonPage1;
-    private Factory _factory;
+    private Factory _factory= new Factory();
     private double _lastClickX;
     private double _lastClickY;
     private BindingList<Shape> _shapeList;
@@ -40,9 +40,8 @@ public class Model
     private IState _state; // 表示當前狀態的接口
 
     // 構造函數，初始化模型
-    public Model( Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
+    public Model( BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
     { 
-        this._factory = mainfactory;
         this._shapeList = shapelist;
         this._toolStripEllipseButton = buttonellipse;
         this._toolStripLineButton = buttonline;
