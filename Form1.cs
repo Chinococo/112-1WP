@@ -19,7 +19,7 @@ namespace powerpoint
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model(_displayDataGrid, _shapeCombobox, _factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
+            _model = new Model(_shapeCombobox, _factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
             _view = new View(_model, _displayDataGrid, _shapeList);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;

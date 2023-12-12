@@ -20,7 +20,6 @@ public class Model
     private ToolStripButton _toolStripRectangleButton;
     private ToolStripButton _toolStripCursorsButton;
     private Button _buttonPage1;
-    private DataGridView _dataDisplayGrid;
     private ComboBox _shapeCombobox;
     private Factory _factory;
     private double _lastClickX;
@@ -41,9 +40,8 @@ public class Model
     private IState _state; // 表示當前狀態的接口
 
     // 構造函數，初始化模型
-    public Model(DataGridView datagrid, ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
-    {
-        this._dataDisplayGrid = datagrid;
+    public Model( ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
+    { 
         this._shapeCombobox = combobox;
         this._factory = mainfactory;
         this._shapeList = shapelist;
