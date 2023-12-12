@@ -6,7 +6,9 @@ namespace PowerPoint.PresentationModel
     internal class WindowsFormsGraphicsAdaptor : CustomGraphics
     {
         private Graphics _graphics;
-
+        private const int HALF = 2;
+        private const int BIAS = 5;
+        private const int SIZE = 5;
         public WindowsFormsGraphicsAdaptor(Graphics graphics)
         {
             this._graphics = graphics;
@@ -58,17 +60,17 @@ namespace PowerPoint.PresentationModel
             DrawCornerEllipse(left + width, top);
             DrawCornerEllipse(left, top + height);
             DrawCornerEllipse(left + width, top + height);
-            DrawCornerEllipse(left + width / 2, top);
-            DrawCornerEllipse(left, top + height / 2);
-            DrawCornerEllipse(left + width, top + height / 2);
-            DrawCornerEllipse(left + width / 2, top + height);
+            DrawCornerEllipse(left + width / HALF, top);
+            DrawCornerEllipse(left, top + height / HALF);
+            DrawCornerEllipse(left + width, top + height / HALF);
+            DrawCornerEllipse(left + width / HALF, top + height);
         }
 
         // 畫邊框
-        private void DrawCornerEllipse(double x, double y)
+        private void DrawCornerEllipse(double pressX, double pressY)
         {
             // Draw a small ellipse at the specified corner
-            _graphics.DrawEllipse(Pens.Black, (float)x - 5, (float)y - 5, 10, 10);
+            _graphics.DrawEllipse(Pens.Black, (float)pressX - BIAS, (float)pressY - BIAS, SIZE, SIZE);
         }
     }
 }

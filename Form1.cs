@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-
 namespace PowerPoint
 {
     public partial class Form1 : Form
@@ -17,7 +16,7 @@ namespace PowerPoint
         private const string SYMBOL_RECTANGLE = "矩形";
         private const string SYMBOL_ELLIPSE = "橢圓";
         private bool _zoom = false;
-
+        private const double TOUCH_SIZE = 10;
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
@@ -83,7 +82,8 @@ namespace PowerPoint
         }
 
         // Canvas 被釋放事件
-        public void HandleCanvasReleased(object sender, System.Windows.Forms.MouseEventArgs e)
+        
+        public void HandleCanvasReleased(object sender , MouseEventArgs e)
         {
             _model.ReleasedPointer(e.X, e.Y);
             this.Cursor = Cursors.Default;
@@ -91,21 +91,13 @@ namespace PowerPoint
         }
 
         // Canvas 被移動事件
-        public void HandleCanvasMoved(object sender, System.Windows.Forms.MouseEventArgs e)
+        public void HandleCanvasMoved(object sender , MouseEventArgs e)
         {
             _model.MovedPointer(e.X, e.Y);
-            int selectIndex = _model.GetSelectIndex();
-            if (selectIndex != -1 && _shapeList.Count > selectIndex)
+            if (_model.GetSelectIndex() != -1 && _shapeList.Count > _model.GetSelectIndex())
             {
-                Shape selectedShape = _shapeList[selectIndex];
-
-                double x1 = selectedShape.GetX1();
-                double y1 = selectedShape.GetY1();
-                double x2 = selectedShape.GetX2();
-                double y2 = selectedShape.GetY2();
-                double GripSize = 10;
-                // Check if the mouse is in the resizing grip
-                bool isMouseInGrip = e.X >= x2 - GripSize && e.Y >= y2 - GripSize;
+                Shape selectedShape = _shapeList[_model.GetSelectIndex()];
+                bool isMouseInGrip = e.X >= selectedShape.GetX2() - TOUCH_SIZE && e.Y >= selectedShape.GetY2() - TOUCH_SIZE;
                 if (isMouseInGrip)
                 {
                     this.Cursor = Cursors.SizeNWSE;
