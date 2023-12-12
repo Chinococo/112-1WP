@@ -19,7 +19,7 @@ namespace powerpoint
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model(_shapeCombobox, _factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
+            _model = new Model(_factory, _shapeList, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
             _view = new View(_model, _displayDataGrid, _shapeList);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
@@ -55,7 +55,7 @@ namespace powerpoint
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            _model.AddNewLine();
+            _model.AddNewLine(_shapeCombobox.Text);
             _view.UpdateView();
         }
 

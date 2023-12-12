@@ -20,7 +20,6 @@ public class Model
     private ToolStripButton _toolStripRectangleButton;
     private ToolStripButton _toolStripCursorsButton;
     private Button _buttonPage1;
-    private ComboBox _shapeCombobox;
     private Factory _factory;
     private double _lastClickX;
     private double _lastClickY;
@@ -31,6 +30,7 @@ public class Model
     private const string DELETE = "刪除"; // 刪除按鈕的文字
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
+    private const string ELLIPS = "橢圓";
     private double _firstPointX;
     private double _firstPointY;
     private bool _isPressed = false;
@@ -40,9 +40,8 @@ public class Model
     private IState _state; // 表示當前狀態的接口
 
     // 構造函數，初始化模型
-    public Model( ComboBox combobox, Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
+    public Model( Factory mainfactory, BindingList<Shape> shapelist, ToolStripButton buttonellipse, ToolStripButton buttonline, ToolStripButton buttonrectangle, ToolStripButton buttoncursors, Button buttonPage1)
     { 
-        this._shapeCombobox = combobox;
         this._factory = mainfactory;
         this._shapeList = shapelist;
         this._toolStripEllipseButton = buttonellipse;
@@ -53,18 +52,18 @@ public class Model
     }
 
     // 新增 DataGrid 資料
-    public void AddNewLine()
+    public void AddNewLine(string _shapeCombobox)
     {
         // 根據選擇的形狀類型添加新形狀到列表
-        if (_shapeCombobox != null && _shapeCombobox.Text == LINE)
+        if (_shapeCombobox == LINE)
         {
             _shapeList.Add(_factory.CreateShape(ENLINE));
         }
-        else if (_shapeCombobox != null && _shapeCombobox.Text == RECTANGLE)
+        else if (_shapeCombobox == RECTANGLE)
         {
             _shapeList.Add(_factory.CreateShape(ENRECTANGLE));
         }
-        else
+        else if(_shapeCombobox == ELLIPS)
         {
             _shapeList.Add(_factory.CreateShape(ENELLIPS));
         }
