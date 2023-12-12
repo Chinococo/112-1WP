@@ -9,11 +9,10 @@ namespace PowerPoint
     public partial class Form1 : Form
     {
         private Model _model;// 模型
-        private View _view;// 視圖
         private Factory _factory;// 工廠
         private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
-        private DoubleBufferedPanel doubleBufferedPanel = new DoubleBufferedPanel();
+        private DoubleBufferedPanel _doubleBufferedPanel = new DoubleBufferedPanel();
         private const string LINE = "線";
         private const string RECTANGLE = "矩形";
         private const string ELLIPS = "橢圓";
@@ -24,7 +23,6 @@ namespace PowerPoint
             InitializeComponent();
             _factory = new Factory();
             _model = new Model(_shapeList);
-            _view = new View(_model);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
@@ -33,25 +31,25 @@ namespace PowerPoint
             // ...
 
             //_panel.Dock = DockStyle.Fill;
-            doubleBufferedPanel.BackColor = System.Drawing.Color.LightYellow;
-            doubleBufferedPanel.MouseDown += HandleCanvasPressed;
-            doubleBufferedPanel.MouseUp += HandleCanvasReleased;
-            doubleBufferedPanel.MouseMove += HandleCanvasMoved;
-            doubleBufferedPanel.Paint += HandleCanvasPaint;
-            doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
-            doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
-            doubleBufferedPanel.Size = new System.Drawing.Size(
+            _doubleBufferedPanel.BackColor = System.Drawing.Color.LightYellow;
+            _doubleBufferedPanel.MouseDown += HandleCanvasPressed;
+            _doubleBufferedPanel.MouseUp += HandleCanvasReleased;
+            _doubleBufferedPanel.MouseMove += HandleCanvasMoved;
+            _doubleBufferedPanel.Paint += HandleCanvasPaint;
+            _doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
+            _doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
+            _doubleBufferedPanel.Size = new System.Drawing.Size(
                 _groupBox.Location.X - (_groupBox2.Location.X + _groupBox2.Width),
                 _groupBox.Location.Y + _groupBox.Size.Height - _groupBox2.Location.Y
             );
-            doubleBufferedPanel.Location = new System.Drawing.Point(
+            _doubleBufferedPanel.Location = new System.Drawing.Point(
                 _groupBox2.Location.X + _groupBox2.Width,
                 _groupBox2.Location.Y
             );
-            Controls.Add(doubleBufferedPanel);
+            Controls.Add(_doubleBufferedPanel);
 
             // 初始化呈現模型和模型
-            _presentationModel = new PresentationModel.PresentationModel(_model, doubleBufferedPanel, _toolStripEllipseButton, _toolStripLineButton, _toolStripRectangleButton, _toolStripCursorsButton, _buttonPage1);
+            _presentationModel = new PresentationModel.PresentationModel(_model);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
@@ -60,7 +58,6 @@ namespace PowerPoint
         private void InsertButtonClick(object sender, EventArgs e)
         {
             _model.AddNewLine(_shapeCombobox.Text);
-            _view.UpdateView();
         }
 
         // DataGrid 按鈕觸發處理事件
@@ -69,7 +66,6 @@ namespace PowerPoint
             if (e.ColumnIndex == 1) // 替換 deleteColumnIndex 為“删除”按鈕所在的列索引
             {
                 _model.DeleteLineByIndex(e.RowIndex);
-                _view.UpdateView();
             }
         }
 
@@ -89,9 +85,8 @@ namespace PowerPoint
         public void HandleCanvasReleased(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             _model.ReleasedPointer(e.X, e.Y);
-            _view.UpdateView();
             this.Cursor = Cursors.Default;
-            _presentationModel.ClearToolStripButtonCheck();
+            ClearToolStripButtonCheck();
         }
 
         // Canvas 被移動事件
@@ -104,6 +99,8 @@ namespace PowerPoint
         public void HandleCanvasPaint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             _presentationModel.Draw(e.Graphics);
+            _buttonPage1.Image = _presentationModel.GetBitmap();
+            _buttonPage1.Refresh();
         }
 
         // Canvas 更新事件
@@ -116,7 +113,7 @@ namespace PowerPoint
         // 按下 toolstrip 按鈕事件
         private void ToolStripEllipseButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripEllipseButton);
+            UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.UpdateToolStripButtonCheck(ELLIPS);
             _model.ClearState();
             _model.ChangeState(true);
@@ -125,7 +122,7 @@ namespace PowerPoint
         // 按下 toolstrip 按鈕事件
         private void ToolStripLineButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripLineButton);
+            UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(LINE);
             _model.ClearState();
             _model.ChangeState(true);
@@ -134,7 +131,7 @@ namespace PowerPoint
         // 按下 toolstrip 按鈕事件
         private void ToolStripRectangleButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripRectangleButton);
+            UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(RECTANGLE);
             _model.ClearState();
             _model.ChangeState(true);
@@ -160,7 +157,7 @@ namespace PowerPoint
         //ToolStrip游標選擇事件
         private void ToolStripCursorsButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.UpdateToolStripButtonCheck(_toolStripCursorsButton);
+            UpdateToolStripButtonCheck(_toolStripCursorsButton);
             _model.ClearState();
             _model.ChangeState(false);
         }
@@ -168,8 +165,8 @@ namespace PowerPoint
         //更新目前預覽圖狀態
         private void UpdateButtonPage()
         {
-            Bitmap bitmap = new Bitmap(doubleBufferedPanel.Width, doubleBufferedPanel.Height);
-            doubleBufferedPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, doubleBufferedPanel.Width, doubleBufferedPanel.Height));
+            Bitmap bitmap = new Bitmap(_doubleBufferedPanel.Width, _doubleBufferedPanel.Height);
+            _doubleBufferedPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _doubleBufferedPanel.Width, _doubleBufferedPanel.Height));
             _buttonPage1.BackgroundImage = bitmap;
             _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
         }
@@ -181,6 +178,20 @@ namespace PowerPoint
             {
                 _model.DeleteBtnClick();
             }
+        }
+        //更新toolstrip選取狀態
+        public void UpdateToolStripButtonCheck(ToolStripButton temp)
+        {
+            ClearToolStripButtonCheck();
+            temp.Checked = true;
+        }
+        //清除toolstrip選取狀態
+        public void ClearToolStripButtonCheck()
+        {
+            _toolStripEllipseButton.Checked = false;
+            _toolStripLineButton.Checked = false;
+            _toolStripRectangleButton.Checked = false;
+            _toolStripCursorsButton.Checked = false;
         }
     }
 }
