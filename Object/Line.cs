@@ -28,11 +28,7 @@ public class Line : Shape
         graphics.DrawLine(_x1, _y1, _x2, _y2);
         if (border)
         {
-            double width = Math.Abs(_x2 - _x1);
-            double height = Math.Abs(_y2 - _y1);
-            double left = Math.Min(_x1, _x2);
-            double top = Math.Min(_y1, _y2);
-            graphics.DrawBorder(left, top, width, height);
+            graphics.DrawBorder(_x1, _y1, _x2, _y2);
         }
     }
 }

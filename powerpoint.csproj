@@ -59,7 +59,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="interface\customGraphics.cs" />
+    <Compile Include="interface\CustomGraphics.cs" />
     <Compile Include="Object\Line.cs" />
     <Compile Include="model\model.cs" />
     <Compile Include="Object\PointState.cs" />

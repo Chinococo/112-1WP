@@ -27,6 +27,7 @@ public class Model
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
     private const string ELLIPSE = "橢圓";
+    private string _shapeState = "";
     private double _firstPointX;
     private double _firstPointY;
     private bool _isPressed = false;
@@ -34,9 +35,6 @@ public class Model
     private int _selectIndex = -1;
     private Shape _hint; // 用於顯示提示形狀的變數
     private IState _state; // 表示當前狀態的接口
-    private bool _toolStripEllipseButtonState = false;
-    private bool _toolStripLineButtonState = false;
-    private bool _toolStripRectangleButtonState = false;
 
     // 構造函數，初始化模型
     public Model(BindingList<Shape> shapeList)
@@ -60,6 +58,7 @@ public class Model
         {
             _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
         }
+        _shapeState = state;
         // 通知模型發生變化
         NotifyModelChanged();
     }
@@ -100,12 +99,9 @@ public class Model
         _lastClickY = pressY;
         _selectIndex = -1;
         _isSelect = false;
-        // 反向迭代形狀列表，找到包含鼠標點的形狀
         for (int i = _shapeList.Count - 1; i >= 0; i--)
         {
             Shape shape = _shapeList[i];
-
-            // 檢查鼠標點是否在形狀的包圍框內
             if (IsPointWithinBoundingBox(pressX, pressY, shape))
             {
                 _selectIndex = i;
@@ -113,7 +109,6 @@ public class Model
                 break; // 找到第一個匹配的形狀後退出循環
             }
         }
-        // 通知模型發生變化
         NotifyModelChanged();
     }
 
@@ -170,35 +165,14 @@ public class Model
     public void ReleasedPointerDrawing(double pressX, double pressY)
     {
         _isSelect = false;
-        if (_isPressed)
+        _isPressed = false;
+        if ( _hint != null && _shapeState != "")
         {
-            Shape hint;
-            _isPressed = false;
-            Point startPoint = new Point((int)_firstPointX, (int)_firstPointY);
-            Point endPoint = new Point((int)pressX, (int)pressY);
-            if (_toolStripEllipseButtonState)
-            {
-                hint = _factory.CreateShape(NAME_ELLIPSE, startPoint, endPoint);
-                _hint.SetPoint1(_firstPointX, _firstPointY);
-                _hint.SetPoint2(pressX, pressY);
-                _shapeList.Add(hint);
-            }
-            else if (_toolStripLineButtonState)
-            {
-                hint = _factory.CreateShape(NAME_LINE, startPoint, endPoint);
-                _hint.SetPoint1(_firstPointX, _firstPointY);
-                _hint.SetPoint2(pressX, pressY);
-                _shapeList.Add(hint);
-            }
-            else if (_toolStripRectangleButtonState)
-            {
-                hint = _factory.CreateShape(NAME_RECTANGLE, startPoint, endPoint);
-                _shapeList.Add(hint);
-            }
-            // 通知模型發生變化
-            NotifyModelChanged();
-            _hint = null;
+            _hint = _factory.CreateShape(_shapeState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
+        _shapeList.Add(_hint);
+        NotifyModelChanged();
+        _hint = null;
     }
 
     // 滑鼠左鍵釋放事件處理（由 IState 接口實現）
@@ -242,23 +216,17 @@ public class Model
     // 更新工具欄按鈕選中狀態
     public void UpdateToolStripButtonCheck(string temp)
     {
-        _toolStripEllipseButtonState = false;
-        _toolStripLineButtonState = false;
-        _toolStripRectangleButtonState = false;
         if (temp == ELLIPSE)
         {
             _hint = _factory.CreateShape(NAME_ELLIPSE);
-            _toolStripEllipseButtonState = true;
         }
         else if (temp == LINE)
         {
             _hint = _factory.CreateShape(NAME_LINE);
-            _toolStripLineButtonState = true;
         }
         else if (temp == RECTANGLE)
         {
             _hint = _factory.CreateShape(NAME_RECTANGLE);
-            _toolStripRectangleButtonState = true;
         }
     }
 

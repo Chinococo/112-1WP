@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-
+using System;
 namespace PowerPoint.PresentationModel
 {
     internal class WindowsFormsGraphicsAdaptor : CustomGraphics
@@ -27,20 +27,32 @@ namespace PowerPoint.PresentationModel
 
         void CustomGraphics.DrawEllipse(double x1, double y1, double x2, double y2)
         {
-            _graphics.DrawEllipse(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
+            double width = Math.Abs(x2 - x1);
+            double height = Math.Abs(y2 - y1);
+            double left = Math.Min(x1, x2);
+            double top = Math.Min(y1, y2);
+            _graphics.DrawEllipse(Pens.Black, (float)left, (float)top, (float)width, (float)height);
         }
 
         //畫長方形
 
         void CustomGraphics.DrawRectangle(double x1, double y1, double x2, double y2)
         {
-            _graphics.DrawRectangle(Pens.Black, (float)x1, (float)y1, (float)x2, (float)y2);
+            double width = Math.Abs(x2 - x1);
+            double height = Math.Abs(y2 - y1);
+            double left = Math.Min(x1, x2);
+            double top = Math.Min(y1, y2);
+            _graphics.DrawRectangle(Pens.Black, (float)left, (float)top, (float)width, (float)height);
         }
 
         //畫選擇邊框
         void CustomGraphics.DrawBorder(double x1, double y1, double x2, double y2)
         {
-            _graphics.DrawRectangle(Pens.Red, (float)x1, (float)y1, (float)x2, (float)y2);
+            double width = Math.Abs(x2 - x1);
+            double height = Math.Abs(y2 - y1);
+            double left = Math.Min(x1, x2);
+            double top = Math.Min(y1, y2);
+            _graphics.DrawRectangle(Pens.Red, (float)left, (float)top, (float)width, (float)height);
         }
     }
 }
