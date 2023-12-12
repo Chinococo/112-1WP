@@ -28,6 +28,7 @@ public class Model
     private const string RECTANGLE = "矩形";
     private const string ELLIPSE = "橢圓";
     private string _shapeState = "";
+    private string _shapeToolButtonState = "";
     private double _firstPointX;
     private double _firstPointY;
     private bool _isPressed = false;
@@ -82,9 +83,7 @@ public class Model
     // 刪除特定列的物件
     public void DeleteLineByIndex(int index)
     {
-        if (_selectIndex == index)
-            _selectIndex = -1;
-        if(_shapeList.Count>index)
+        if (_shapeList.Count > index)
             _shapeList.RemoveAt(index);
 
         // 通知模型發生變化
@@ -132,7 +131,7 @@ public class Model
                 }
             }
         }
-   
+
         NotifyModelChanged();
     }
 
@@ -160,13 +159,13 @@ public class Model
     // 滑鼠移動事件處理（用於移動形狀）
     public void MovedPointerPoint(double pressX, double pressY)
     {
-        if (_zoom&&_isPressed)
+        if (_zoom && _isPressed)
         {
             Shape temp = _shapeList[_selectIndex];
             double deltaX = pressX - _firstPointX;
             double deltaY = pressY - _firstPointY;
             Console.WriteLine($"deltaX: {deltaX}, pressY: {deltaX}");
-            temp.SetPoint2(temp.GetX2()+ deltaX, temp.GetY2() + deltaY);
+            temp.SetPoint2(temp.GetX2() + deltaX, temp.GetY2() + deltaY);
             _firstPointX = pressX;
             _firstPointY = pressY;
         }
@@ -176,7 +175,6 @@ public class Model
             _lastClickX = pressX;
             _lastClickY = pressY;
             // 通知模型發生變化
-            
         }
         NotifyModelChanged();
     }
@@ -202,11 +200,11 @@ public class Model
     {
         _isSelect = false;
         _isPressed = false;
-        if ( _hint != null && _shapeState != "")
+        if (_hint != null)
         {
-            _hint = _factory.CreateShape(_shapeState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
+            _hint = _factory.CreateShape(_shapeToolButtonState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
-        if(_hint!=null)
+        if (_hint != null)
             _shapeList.Add(_hint);
         NotifyModelChanged();
         _hint = null;
@@ -229,7 +227,7 @@ public class Model
     }
 
     // 通知畫面需要更新事件
-    private void NotifyModelChanged()
+    public void NotifyModelChanged()
     {
         if (_modelChanged != null)
             _modelChanged();
@@ -256,14 +254,17 @@ public class Model
         if (temp == ELLIPSE)
         {
             _hint = _factory.CreateShape(NAME_ELLIPSE);
+            _shapeToolButtonState = NAME_ELLIPSE;
         }
         else if (temp == LINE)
         {
             _hint = _factory.CreateShape(NAME_LINE);
+            _shapeToolButtonState = NAME_LINE;
         }
         else if (temp == RECTANGLE)
         {
             _hint = _factory.CreateShape(NAME_RECTANGLE);
+            _shapeToolButtonState = NAME_RECTANGLE;
         }
     }
 
@@ -298,6 +299,7 @@ public class Model
     {
         return _selectIndex;
     }
+
     // 清除狀態（解除按壓等）
     public void ClearState()
     {
@@ -314,6 +316,4 @@ public class Model
         else
             _state = new PointState(this);
     }
-
-
 }

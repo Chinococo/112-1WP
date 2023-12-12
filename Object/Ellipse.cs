@@ -25,7 +25,7 @@ public class Ellipse : Shape
     //複寫Draw方法
     public override void Draw(CustomGraphics graphics, bool border)
     {
-        graphics.DrawEllipse(_x1,_y1,_x2,_y2);
+        graphics.DrawEllipse(_x1, _y1, _x2, _y2);
         if (border)
         {
             graphics.DrawBorder(_x1, _y1, _x2, _y2);

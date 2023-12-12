@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using System;
+﻿using System;
+using System.Drawing;
+
 namespace PowerPoint.PresentationModel
 {
     internal class WindowsFormsGraphicsAdaptor : CustomGraphics
@@ -62,6 +63,7 @@ namespace PowerPoint.PresentationModel
             DrawCornerEllipse(left + width, top + height / 2);
             DrawCornerEllipse(left + width / 2, top + height);
         }
+
         // 畫邊框
         private void DrawCornerEllipse(double x, double y)
         {

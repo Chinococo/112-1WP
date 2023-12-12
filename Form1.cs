@@ -95,7 +95,7 @@ namespace PowerPoint
         {
             _model.MovedPointer(e.X, e.Y);
             int selectIndex = _model.GetSelectIndex();
-            if (selectIndex != -1)
+            if (selectIndex != -1 && _shapeList.Count > selectIndex)
             {
                 Shape selectedShape = _shapeList[selectIndex];
 
@@ -117,7 +117,6 @@ namespace PowerPoint
                     _zoom = false;
                 }
                 _model.SetZoom(_zoom);
-
             }
         }
 
@@ -221,6 +220,5 @@ namespace PowerPoint
             _toolStripRectangleButton.Checked = false;
             _toolStripCursorsButton.Checked = false;
         }
-
     }
 }

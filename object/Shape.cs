@@ -6,6 +6,7 @@ public class Shape : Shapes
 {
     private const string DELETE = "刪除";
     private const string COORDINATES_FORMAT = "({0}, {1}), ({2}, {3})";
+
     // 建構函式，初始化 Shape 對象的形狀名稱
     public Shape(string shapeName) : base(shapeName)
     {
