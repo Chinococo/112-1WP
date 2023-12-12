@@ -52,6 +52,12 @@ public class Model
         this._zoom = zoom;
     }
 
+    // 拿zoom數值
+    public bool GetZoom()
+    {
+        return _zoom;
+    }
+
     // 新增 DataGrid 資料
     public void AddNewLine(string state)
     {
@@ -76,12 +82,10 @@ public class Model
     // 刪除特定列的物件
     public void DeleteLineByIndex(int index)
     {
-        // 移除指定索引的形狀
-        if (index < _selectIndex)
-            _selectIndex -= 1;
-        else if (_selectIndex == index)
+        if (_selectIndex == index)
             _selectIndex = -1;
-        _shapeList.RemoveAt(index);
+        if(_shapeList.Count>index)
+            _shapeList.RemoveAt(index);
 
         // 通知模型發生變化
         NotifyModelChanged();
@@ -202,7 +206,8 @@ public class Model
         {
             _hint = _factory.CreateShape(_shapeState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
-        _shapeList.Add(_hint);
+        if(_hint!=null)
+            _shapeList.Add(_hint);
         NotifyModelChanged();
         _hint = null;
     }
@@ -309,4 +314,6 @@ public class Model
         else
             _state = new PointState(this);
     }
+
+
 }

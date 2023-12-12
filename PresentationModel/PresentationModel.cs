@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PowerPoint.PresentationModel
 {
-    internal class PresentationModel
+    public class PresentationModel
     {
         private Model _model;
         private Bitmap _bitmap;

@@ -70,7 +70,6 @@
     <Compile Include="Object\Rectangle.cs" />
     <Compile Include="Object\Shape.cs" />
     <Compile Include="Object\Shapes.cs" />
-    <Compile Include="view\View.cs" />
     <EmbeddedResource Include="DoubleBufferedPanel.resx">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </EmbeddedResource>

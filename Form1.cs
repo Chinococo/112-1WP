@@ -221,5 +221,6 @@ namespace PowerPoint
             _toolStripRectangleButton.Checked = false;
             _toolStripCursorsButton.Checked = false;
         }
+
     }
 }
