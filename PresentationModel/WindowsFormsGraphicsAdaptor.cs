@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace powerpoint.PresentationModel
+namespace PowerPoint.PresentationModel
 {
     internal class WindowsFormsGraphicsAdaptor : IGraphics
     {

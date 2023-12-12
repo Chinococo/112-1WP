@@ -1,4 +1,4 @@
-﻿using powerpoint;
+﻿using PowerPoint;
 using System;
 
 public class Ellipse : Shape

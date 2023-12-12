@@ -1,4 +1,4 @@
-﻿namespace powerpoint.Object
+﻿namespace PowerPoint.Object
 {
     /// <summary>
     /// Represents the state of the application when the user is interacting with a point.

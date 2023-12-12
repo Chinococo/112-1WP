@@ -1,4 +1,4 @@
-﻿namespace powerpoint
+﻿namespace PowerPoint
 {
     public interface IGraphics
     {

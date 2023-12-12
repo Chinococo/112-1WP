@@ -1,10 +1,10 @@
-﻿using powerpoint.DrawingForm;
+﻿using PowerPoint.DrawingForm;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace powerpoint
+namespace PowerPoint
 {
     public partial class Form1 : Form
     {

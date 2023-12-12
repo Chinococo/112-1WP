@@ -1,4 +1,4 @@
-﻿namespace powerpoint
+﻿namespace PowerPoint
 {
     using System.Windows.Forms;
 

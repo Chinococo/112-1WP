@@ -1,4 +1,4 @@
-﻿namespace powerpoint.Object
+﻿namespace PowerPoint.Object
 {
     // Represents the drawing state for handling mouse events in a drawing application.
     internal class DrawingState : IState

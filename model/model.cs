@@ -1,6 +1,6 @@
 ﻿// 引用必要的命名空間
-using powerpoint;
-using powerpoint.Object;
+using PowerPoint;
+using PowerPoint.Object;
 using System;
 using System.ComponentModel;
 

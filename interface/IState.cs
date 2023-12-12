@@ -1,4 +1,4 @@
-﻿namespace powerpoint
+﻿namespace PowerPoint
 {
     /// <summary>
     /// Interface defining the contract for a state in the context of user interactions.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace powerpoint
+namespace PowerPoint
 {
     internal static class Program
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace powerpoint
+namespace PowerPoint
 {
     partial class Form1
     {

@@ -1,4 +1,4 @@
-﻿using powerpoint; // 引用 HW2 命名空間
+﻿using PowerPoint; // 引用 HW2 命名空間
 using System;
 
 // 定義 Shape 類，繼承自 Shapes 類
