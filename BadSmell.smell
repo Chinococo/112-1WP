@@ -354,21 +354,6 @@
                 <ProjectName>PowerPoint</ProjectName>
                 <AnalysisFileType>Designer</AnalysisFileType>
               </AnalysisFile>
-              <AnalysisFile>
-                <RelativePath>model\ModelTests.cs</RelativePath>
-                <ProjectName>PowerPointTests</ProjectName>
-                <AnalysisFileType>Test</AnalysisFileType>
-              </AnalysisFile>
-              <AnalysisFile>
-                <RelativePath>PresentationModel\PresentationModelTests.cs</RelativePath>
-                <ProjectName>PowerPointTests</ProjectName>
-                <AnalysisFileType>Test</AnalysisFileType>
-              </AnalysisFile>
-              <AnalysisFile>
-                <RelativePath>Properties\AssemblyInfo.cs</RelativePath>
-                <ProjectName>PowerPointTests</ProjectName>
-                <AnalysisFileType>Model</AnalysisFileType>
-              </AnalysisFile>
             </AnalysisFiles>
           </AnalysisFileManager>
           <ProductionLoc>1147</ProductionLoc>
