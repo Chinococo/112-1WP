@@ -234,6 +234,7 @@ namespace PowerPoint
 
         private void EnforceAspectRatio()
         {
+            /*
             float targetAspectRatio = 16.0f / 9.0f; // 目標的寬高比例
             float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
 
@@ -242,7 +243,8 @@ namespace PowerPoint
                 // 根據目標寬高比例調整視窗大小
                 int newWidth = (int)(this.Height * targetAspectRatio);
                 this.Width = newWidth;
-            }
+            }*/
+            panel3.Size = new Size(Width - panel2.Width - panel1.Width - 10, panel2.Height);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -272,17 +274,33 @@ namespace PowerPoint
         {
             // Perform actions or update something when the panel size changes
             // For example, you can display the new size in the console
+            // For example, you can display the new size in the console
             panel3.Location = new Point(panel1.Location.X+ panel1.Width, panel1.Location.Y);
+            int old_Width = _doubleBufferedPanel.Width;
+            int old_Height = _doubleBufferedPanel.Height;
+
             _doubleBufferedPanel.Width = panel3.Width-100;
-           
             float targetAspectRatio = 9.0f / 16.0f; // 目標的寬高比例
             int newHeight = (int)(_doubleBufferedPanel.Width * targetAspectRatio);
             _doubleBufferedPanel.Height = newHeight;
             _doubleBufferedPanel.Location = new Point(50,(panel3.Height- newHeight)/2);
-            panel3.Controls.Add(_doubleBufferedPanel);
-            Console.WriteLine($"_doubleBufferedPanel Location Changed: x = {_doubleBufferedPanel.Location.X}, y = {_doubleBufferedPanel.Location.Y}");
-            Console.WriteLine($"_doubleBufferedPanel Size Changed: Width = {_doubleBufferedPanel.Width}, Height = {_doubleBufferedPanel.Height}");
-            Console.WriteLine($"Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
+            double scale = (double)newHeight / (double)old_Height;
+            if (_doubleBufferedPanel.Size.Height > panel3.Height-100)
+            {
+                _doubleBufferedPanel.Height = panel3.Height - 100;
+                old_Width = _doubleBufferedPanel.Width; 
+                int newWidth = (int)(_doubleBufferedPanel.Height * (16.0f / 9.0));
+                _doubleBufferedPanel.Width = newWidth;
+                _doubleBufferedPanel.Location = new Point((panel3.Width - newWidth) / 2, 50);
+                 scale = (double)newWidth / (double)old_Width;
+            }
+            foreach (var shape in _shapeList)
+            {
+                shape.SetPoint1(shape.GetX1()* scale, shape.GetY1() * scale);
+                shape.SetPoint2(shape.GetX2() * scale, shape.GetY2() * scale);
+            }
+            UpdateButtonPage();
+            _model.NotifyModelChanged();
         }
 
         private void _buttonPage1_Click(object sender, EventArgs e)
