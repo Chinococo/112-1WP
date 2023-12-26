@@ -26,7 +26,8 @@ namespace PowerPoint
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
-
+            this.Load += FormLoad;
+            this.Resize += FormResize;
             // 設定 Canvas（畫布）的相關屬性和事件處理程序
             // ...
 
@@ -211,6 +212,31 @@ namespace PowerPoint
             _toolStripLineButton.Checked = false;
             _toolStripRectangleButton.Checked = false;
             _toolStripCursorsButton.Checked = false;
+        }
+        private void FormLoad(object sender, EventArgs e)
+        {
+            // 設定視窗的初始大小，這裡使用 16:9 的寬高比例
+            this.Width = 800;  // 16 * 50
+            this.Height = 450; // 9 * 50
+        }
+
+        private void FormResize(object sender, EventArgs e)
+        {
+            // 視窗大小改變時的處理程式碼
+            EnforceAspectRatio();
+        }
+
+        private void EnforceAspectRatio()
+        {
+            float targetAspectRatio = 16.0f / 9.0f; // 目標的寬高比例
+            float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
+
+            if (currentAspectRatio != targetAspectRatio)
+            {
+                // 根據目標寬高比例調整視窗大小
+                int newWidth = (int)(this.Height * targetAspectRatio);
+                this.Width = newWidth;
+            }
         }
     }
 }
