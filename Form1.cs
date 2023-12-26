@@ -191,10 +191,13 @@ namespace PowerPoint
         //更新目前預覽圖狀態
         private void UpdateButtonPage()
         {
-            Bitmap bitmap = new Bitmap(_doubleBufferedPanel.Width, _doubleBufferedPanel.Height);
-            _doubleBufferedPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _doubleBufferedPanel.Width, _doubleBufferedPanel.Height));
-            _buttonPage1.BackgroundImage = bitmap;
-            _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
+            if(_doubleBufferedPanel.Width>0&& _doubleBufferedPanel.Height > 0)
+            {
+                Bitmap bitmap = new Bitmap(_doubleBufferedPanel.Width, _doubleBufferedPanel.Height);
+                _doubleBufferedPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _doubleBufferedPanel.Width, _doubleBufferedPanel.Height));
+                _buttonPage1.BackgroundImage = bitmap;
+                _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
+            }
         }
 
         //鍵盤偵測事件
@@ -258,7 +261,10 @@ namespace PowerPoint
             Console.WriteLine($"Panel 1 Size Changed: Width = {panel1.Width}, Height = {panel1.Height}");
             _size_update += 1;
             int t = Width - panel2.Width - panel1.Width;
-            panel3.Size = new Size(Width - panel2.Width - panel1.Width-10, panel2.Height);
+            if (Width - panel2.Width - panel1.Width - 10 > 0)
+                panel3.Size = new Size(Width - panel2.Width - panel1.Width-10, panel2.Height);
+            else
+                panel3.Size = new Size(1, panel2.Height);
         }
         private void Panel2_SizeChanged(object sender, EventArgs e)
         {
@@ -268,7 +274,10 @@ namespace PowerPoint
             _size_update += 1;
             int t = Width - panel2.Width - panel1.Width;
              Console.WriteLine($"Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
-            panel3.Size = new Size(Width - panel2.Width - panel1.Width - 10, panel2.Height);
+            if(Width - panel2.Width - panel1.Width - 10>0)
+                panel3.Size = new Size(Width - panel2.Width - panel1.Width - 10, panel2.Height);
+            else
+                panel3.Size = new Size(1, panel2.Height);
         }
         private void Panel3_SizeChanged(object sender, EventArgs e)
         {
@@ -306,6 +315,16 @@ namespace PowerPoint
         private void _buttonPage1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            _model.Undo();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            _model.Redo();
         }
     }
 }

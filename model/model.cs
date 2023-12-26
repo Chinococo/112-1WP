@@ -1,7 +1,9 @@
 ﻿// 引用必要的命名空間
 using PowerPoint;
+using PowerPoint.Command;
 using PowerPoint.Object;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 
@@ -16,7 +18,8 @@ public class Model
 
     // 私有字段，存儲界面上的控件
     private Factory _factory = new Factory();
-
+    private List<ICommand> command=new List<ICommand>();
+    private int excuteIndex = -1;
     private double _lastClickX;
     private double _lastClickY;
     private BindingList<Shape> _shapeList;
@@ -60,6 +63,22 @@ public class Model
     }
 
     // 新增 DataGrid 資料
+    public void PopLine()
+    {
+        _shapeList.RemoveAt(_shapeList.Count - 1);
+        // 通知模型發生變化
+        NotifyModelChanged();
+    }
+
+    // 新增 DataGrid 資料
+    public void AddNewLine(Shape shape)
+    {
+        _shapeList.Add(shape);
+        // 通知模型發生變化
+        NotifyModelChanged();
+    }
+
+    // 新增 DataGrid 資料
     public void AddNewLine(string state)
     {
         // 根據選擇的形狀類型添加新形狀到列表
@@ -76,6 +95,8 @@ public class Model
             _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
         }
         _shapeState = state;
+        command.Add(new AddCommand(this, _shapeList[_shapeList.Count - 1]));
+        excuteIndex += 1;
         // 通知模型發生變化
         NotifyModelChanged();
     }
@@ -315,5 +336,33 @@ public class Model
             _state = new DrawingState(this);
         else
             _state = new PointState(this);
+    }
+
+    // 切換繪製狀態
+    public void Undo()
+    {
+        if (excuteIndex < 0)
+            return;
+        else
+        {
+            command[excuteIndex].Unexcute();
+            excuteIndex -= 1;
+        }
+            
+
+    }
+
+    // 切換繪製狀態
+    public void Redo()
+    {
+        if (excuteIndex>=command.Count-1)
+            return;
+        else
+        {
+            command[excuteIndex+1].Excute();
+            excuteIndex += 1;
+        }
+            
+
     }
 }
