@@ -16,6 +16,7 @@ namespace PowerPoint
         private const string SYMBOL_RECTANGLE = "矩形";
         private const string SYMBOL_ELLIPSE = "橢圓";
         private bool _zoom = false;
+        private int _size_update = 0;
         private const double TOUCH_SIZE = 10;
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
@@ -31,7 +32,8 @@ namespace PowerPoint
             // 設定 Canvas（畫布）的相關屬性和事件處理程序
             // ...
 
-            //_panel.Dock = DockStyle.Fill;
+            //panel3.Dock = DockStyle.Fill;
+            panel3.BorderStyle = BorderStyle.FixedSingle; // Set the border style
             _doubleBufferedPanel.BackColor = System.Drawing.Color.LightYellow;
             _doubleBufferedPanel.MouseDown += HandleCanvasPressed;
             _doubleBufferedPanel.MouseUp += HandleCanvasReleased;
@@ -39,8 +41,13 @@ namespace PowerPoint
             _doubleBufferedPanel.Paint += HandleCanvasPaint;
             _doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
             _doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
-            _doubleBufferedPanel.Size = panel3.Size;
+            _doubleBufferedPanel.Anchor = AnchorStyles.None; // Center the control
+            //_doubleBufferedPanel.Dock = DockStyle.Left;
+            panel1.SizeChanged += Panel1_SizeChanged;
+            panel2.SizeChanged += Panel2_SizeChanged;
+            panel3.SizeChanged += Panel3_SizeChanged;
             panel3.Controls.Add(_doubleBufferedPanel);
+            Console.WriteLine($"Init Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
             splitter1.Width = 10;
             splitter2.Width = 10;
 
@@ -216,9 +223,7 @@ namespace PowerPoint
         }
         private void FormLoad(object sender, EventArgs e)
         {
-            // 設定視窗的初始大小，這裡使用 16:9 的寬高比例
-            this.Width = 800;  // 16 * 50
-            this.Height = 450; // 9 * 50
+
         }
 
         private void FormResize(object sender, EventArgs e)
@@ -241,6 +246,46 @@ namespace PowerPoint
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void Panel1_SizeChanged(object sender, EventArgs e)
+        {
+            // Perform actions or update something when the panel size changes
+            // For example, you can display the new size in the console
+            Console.WriteLine($"Panel 1 Size Changed: Width = {panel1.Width}, Height = {panel1.Height}");
+            _size_update += 1;
+            int t = Width - panel2.Width - panel1.Width;
+            panel3.Size = new Size(Width - panel2.Width - panel1.Width-10, panel2.Height);
+        }
+        private void Panel2_SizeChanged(object sender, EventArgs e)
+        {
+            // Perform actions or update something when the panel size changes
+            // For example, you can display the new size in the console
+            Console.WriteLine($"Panel 2 Size Changed: Width = {panel2.Width}, Height = {panel2.Height}");
+            _size_update += 1;
+            int t = Width - panel2.Width - panel1.Width;
+             Console.WriteLine($"Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
+            panel3.Size = new Size(Width - panel2.Width - panel1.Width - 10, panel2.Height);
+        }
+        private void Panel3_SizeChanged(object sender, EventArgs e)
+        {
+            // Perform actions or update something when the panel size changes
+            // For example, you can display the new size in the console
+            panel3.Location = new Point(panel1.Location.X+ panel1.Width, panel1.Location.Y);
+            _doubleBufferedPanel.Width = panel3.Width-100;
+           
+            float targetAspectRatio = 9.0f / 16.0f; // 目標的寬高比例
+            int newHeight = (int)(_doubleBufferedPanel.Width * targetAspectRatio);
+            _doubleBufferedPanel.Height = newHeight;
+            _doubleBufferedPanel.Location = new Point(50,(panel3.Height- newHeight)/2);
+            panel3.Controls.Add(_doubleBufferedPanel);
+            Console.WriteLine($"_doubleBufferedPanel Location Changed: x = {_doubleBufferedPanel.Location.X}, y = {_doubleBufferedPanel.Location.Y}");
+            Console.WriteLine($"_doubleBufferedPanel Size Changed: Width = {_doubleBufferedPanel.Width}, Height = {_doubleBufferedPanel.Height}");
+            Console.WriteLine($"Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
+        }
+
+        private void _buttonPage1_Click(object sender, EventArgs e)
         {
 
         }

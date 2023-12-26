@@ -141,9 +141,10 @@ namespace PowerPoint
             this._groupBox.Controls.Add(this._insertButton);
             this._groupBox.Controls.Add(this._displayDataGrid);
             this._groupBox.Controls.Add(this._shapeComboBox);
-            this._groupBox.Location = new System.Drawing.Point(6, 13);
+            this._groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._groupBox.Location = new System.Drawing.Point(0, 0);
             this._groupBox.Name = "_groupBox";
-            this._groupBox.Size = new System.Drawing.Size(351, 447);
+            this._groupBox.Size = new System.Drawing.Size(345, 463);
             this._groupBox.TabIndex = 3;
             this._groupBox.TabStop = false;
             this._groupBox.Text = "資料顯示";
@@ -152,20 +153,23 @@ namespace PowerPoint
             // 
             this._groupBox2.AutoSize = true;
             this._groupBox2.Controls.Add(this._buttonPage1);
-            this._groupBox2.Location = new System.Drawing.Point(3, 4);
+            this._groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._groupBox2.Location = new System.Drawing.Point(0, 0);
             this._groupBox2.Name = "_groupBox2";
-            this._groupBox2.Size = new System.Drawing.Size(200, 459);
+            this._groupBox2.Size = new System.Drawing.Size(206, 463);
             this._groupBox2.TabIndex = 4;
             this._groupBox2.TabStop = false;
             this._groupBox2.Text = "投影片選擇";
             // 
             // _buttonPage1
             // 
-            this._buttonPage1.Location = new System.Drawing.Point(6, 21);
+            this._buttonPage1.Dock = System.Windows.Forms.DockStyle.Top;
+            this._buttonPage1.Location = new System.Drawing.Point(3, 18);
             this._buttonPage1.Name = "_buttonPage1";
-            this._buttonPage1.Size = new System.Drawing.Size(182, 98);
+            this._buttonPage1.Size = new System.Drawing.Size(200, 105);
             this._buttonPage1.TabIndex = 0;
             this._buttonPage1.UseVisualStyleBackColor = true;
+            this._buttonPage1.Click += new System.EventHandler(this._buttonPage1_Click);
             // 
             // _menuStrip
             // 
@@ -281,16 +285,16 @@ namespace PowerPoint
             // 
             this.panel2.Controls.Add(this._groupBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(484, 55);
+            this.panel2.Location = new System.Drawing.Point(490, 55);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(351, 463);
+            this.panel2.Size = new System.Drawing.Size(345, 463);
             this.panel2.TabIndex = 9;
             // 
             // panel3
             // 
             this.panel3.Location = new System.Drawing.Point(206, 55);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(278, 463);
+            this.panel3.Size = new System.Drawing.Size(268, 463);
             this.panel3.TabIndex = 10;
             // 
             // splitter1
@@ -306,9 +310,9 @@ namespace PowerPoint
             // 
             this.splitter2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(481, 55);
+            this.splitter2.Location = new System.Drawing.Point(480, 55);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 463);
+            this.splitter2.Size = new System.Drawing.Size(10, 463);
             this.splitter2.TabIndex = 12;
             this.splitter2.TabStop = false;
             // 
