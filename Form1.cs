@@ -39,15 +39,16 @@ namespace PowerPoint
             _doubleBufferedPanel.Paint += HandleCanvasPaint;
             _doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
             _doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
-            _doubleBufferedPanel.Size = new System.Drawing.Size(
-                _groupBox.Location.X - (_groupBox2.Location.X + _groupBox2.Width),
-                _groupBox.Location.Y + _groupBox.Size.Height - _groupBox2.Location.Y
-            );
-            _doubleBufferedPanel.Location = new System.Drawing.Point(
-                _groupBox2.Location.X + _groupBox2.Width,
-                _groupBox2.Location.Y
-            );
-            Controls.Add(_doubleBufferedPanel);
+            _doubleBufferedPanel.Size = panel3.Size;
+            panel3.Controls.Add(_doubleBufferedPanel);
+            splitter1.Width = 10;
+            splitter2.Width = 10;
+
+            //_doubleBufferedPanel.Location = new System.Drawing.Point(
+            //    _groupBox2.Location.X + _groupBox2.Width,
+            //    _groupBox2.Location.Y
+            //);
+            //Controls.Add(_doubleBufferedPanel);
 
             // 初始化呈現模型和模型
             _presentationModel = new PresentationModel.PresentationModel(_model);
@@ -237,6 +238,11 @@ namespace PowerPoint
                 int newWidth = (int)(this.Height * targetAspectRatio);
                 this.Width = newWidth;
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
