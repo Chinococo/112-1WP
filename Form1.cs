@@ -220,19 +220,24 @@ namespace PowerPoint
                 else
                 {
                     _shapeList.RemoveAt(activePageIndex);
-                    _groupBox2.Controls.RemoveAt(activePageIndex);
-                    ButtonRefresh();
-                    if (activePageIndex >= _shapeList.Count)
-                        activePageIndex -= 1;
                     List<Button> sortedButtons = _groupBox2.Controls
                         .OfType<Button>()
                         .OrderBy(button => button.TabIndex)
                         .ToList();
+                    Console.WriteLine("原本頁面索引{0}", sortedButtons[activePageIndex].TabIndex);
+                    _groupBox2.Controls.Remove(sortedButtons[activePageIndex]);
+                    ButtonRefresh();
+                    if (activePageIndex >= _shapeList.Count)
+                        activePageIndex -= 1;
+                    sortedButtons = _groupBox2.Controls
+                        .OfType<Button>()
+                        .OrderBy(button => button.TabIndex)
+                        .ToList();
                     _activeButtonPage = sortedButtons[activePageIndex];
-                    Console.WriteLine("now active {0}", _activeButtonPage.TabIndex);
                     _model.SetShapeList(_shapeList[activePageIndex]);
                     _presentationModel.SetShapeList(_shapeList[activePageIndex]);
                     _displayDataGrid.DataSource = _shapeList[activePageIndex];
+                    UpdateButtonPage();
                     _model.NotifyModelChanged();
                 }
             }
