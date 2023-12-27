@@ -1,4 +1,5 @@
 ﻿using PowerPoint.DrawingForm;
+using PowerPoint.Drive;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,7 @@ namespace PowerPoint
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
+            TestGoogleDrive();
             InitializeComponent();
             _factory = new Factory();
             AddNewButton();
@@ -71,6 +73,11 @@ namespace PowerPoint
             _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _command);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
+        }
+        private void TestGoogleDrive()
+        {
+            GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
+            _service.UploadFile("Sample.jpeg", "image/jpeg");
         }
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)

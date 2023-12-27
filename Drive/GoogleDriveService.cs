@@ -46,9 +46,18 @@ namespace PowerPoint.Drive
 
             using (FileStream stream = new FileStream(clientSecretFileName, FileMode.Open, FileAccess.Read))
             {
+                GoogleClientSecrets clientSecrets = GoogleClientSecrets.FromStream(stream);
+
                 string credentialPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                 credentialPath = Path.Combine(credentialPath, CREDENTIAL_FOLDER + applicationName);
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, SCOPES, USER, CancellationToken.None, new FileDataStore(credentialPath, true)).Result;
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    clientSecrets.Secrets,
+                    SCOPES,
+                    USER,
+                    CancellationToken.None,
+                    new FileDataStore(credentialPath, true)
+                ).Result;
             }
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
