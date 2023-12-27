@@ -31,4 +31,9 @@ public class Rectangle : Shape
             graphics.DrawBorder(_x1, _y1, _x2, _y2);
         }
     }
+    public override Shape Clone()
+    {
+        Rectangle clonedShape = new Rectangle(this._x1, this._y1, this._x2, this._y2);
+        return clonedShape;
+    }
 }

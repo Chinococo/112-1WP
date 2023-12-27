@@ -7,24 +7,26 @@ using System.Threading.Tasks;
 namespace PowerPoint.Object
 {
     // Represents the drawing state for handling mouse events in a drawing application.
-    internal class DeleteCommand : ICommand
+    public  class DeleteCommand : ICommand
     {
         private Model _model;
         Shape _shape;
-        DeleteCommand(Model model, Shape shape)
+        int _index;
+        public DeleteCommand(Model model, Shape shape,int index)
         {
             this._model = model;
             this._shape = shape;
+            this._index = index;
         }
-        void ICommand.Excute()
+        public void Excute()
         {
-            _model.AddNewLine(_shape);
+            _model.DeleteLineByIndex(_index);
         }
 
 
-        void ICommand.Unexcute()
+        public void Unexcute()
         {
-            _model.PopLine();
+            _model.InserByIndex(_index, _shape);
         }
     }
 }

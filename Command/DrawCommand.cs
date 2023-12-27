@@ -4,25 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerPoint.Object
+namespace PowerPoint.Command
 {
     // Represents the drawing state for handling mouse events in a drawing application.
     internal class DrawCommand : ICommand
     {
         private Model _model;
         Shape _shape;
-        DrawCommand(Model model, Shape shape)
+        public DrawCommand(Model model, Shape shape)
         {
             this._model = model;
             this._shape = shape;
         }
-        void ICommand.Excute()
+        public void Excute()
         {
             _model.AddNewLine(_shape);
         }
 
 
-        void ICommand.Unexcute()
+        public void Unexcute()
         {
             _model.PopLine();
         }

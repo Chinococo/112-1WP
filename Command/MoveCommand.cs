@@ -10,21 +10,24 @@ namespace PowerPoint.Object
     internal class MoveCommand : ICommand
     {
         private Model _model;
-        Shape _shape;
-        public MoveCommand(Model model, Shape shape)
+        Shape _prev,_next;
+        int _index;
+        public MoveCommand(Model model, Shape prev, Shape next, int index)
         {
             this._model = model;
-            this._shape = shape;
+            this._prev = prev;
+            this._next = next;
+            this._index = index;
         }
         public void Excute()
         {
-            _model.AddNewLine(_shape);
+            _model.MoveByIndex(_index,_next);
         }
 
 
         public void Unexcute()
         {
-            _model.PopLine();
+            _model.MoveByIndex(_index, _prev);
         }
     }
 }

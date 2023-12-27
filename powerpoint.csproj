@@ -49,7 +49,12 @@
     <Compile Include="DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="interface\ICommand.cs" />
     <Compile Include="interface\IState.cs" />
+    <Compile Include="Command\AddCommand.cs" />
+    <Compile Include="Command\MoveCommand.cs" />
+    <Compile Include="Command\DeleteCommand.cs" />
+    <Compile Include="Command\DrawCommand.cs" />
     <Compile Include="Object\DrawingState.cs" />
     <Compile Include="Object\Ellipse.cs" />
     <Compile Include="Object\Factory.cs" />
