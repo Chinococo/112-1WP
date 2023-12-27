@@ -10,15 +10,11 @@ using System.Drawing;
 // Model 類，負責應用邏輯和數據管理
 public class Model
 {
-    // 事件，當模型發生變化時通知其他部分
     public event ModelChangedEventHandler _modelChanged;
 
-    // 委託定義用於事件處理
     public delegate void ModelChangedEventHandler();
 
-    // 私有字段，存儲界面上的控件
     private Factory _factory = new Factory();
-
     private List<ICommand> _command = new List<ICommand>();
     private int _executeIndex = -1;
     private double _lastClickX;
@@ -27,7 +23,6 @@ public class Model
     private const string NAME_LINE = "Line";
     private const string NAME_RECTANGLE = "Rectangle";
     private const string NAME_ELLIPSE = "Ellipse";
-    private const string DELETE = "刪除"; // 刪除按鈕的文字
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
     private const string ELLIPSE = "橢圓";
@@ -40,7 +35,6 @@ public class Model
     private bool _isSelect = false;
     private int _selectIndex = -1;
     private Shape _hint; // 用於顯示提示形狀的變數
-    private IState _state; // 表示當前狀態的接口
     private bool _zoom = false;
 
     // 構造函數，初始化模型
@@ -170,15 +164,7 @@ public class Model
                 }
             }
         }
-
         NotifyModelChanged();
-    }
-
-    // 滑鼠按下事件處理（由 IState 接口實現）
-    public void PressedPointer(double pressX, double pressY)
-    {
-        if (_state != null)
-            _state.MouseDown(pressX, pressY);
     }
 
     // 滑鼠移動事件處理（用於繪製形狀）
@@ -217,18 +203,12 @@ public class Model
         NotifyModelChanged();
     }
 
-    // 滑鼠移動事件處理（由 IState 接口實現）
-    public void MovedPointer(double pressX, double pressY)
-    {
-        if (_state != null)
-            _state.MouseMove(pressX, pressY);
-    }
-
     // 滑鼠左鍵釋放事件處理（用於選擇點）
     public void ReleasedPointerPoint(double pressX, double pressY)
     {
         UpdateExecuteId();
-        _command.Add(new MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
+        if (_selectIndex >= 0)
+            _command.Add(new MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
         _executeIndex += 1;
         _isSelect = false;
         _isPressed = false;
@@ -252,13 +232,6 @@ public class Model
             _shapeList.Add(_hint);
         NotifyModelChanged();
         _hint = null;
-    }
-
-    // 滑鼠左鍵釋放事件處理（由 IState 接口實現）
-    public void ReleasedPointer(double pressX, double pressY)
-    {
-        if (_state != null)
-            _state.ReleasedPointer(pressX, pressY);
     }
 
     // 清除所有形狀並解除按壓
@@ -351,41 +324,6 @@ public class Model
         this._isSelect = false;
     }
 
-    // 切換繪製狀態
-    public void ChangeState(bool drawingState)
-    {
-        if (drawingState)
-            _state = new DrawingState(this);
-        else
-            _state = new PointState(this);
-    }
-
-    // 切換繪製狀態
-    public void Undo()
-    {
-        if (_executeIndex < 0)
-            return;
-        else
-        {
-            _command[_executeIndex].UndoExecute();
-            _executeIndex -= 1;
-            NotifyModelChanged();
-        }
-    }
-
-    // 切換繪製狀態
-    public void Redo()
-    {
-        if (_executeIndex >= _command.Count - 1)
-            return;
-        else
-        {
-            _command[_executeIndex + 1].Execute();
-            _executeIndex += 1;
-            NotifyModelChanged();
-        }
-    }
-
     //新增物件by索引
     public void InsertByIndex(int index, Shape temp)
     {
@@ -396,5 +334,23 @@ public class Model
     public void MoveByIndex(int index, Shape temp)
     {
         this._shapeList[index] = temp;
+    }
+
+    // 拿去Command
+    public List<ICommand> GetCommand()
+    {
+        return _command;
+    }
+
+    // 拿ExecuteIndex
+    public int GetExecuteIndex()
+    {
+        return _executeIndex;
+    }
+
+    // 拿ExecuteIndex
+    public void UpdateExecuteIndex(int index)
+    {
+        this._executeIndex = index;
     }
 }

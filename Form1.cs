@@ -61,7 +61,7 @@ namespace PowerPoint
             //Controls.Add(_doubleBufferedPanel);
 
             // 初始化呈現模型和模型
-            _presentationModel = new PresentationModel.PresentationModel(_model);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
@@ -90,14 +90,14 @@ namespace PowerPoint
         // Canvas 被點擊事件
         public void HandleCanvasPressed(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            _model.PressedPointer(e.X, e.Y);
+            _presentationModel.PressedPointer(e.X, e.Y);
         }
 
         // Canvas 被釋放事件
 
         public void HandleCanvasReleased(object sender, MouseEventArgs e)
         {
-            _model.ReleasedPointer(e.X, e.Y);
+            _presentationModel.ReleasedPointer(e.X, e.Y);
             this.Cursor = Cursors.Default;
             ClearToolStripButtonCheck();
         }
@@ -105,7 +105,7 @@ namespace PowerPoint
         // Canvas 被移動事件
         public void HandleCanvasMoved(object sender, MouseEventArgs e)
         {
-            _model.MovedPointer(e.X, e.Y);
+            _presentationModel.MovedPointer(e.X, e.Y);
             if (_model.GetSelectIndex() != -1 && _shapeList.Count > _model.GetSelectIndex())
             {
                 Shape selectedShape = _shapeList[_model.GetSelectIndex()];
@@ -145,7 +145,7 @@ namespace PowerPoint
             UpdateToolStripButtonCheck(_toolStripEllipseButton);
             _model.UpdateToolStripButtonCheck(SYMBOL_ELLIPSE);
             _model.ClearState();
-            _model.ChangeState(true);
+            _presentationModel.ChangeState(true);
         }
 
         // 按下 toolstrip 按鈕事件
@@ -154,7 +154,7 @@ namespace PowerPoint
             UpdateToolStripButtonCheck(_toolStripLineButton);
             _model.UpdateToolStripButtonCheck(SYMBOL_LINE);
             _model.ClearState();
-            _model.ChangeState(true);
+            _presentationModel.ChangeState(true);
         }
 
         // 按下 toolstrip 按鈕事件
@@ -163,7 +163,7 @@ namespace PowerPoint
             UpdateToolStripButtonCheck(_toolStripRectangleButton);
             _model.UpdateToolStripButtonCheck(SYMBOL_RECTANGLE);
             _model.ClearState();
-            _model.ChangeState(true);
+            _presentationModel.ChangeState(true);
         }
 
         // 光標便十字事件
@@ -188,7 +188,7 @@ namespace PowerPoint
         {
             UpdateToolStripButtonCheck(_toolStripCursorsButton);
             _model.ClearState();
-            _model.ChangeState(false);
+            _presentationModel.ChangeState(false);
         }
 
         //更新目前預覽圖狀態
@@ -238,7 +238,6 @@ namespace PowerPoint
         //清除畫面強制比例
         private void EnforceAspectRatio()
         {
-            
             float targetAspectRatio = WIDTH_RATIO / HEIGHT_RATIO;  // 目標的寬高比例
             float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
 
@@ -310,13 +309,13 @@ namespace PowerPoint
         //Undo按鈕點擊事件
         private void UndoButtonClick(object sender, EventArgs e)
         {
-            _model.Undo();
+            _presentationModel.Undo();
         }
 
         //Redo按鈕點擊事件
         private void RedoButtonClick(object sender, EventArgs e)
         {
-            _model.Redo();
+            _presentationModel.Redo();
         }
     }
 }

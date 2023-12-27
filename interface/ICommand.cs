@@ -4,6 +4,7 @@
     {
         //執行
         void Execute();
+
         //回復
         void UndoExecute();
     }
