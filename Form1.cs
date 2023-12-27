@@ -72,7 +72,6 @@ namespace PowerPoint
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
-
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
