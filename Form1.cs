@@ -1,5 +1,6 @@
 ﻿using PowerPoint.DrawingForm;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -22,13 +23,14 @@ namespace PowerPoint
         private const float HEIGHT_RATIO = 9.0f; // 目標的寬高比例
         private const float RATIO = HEIGHT_RATIO / WIDTH_RATIO; // 目標的寬高比例
         private const int SPLITER_WIDTH = 10;
+        private List<ICommand> _command = new List<ICommand>();
 
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model(_shapeList);
+            _model = new Model(_shapeList, _command);
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
@@ -61,7 +63,7 @@ namespace PowerPoint
             //Controls.Add(_doubleBufferedPanel);
 
             // 初始化呈現模型和模型
-            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList, _command);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
@@ -69,7 +71,7 @@ namespace PowerPoint
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            _model.AddNewLine(_shapeComboBox.Text);
+            _presentationModel.AddNewLine(_shapeComboBox.Text);
         }
 
         // DataGrid 按鈕觸發處理事件
@@ -208,7 +210,7 @@ namespace PowerPoint
         {
             if (e.KeyCode == Keys.Delete)
             {
-                _model.DeleteButtonClick();
+                _presentationModel.DeleteButtonClick();
             }
         }
 

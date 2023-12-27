@@ -1,4 +1,5 @@
-﻿using PowerPoint.Object;
+﻿using PowerPoint.Command;
+using PowerPoint.Object;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -9,14 +10,24 @@ namespace PowerPoint.PresentationModel
     {
         private Model _model;
         private Bitmap _bitmap;
+        private Factory _factory = new Factory();
         private const string IMAGE = "image.png";
         private IState _state; // 表示當前狀態的接口
         private BindingList<Shape> _shapeList;
+        private List<ICommand> _command;
+        private const string LINE = "線";
+        private const string RECTANGLE = "矩形";
+        private const string ELLIPSE = "橢圓";
+        private const string NAME_LINE = "Line";
+        private const string NAME_RECTANGLE = "Rectangle";
+        private const string NAME_ELLIPSE = "Ellipse";
+        private string _shapeState = "";
 
-        public PresentationModel(Model model, BindingList<Shape> shapeList)
+        public PresentationModel(Model model, BindingList<Shape> shapeList, List<ICommand> command)
         {
             this._model = model;
             this._shapeList = shapeList;
+            this._command = command;
         }
 
         // Draw事件
@@ -70,15 +81,14 @@ namespace PowerPoint.PresentationModel
         // 切換繪製狀態
         public void Undo()
         {
-            int _executeIndex = _model.GetExecuteIndex();
+            int Index = _model.GetExecuteIndex();
             List<ICommand> _command = _model.GetCommand();
-            if (_executeIndex < 0)
+            if (Index < 0)
                 return;
             else
             {
-                _command[_executeIndex].UndoExecute();
-                _executeIndex -= 1;
-                _model.UpdateExecuteIndex(_executeIndex);
+                _command[Index].UndoExecute();
+                _model.UpdateExecuteIndex(Index -1 );
                 _model.NotifyModelChanged();
             }
         }
@@ -86,17 +96,57 @@ namespace PowerPoint.PresentationModel
         // 切換繪製狀態
         public void Redo()
         {
-            int _executeIndex = _model.GetExecuteIndex();
-            List<ICommand> _command = _model.GetCommand();
-            if (_executeIndex >= _command.Count - 1)
+            int index = _model.GetExecuteIndex();
+            if (index >= _command.Count - 1)
                 return;
             else
             {
-                _command[_executeIndex + 1].Execute();
-                _executeIndex += 1;
-                _model.UpdateExecuteIndex(_executeIndex);
+                _command[index + 1].Execute();
+                _model.UpdateExecuteIndex(index+1);
                 _model.NotifyModelChanged();
             }
+        }
+
+        // 按鈕刪除 Click 事件處理
+        public void DeleteButtonClick()
+        {
+            int _selectIndex = _model.GetSelectIndex();
+            int _executeIndex = _model.GetExecuteIndex();
+            if (_selectIndex >= 0 && _selectIndex < _shapeList.Count)
+            {
+                _model.UpdateExecuteId();
+                _command.Add(new DeleteCommand(_model, _shapeList[_selectIndex].Clone(), _selectIndex));
+                _model.UpdateExecuteIndex(_executeIndex+1);
+                _shapeList.RemoveAt(_selectIndex);
+            }
+            // 通知模型發生變化
+            _model.NotifyModelChanged();
+        }
+
+        // 新增 DataGrid 資料
+        public void AddNewLine(string state)
+        {
+            // 根據選擇的形狀類型添加新形狀到列表
+            if (state == LINE)
+            {
+                _shapeList.Add(_factory.CreateShape(NAME_LINE));
+            }
+            else if (state == RECTANGLE)
+            {
+                _shapeList.Add(_factory.CreateShape(NAME_RECTANGLE));
+            }
+            else if (state == ELLIPSE)
+            {
+                _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
+            }
+            int _executeIndex = _model.GetExecuteIndex();
+            _shapeState = state;
+            _model.UpdateExecuteId();
+            _command.Add(new AddCommand(_model, _shapeList[_shapeList.Count - 1].Clone()));
+            _executeIndex += 1;
+            _model.UpdateExecuteIndex(_executeIndex);
+            // 通知模型發生變化
+            _model.NotifyModelChanged();
         }
     }
 }

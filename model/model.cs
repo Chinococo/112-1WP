@@ -15,32 +15,32 @@ public class Model
     public delegate void ModelChangedEventHandler();
 
     private Factory _factory = new Factory();
-    private List<ICommand> _command = new List<ICommand>();
+    private Shape _previous;
+    private List<ICommand> _command;
     private int _executeIndex = -1;
-    private double _lastClickX;
-    private double _lastClickY;
+    private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
-    private const string NAME_LINE = "Line";
-    private const string NAME_RECTANGLE = "Rectangle";
-    private const string NAME_ELLIPSE = "Ellipse";
-    private const string LINE = "線";
-    private const string RECTANGLE = "矩形";
-    private const string ELLIPSE = "橢圓";
-    private string _shapeState = "";
     private string _shapeToolButtonState = "";
     private double _firstPointX;
     private double _firstPointY;
-    private Shape _previous;
+    private double _lastClickX;
+    private double _lastClickY;
     private bool _isPressed = false;
     private bool _isSelect = false;
-    private int _selectIndex = -1;
     private Shape _hint; // 用於顯示提示形狀的變數
     private bool _zoom = false;
+    private const string LINE = "線";
+    private const string RECTANGLE = "矩形";
+    private const string ELLIPSE = "橢圓";
+    private const string NAME_LINE = "Line";
+    private const string NAME_RECTANGLE = "Rectangle";
+    private const string NAME_ELLIPSE = "Ellipse";
 
     // 構造函數，初始化模型
-    public Model(BindingList<Shape> shapeList)
+    public Model(BindingList<Shape> shapeList, List<ICommand> command)
     {
         this._shapeList = shapeList;
+        this._command = command;
     }
 
     /// <summary>
@@ -70,30 +70,6 @@ public class Model
     public void AddNewLine(Shape shape)
     {
         _shapeList.Add(shape);
-        // 通知模型發生變化
-        NotifyModelChanged();
-    }
-
-    // 新增 DataGrid 資料
-    public void AddNewLine(string state)
-    {
-        // 根據選擇的形狀類型添加新形狀到列表
-        if (state == LINE)
-        {
-            _shapeList.Add(_factory.CreateShape(NAME_LINE));
-        }
-        else if (state == RECTANGLE)
-        {
-            _shapeList.Add(_factory.CreateShape(NAME_RECTANGLE));
-        }
-        else if (state == ELLIPSE)
-        {
-            _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
-        }
-        _shapeState = state;
-        UpdateExecuteId();
-        _command.Add(new AddCommand(this, _shapeList[_shapeList.Count - 1].Clone()));
-        _executeIndex += 1;
         // 通知模型發生變化
         NotifyModelChanged();
     }
@@ -198,7 +174,6 @@ public class Model
             _shapeList[_selectIndex].Move(pressX - _lastClickX, pressY - _lastClickY);
             _lastClickX = pressX;
             _lastClickY = pressY;
-            // 通知模型發生變化
         }
         NotifyModelChanged();
     }
@@ -212,7 +187,6 @@ public class Model
         _executeIndex += 1;
         _isSelect = false;
         _isPressed = false;
-        // 通知模型發生變化
         NotifyModelChanged();
     }
 
@@ -265,26 +239,6 @@ public class Model
             _hint.Draw(graphics);
     }
 
-    // 更新工具欄按鈕選中狀態
-    public void UpdateToolStripButtonCheck(string temp)
-    {
-        if (temp == ELLIPSE)
-        {
-            _hint = _factory.CreateShape(NAME_ELLIPSE);
-            _shapeToolButtonState = NAME_ELLIPSE;
-        }
-        else if (temp == LINE)
-        {
-            _hint = _factory.CreateShape(NAME_LINE);
-            _shapeToolButtonState = NAME_LINE;
-        }
-        else if (temp == RECTANGLE)
-        {
-            _hint = _factory.CreateShape(NAME_RECTANGLE);
-            _shapeToolButtonState = NAME_RECTANGLE;
-        }
-    }
-
     // 檢查點是否在形狀的包圍框內
     private bool IsPointWithinBoundingBox(double pressX, double pressY, Shape shape)
     {
@@ -292,36 +246,13 @@ public class Model
         double minY = Math.Min(shape.GetY1(), shape.GetY2());
         double maxX = Math.Max(shape.GetX1(), shape.GetX2());
         double maxY = Math.Max(shape.GetY1(), shape.GetY2());
-
         return (pressX >= minX && pressX <= maxX && pressY >= minY && pressY <= maxY);
-    }
-
-    // 按鈕刪除 Click 事件處理
-    public void DeleteButtonClick()
-    {
-        if (_selectIndex >= 0 && _selectIndex < _shapeList.Count)
-        {
-            UpdateExecuteId();
-            _command.Add(new DeleteCommand(this, _shapeList[_selectIndex].Clone(), _selectIndex));
-            _executeIndex += 1;
-            _shapeList.RemoveAt(_selectIndex);
-        }
-        // 通知模型發生變化
-        NotifyModelChanged();
     }
 
     // 回傳selectindex
     public int GetSelectIndex()
     {
         return _selectIndex;
-    }
-
-    // 清除狀態（解除按壓等）
-    public void ClearState()
-    {
-        this._selectIndex = -1;
-        this._isPressed = false;
-        this._isSelect = false;
     }
 
     //新增物件by索引
@@ -352,5 +283,38 @@ public class Model
     public void UpdateExecuteIndex(int index)
     {
         this._executeIndex = index;
+    }
+
+    public void SetShapeToolButtonState(string state)
+    {
+        this._shapeToolButtonState = state;
+    }
+
+    // 清除狀態（解除按壓等）
+    public void ClearState()
+    {
+        this._selectIndex = -1;
+        this._isPressed = false;
+        this._isSelect = false;
+    }
+
+    // 更新工具欄按鈕選中狀態
+    public void UpdateToolStripButtonCheck(string temp)
+    {
+        if (temp == ELLIPSE)
+        {
+            _hint = _factory.CreateShape(NAME_ELLIPSE);
+            _shapeToolButtonState = NAME_ELLIPSE;
+        }
+        else if (temp == LINE)
+        {
+            _hint = _factory.CreateShape(NAME_LINE);
+            _shapeToolButtonState = NAME_LINE;
+        }
+        else if (temp == RECTANGLE)
+        {
+            _hint = _factory.CreateShape(NAME_RECTANGLE);
+            _shapeToolButtonState = NAME_RECTANGLE;
+        }
     }
 }
