@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PowerPoint
@@ -285,7 +286,7 @@ namespace PowerPoint
                 int newWidth = (int)(_drawPanel.Height * (WIDTH_RATIO / HEIGHT_RATIO));
                 _drawPanel.Width = newWidth;
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
-                
+
             }
             ScaleShape((double)_drawPanel.Height / (double)oldHeight);
             UpdateButtonPage();
@@ -318,5 +319,20 @@ namespace PowerPoint
         {
             _presentationModel.Redo();
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            Button btn = new Button();
+            btn.TabIndex = _groupBox2.Controls.Count;
+            btn.Dock = DockStyle.Top;
+            var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
+            _groupBox2.Controls.Clear();  // Clear existing buttons
+            _groupBox2.Controls.Add(btn);
+            for (int i = 0; i < existingButtons.Count; i++)
+            {
+                _groupBox2.Controls.Add(existingButtons[i]);
+            }
+        }
     }
+
 }

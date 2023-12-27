@@ -31,6 +31,9 @@ namespace PowerPoint
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this._displayDataGrid = new System.Windows.Forms.DataGridView();
+            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._insertButton = new System.Windows.Forms.Button();
             this._shapeComboBox = new System.Windows.Forms.ComboBox();
             this._groupBox = new System.Windows.Forms.GroupBox();
@@ -51,9 +54,7 @@ namespace PowerPoint
             this._panelMiddle = new System.Windows.Forms.Panel();
             this._splitLeft = new System.Windows.Forms.Splitter();
             this._splitRight = new System.Windows.Forms.Splitter();
-            this._deleteButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this._shapeButtonColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._infoButtonColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -69,9 +70,9 @@ namespace PowerPoint
             this._displayDataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this._displayDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._displayDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._deleteButtonColumn,
-            this._shapeButtonColumn,
-            this._infoButtonColumn});
+            this._deleteCloumn,
+            this._shapeCloumn,
+            this._infoCloumn});
             this._displayDataGrid.Location = new System.Drawing.Point(6, 68);
             this._displayDataGrid.Name = "_displayDataGrid";
             this._displayDataGrid.ReadOnly = true;
@@ -81,6 +82,34 @@ namespace PowerPoint
             this._displayDataGrid.Size = new System.Drawing.Size(344, 379);
             this._displayDataGrid.TabIndex = 0;
             this._displayDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DisplayDataGridCellContentClick);
+            // 
+            // _deleteCloumn
+            // 
+            this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this._deleteCloumn.DataPropertyName = "delete";
+            this._deleteCloumn.HeaderText = "刪除";
+            this._deleteCloumn.MinimumWidth = 8;
+            this._deleteCloumn.Name = "_deleteCloumn";
+            this._deleteCloumn.ReadOnly = true;
+            this._deleteCloumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // _shapeCloumn
+            // 
+            this._shapeCloumn.DataPropertyName = "shape";
+            this._shapeCloumn.HeaderText = "形狀";
+            this._shapeCloumn.MinimumWidth = 8;
+            this._shapeCloumn.Name = "_shapeCloumn";
+            this._shapeCloumn.ReadOnly = true;
+            this._shapeCloumn.Width = 40;
+            // 
+            // _infoCloumn
+            // 
+            this._infoCloumn.DataPropertyName = "information";
+            this._infoCloumn.HeaderText = "資訊";
+            this._infoCloumn.MinimumWidth = 8;
+            this._infoCloumn.Name = "_infoCloumn";
+            this._infoCloumn.ReadOnly = true;
+            this._infoCloumn.Width = 150;
             // 
             // _insertButton
             // 
@@ -139,7 +168,7 @@ namespace PowerPoint
             this._buttonPage1.Location = new System.Drawing.Point(3, 18);
             this._buttonPage1.Name = "_buttonPage1";
             this._buttonPage1.Size = new System.Drawing.Size(200, 105);
-            this._buttonPage1.TabIndex = 0;
+            this._buttonPage1.TabIndex = 1;
             this._buttonPage1.UseVisualStyleBackColor = true;
             this._buttonPage1.Click += new System.EventHandler(this.ButtonPageClick);
             // 
@@ -178,7 +207,8 @@ namespace PowerPoint
             this._toolStripRectangleButton,
             this._toolStripCursorsButton,
             this._toolStripUndoButton,
-            this._toolStripRedoButton});
+            this._toolStripRedoButton,
+            this.toolStripButton1});
             this._toolStrip1.Location = new System.Drawing.Point(0, 24);
             this._toolStrip1.Name = "_toolStrip1";
             this._toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -236,12 +266,12 @@ namespace PowerPoint
             this._toolStripUndoButton.Text = "toolStripButton1";
             this._toolStripUndoButton.Click += new System.EventHandler(this.UndoButtonClick);
             // 
-            // _toolStripRedoutton
+            // _toolStripRedoButton
             // 
             this._toolStripRedoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._toolStripRedoButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripRedoutton.Image")));
+            this._toolStripRedoButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripRedoButton.Image")));
             this._toolStripRedoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._toolStripRedoButton.Name = "_toolStripRedoutton";
+            this._toolStripRedoButton.Name = "_toolStripRedoButton";
             this._toolStripRedoButton.Size = new System.Drawing.Size(28, 28);
             this._toolStripRedoButton.Text = "toolStripButton2";
             this._toolStripRedoButton.Click += new System.EventHandler(this.RedoButtonClick);
@@ -271,52 +301,34 @@ namespace PowerPoint
             this._panelMiddle.Size = new System.Drawing.Size(268, 463);
             this._panelMiddle.TabIndex = 10;
             // 
-            // _splitterLeft
+            // _splitLeft
             // 
             this._splitLeft.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this._splitLeft.Location = new System.Drawing.Point(206, 55);
-            this._splitLeft.Name = "_splitterLeft";
+            this._splitLeft.Name = "_splitLeft";
             this._splitLeft.Size = new System.Drawing.Size(3, 463);
             this._splitLeft.TabIndex = 11;
             this._splitLeft.TabStop = false;
             // 
-            // _splitterRight
+            // _splitRight
             // 
             this._splitRight.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this._splitRight.Dock = System.Windows.Forms.DockStyle.Right;
             this._splitRight.Location = new System.Drawing.Point(480, 55);
-            this._splitRight.Name = "_splitterRight";
+            this._splitRight.Name = "_splitRight";
             this._splitRight.Size = new System.Drawing.Size(10, 463);
             this._splitRight.TabIndex = 12;
             this._splitRight.TabStop = false;
             // 
-            // _deleteCloumn
+            // toolStripButton1
             // 
-            this._deleteButtonColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this._deleteButtonColumn.DataPropertyName = "delete";
-            this._deleteButtonColumn.HeaderText = "刪除";
-            this._deleteButtonColumn.MinimumWidth = 8;
-            this._deleteButtonColumn.Name = "_deleteCloumn";
-            this._deleteButtonColumn.ReadOnly = true;
-            this._deleteButtonColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // _shapeCloumn
-            // 
-            this._shapeButtonColumn.DataPropertyName = "shape";
-            this._shapeButtonColumn.HeaderText = "形狀";
-            this._shapeButtonColumn.MinimumWidth = 8;
-            this._shapeButtonColumn.Name = "_shapeCloumn";
-            this._shapeButtonColumn.ReadOnly = true;
-            this._shapeButtonColumn.Width = 40;
-            // 
-            // _infoCloumn
-            // 
-            this._infoButtonColumn.DataPropertyName = "information";
-            this._infoButtonColumn.HeaderText = "資訊";
-            this._infoButtonColumn.MinimumWidth = 8;
-            this._infoButtonColumn.Name = "_infoCloumn";
-            this._infoButtonColumn.ReadOnly = true;
-            this._infoButtonColumn.Width = 150;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // Form1
             // 
@@ -375,6 +387,10 @@ namespace PowerPoint
         private System.Windows.Forms.DataGridViewButtonColumn _deleteButtonColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeButtonColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoButtonColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 
