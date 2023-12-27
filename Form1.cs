@@ -12,7 +12,7 @@ namespace PowerPoint
     {
         private Model _model;// 模型
         private Factory _factory;// 工廠
-        private List<BindingList<Shape>> _shapeList =new List<BindingList<Shape>>();// 形狀列表
+        private List<BindingList<Shape>> _shapeList = new List<BindingList<Shape>>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
         private int activePageIndex = 0;
         private DoubleBufferedPanel _drawPanel = new DoubleBufferedPanel();
@@ -59,7 +59,7 @@ namespace PowerPoint
             _panelMiddle.Controls.Add(_drawPanel);
             _splitLeft.Width = SPLITER_WIDTH;
             _splitRight.Width = SPLITER_WIDTH;
-            
+
             _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
             //_doubleBufferedPanel.Location = new System.Drawing.Point(
             //    _groupBox2.Location.X + _groupBox2.Width,
@@ -215,7 +215,26 @@ namespace PowerPoint
         {
             if (e.KeyCode == Keys.Delete)
             {
-                _presentationModel.DeleteButtonClick();
+                if (_model.GetSelectIndex() >= 0)
+                    _presentationModel.DeleteButtonClick();
+                else
+                {
+                    _shapeList.RemoveAt(activePageIndex);
+                    _groupBox2.Controls.RemoveAt(activePageIndex);
+                    ButtonRefresh();
+                    if (activePageIndex >= _shapeList.Count)
+                        activePageIndex -= 1;
+                    List<Button> sortedButtons = _groupBox2.Controls
+                        .OfType<Button>()
+                        .OrderBy(button => button.TabIndex)
+                        .ToList();
+                    _activeButtonPage = sortedButtons[activePageIndex];
+                    Console.WriteLine("now active {0}", _activeButtonPage.TabIndex);
+                    _model.SetShapeList(_shapeList[activePageIndex]);
+                    _presentationModel.SetShapeList(_shapeList[activePageIndex]);
+                    _displayDataGrid.DataSource = _shapeList[activePageIndex];
+                    _model.NotifyModelChanged();
+                }
             }
         }
 
@@ -283,6 +302,7 @@ namespace PowerPoint
             _drawPanel.Width = _panelMiddle.Width - 100;
             int newHeight = (int)(_drawPanel.Width * RATIO);
             _drawPanel.Height = newHeight;
+            _drawPanel.Height = newHeight;
             _drawPanel.Location = new Point(50, (_panelMiddle.Height - newHeight) / 2);
             if (_drawPanel.Size.Height > _panelMiddle.Height - 100)
             {
@@ -290,7 +310,6 @@ namespace PowerPoint
                 int newWidth = (int)(_drawPanel.Height * (WIDTH_RATIO / HEIGHT_RATIO));
                 _drawPanel.Width = newWidth;
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
-
             }
             ScaleShape((double)_drawPanel.Height / (double)oldHeight);
             UpdateButtonPage();
@@ -328,6 +347,7 @@ namespace PowerPoint
         {
             AddNewButton();
         }
+
         private void AddNewButton()
         {
             Button btn = new Button();
@@ -346,6 +366,23 @@ namespace PowerPoint
                 _groupBox2.Controls.Add(existingButtons[i]);
             }
         }
+
+        private void ButtonRefresh()
+        {
+            List<Button> sortedButtons = _groupBox2.Controls
+                .OfType<Button>()
+                .OrderBy(button => button.TabIndex)
+                .ToList();
+            sortedButtons.Reverse();
+            _groupBox2.Controls.Clear();  // Clear existing buttons
+            for (int i = 0; i < sortedButtons.Count; i++)
+            {
+                Console.WriteLine("orginal {0} now {1}", sortedButtons[i].TabIndex, sortedButtons.Count - i - 1);
+                sortedButtons[i].TabIndex = sortedButtons.Count - i - 1;
+                _groupBox2.Controls.Add(sortedButtons[i]);
+            }
+        }
+
         private void PageButtonClick(object sender, EventArgs e)
         {
             Button clickedButton = sender as Button;
@@ -360,6 +397,7 @@ namespace PowerPoint
                 _model.NotifyModelChanged();
             }
         }
+
         private Bitmap CreateLightYellowBitmap(int width, int height)
         {
             Bitmap bitmap = new Bitmap(width, height);
@@ -370,7 +408,5 @@ namespace PowerPoint
             }
             return bitmap;
         }
-
     }
-
 }
