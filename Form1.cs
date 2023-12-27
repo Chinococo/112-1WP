@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
 namespace PowerPoint
 {
     public partial class Form1 : Form
@@ -11,13 +12,17 @@ namespace PowerPoint
         private Factory _factory;// 工廠
         private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
-        private DoubleBufferedPanel _doubleBufferedPanel = new DoubleBufferedPanel();
+        private DoubleBufferedPanel _drawPanel = new DoubleBufferedPanel();
         private const string SYMBOL_LINE = "線";
         private const string SYMBOL_RECTANGLE = "矩形";
         private const string SYMBOL_ELLIPSE = "橢圓";
         private bool _zoom = false;
-        private int _size_update = 0;
         private const double TOUCH_SIZE = 10;
+        private const float WIDTH_RATIO = 16.0f; // 目標的寬高比例
+        private const float HEIGHT_RATIO = 9.0f; // 目標的寬高比例
+        private const float RATIO = HEIGHT_RATIO / WIDTH_RATIO; // 目標的寬高比例
+        private const int SPLITER_WIDTH = 10;
+
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
@@ -27,29 +32,27 @@ namespace PowerPoint
             _displayDataGrid.DataSource = _shapeList;
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
-            this.Load += FormLoad;
             this.Resize += FormResize;
             // 設定 Canvas（畫布）的相關屬性和事件處理程序
             // ...
 
             //panel3.Dock = DockStyle.Fill;
-            panel3.BorderStyle = BorderStyle.FixedSingle; // Set the border style
-            _doubleBufferedPanel.BackColor = System.Drawing.Color.LightYellow;
-            _doubleBufferedPanel.MouseDown += HandleCanvasPressed;
-            _doubleBufferedPanel.MouseUp += HandleCanvasReleased;
-            _doubleBufferedPanel.MouseMove += HandleCanvasMoved;
-            _doubleBufferedPanel.Paint += HandleCanvasPaint;
-            _doubleBufferedPanel.MouseEnter += DrawingAreaMouseEnter;
-            _doubleBufferedPanel.MouseLeave += DrawingAreaMouseLeave;
-            _doubleBufferedPanel.Anchor = AnchorStyles.None; // Center the control
+            _panelMiddle.BorderStyle = BorderStyle.FixedSingle; // Set the border style
+            _drawPanel.BackColor = System.Drawing.Color.LightYellow;
+            _drawPanel.MouseDown += HandleCanvasPressed;
+            _drawPanel.MouseUp += HandleCanvasReleased;
+            _drawPanel.MouseMove += HandleCanvasMoved;
+            _drawPanel.Paint += HandleCanvasPaint;
+            _drawPanel.MouseEnter += DrawingAreaMouseEnter;
+            _drawPanel.MouseLeave += DrawingAreaMouseLeave;
+            _drawPanel.Anchor = AnchorStyles.None; // Center the control
             //_doubleBufferedPanel.Dock = DockStyle.Left;
-            panel1.SizeChanged += Panel1_SizeChanged;
-            panel2.SizeChanged += Panel2_SizeChanged;
-            panel3.SizeChanged += Panel3_SizeChanged;
-            panel3.Controls.Add(_doubleBufferedPanel);
-            Console.WriteLine($"Init Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
-            splitter1.Width = 10;
-            splitter2.Width = 10;
+            _panelLeft.SizeChanged += Panel1SizeChanged;
+            _panelRight.SizeChanged += Panel2SizeChanged;
+            _panelMiddle.SizeChanged += Panel3SizeChanged;
+            _panelMiddle.Controls.Add(_drawPanel);
+            _splitLeft.Width = SPLITER_WIDTH;
+            _splitRight.Width = SPLITER_WIDTH;
 
             //_doubleBufferedPanel.Location = new System.Drawing.Point(
             //    _groupBox2.Location.X + _groupBox2.Width,
@@ -91,8 +94,8 @@ namespace PowerPoint
         }
 
         // Canvas 被釋放事件
-        
-        public void HandleCanvasReleased(object sender , MouseEventArgs e)
+
+        public void HandleCanvasReleased(object sender, MouseEventArgs e)
         {
             _model.ReleasedPointer(e.X, e.Y);
             this.Cursor = Cursors.Default;
@@ -100,7 +103,7 @@ namespace PowerPoint
         }
 
         // Canvas 被移動事件
-        public void HandleCanvasMoved(object sender , MouseEventArgs e)
+        public void HandleCanvasMoved(object sender, MouseEventArgs e)
         {
             _model.MovedPointer(e.X, e.Y);
             if (_model.GetSelectIndex() != -1 && _shapeList.Count > _model.GetSelectIndex())
@@ -191,10 +194,10 @@ namespace PowerPoint
         //更新目前預覽圖狀態
         private void UpdateButtonPage()
         {
-            if(_doubleBufferedPanel.Width>0&& _doubleBufferedPanel.Height > 0)
+            if (_drawPanel.Width > 0 && _drawPanel.Height > 0)
             {
-                Bitmap bitmap = new Bitmap(_doubleBufferedPanel.Width, _doubleBufferedPanel.Height);
-                _doubleBufferedPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _doubleBufferedPanel.Width, _doubleBufferedPanel.Height));
+                Bitmap bitmap = new Bitmap(_drawPanel.Width, _drawPanel.Height);
+                _drawPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _drawPanel.Width, _drawPanel.Height));
                 _buttonPage1.BackgroundImage = bitmap;
                 _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
             }
@@ -224,21 +227,19 @@ namespace PowerPoint
             _toolStripRectangleButton.Checked = false;
             _toolStripCursorsButton.Checked = false;
         }
-        private void FormLoad(object sender, EventArgs e)
-        {
 
-        }
-
+        //清除畫面強制比例
         private void FormResize(object sender, EventArgs e)
         {
             // 視窗大小改變時的處理程式碼
             EnforceAspectRatio();
         }
 
+        //清除畫面強制比例
         private void EnforceAspectRatio()
         {
-            /*
-            float targetAspectRatio = 16.0f / 9.0f; // 目標的寬高比例
+            
+            float targetAspectRatio = WIDTH_RATIO / HEIGHT_RATIO;  // 目標的寬高比例
             float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
 
             if (currentAspectRatio != targetAspectRatio)
@@ -246,83 +247,74 @@ namespace PowerPoint
                 // 根據目標寬高比例調整視窗大小
                 int newWidth = (int)(this.Height * targetAspectRatio);
                 this.Width = newWidth;
-            }*/
-            panel3.Size = new Size(Width - panel2.Width - panel1.Width - 10, panel2.Height);
+            }
+            _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH, _panelRight.Height);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        //Panel更新事件
+        private void Panel1SizeChanged(object sender, EventArgs e)
         {
-
-        }
-        private void Panel1_SizeChanged(object sender, EventArgs e)
-        {
-            // Perform actions or update something when the panel size changes
-            // For example, you can display the new size in the console
-            Console.WriteLine($"Panel 1 Size Changed: Width = {panel1.Width}, Height = {panel1.Height}");
-            _size_update += 1;
-            int t = Width - panel2.Width - panel1.Width;
-            if (Width - panel2.Width - panel1.Width - 10 > 0)
-                panel3.Size = new Size(Width - panel2.Width - panel1.Width-10, panel2.Height);
+            if (Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH > 0)
+                _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH, _panelRight.Height);
             else
-                panel3.Size = new Size(1, panel2.Height);
+                _panelMiddle.Size = new Size(1, _panelRight.Height);
         }
-        private void Panel2_SizeChanged(object sender, EventArgs e)
-        {
-            // Perform actions or update something when the panel size changes
-            // For example, you can display the new size in the console
-            Console.WriteLine($"Panel 2 Size Changed: Width = {panel2.Width}, Height = {panel2.Height}");
-            _size_update += 1;
-            int t = Width - panel2.Width - panel1.Width;
-             Console.WriteLine($"Panel 3 Size Changed: Width = {panel3.Width}, Height = {panel3.Height}");
-            if(Width - panel2.Width - panel1.Width - 10>0)
-                panel3.Size = new Size(Width - panel2.Width - panel1.Width - 10, panel2.Height);
-            else
-                panel3.Size = new Size(1, panel2.Height);
-        }
-        private void Panel3_SizeChanged(object sender, EventArgs e)
-        {
-            // Perform actions or update something when the panel size changes
-            // For example, you can display the new size in the console
-            // For example, you can display the new size in the console
-            panel3.Location = new Point(panel1.Location.X+ panel1.Width, panel1.Location.Y);
-            int old_Width = _doubleBufferedPanel.Width;
-            int old_Height = _doubleBufferedPanel.Height;
 
-            _doubleBufferedPanel.Width = panel3.Width-100;
-            float targetAspectRatio = 9.0f / 16.0f; // 目標的寬高比例
-            int newHeight = (int)(_doubleBufferedPanel.Width * targetAspectRatio);
-            _doubleBufferedPanel.Height = newHeight;
-            _doubleBufferedPanel.Location = new Point(50,(panel3.Height- newHeight)/2);
-            double scale = (double)newHeight / (double)old_Height;
-            if (_doubleBufferedPanel.Size.Height > panel3.Height-100)
+        //Panel更新事件
+        private void Panel2SizeChanged(object sender, EventArgs e)
+        {
+            if (Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH > 0)
+                _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH, _panelRight.Height);
+            else
+                _panelMiddle.Size = new Size(1, _panelRight.Height);
+        }
+
+        //Panel更新事件
+        private void Panel3SizeChanged(object sender, EventArgs e)
+        {
+            // Perform actions or update something when the panel size changes
+            // For example, you can display the new size in the console
+            // For example, you can display the new size in the console
+            _panelMiddle.Location = new Point(_panelLeft.Location.X + _panelLeft.Width, _panelLeft.Location.Y);
+            int oldWidth = _drawPanel.Width;
+            int oldHeight = _drawPanel.Height;
+
+            _drawPanel.Width = _panelMiddle.Width - 100;
+            int newHeight = (int)(_drawPanel.Width * RATIO);
+            _drawPanel.Height = newHeight;
+            _drawPanel.Location = new Point(50, (_panelMiddle.Height - newHeight) / 2);
+            double scale = (double)newHeight / (double)oldHeight;
+            if (_drawPanel.Size.Height > _panelMiddle.Height - 100)
             {
-                _doubleBufferedPanel.Height = panel3.Height - 100;
-                old_Width = _doubleBufferedPanel.Width; 
-                int newWidth = (int)(_doubleBufferedPanel.Height * (16.0f / 9.0));
-                _doubleBufferedPanel.Width = newWidth;
-                _doubleBufferedPanel.Location = new Point((panel3.Width - newWidth) / 2, 50);
-                 scale = (double)newWidth / (double)old_Width;
+                _drawPanel.Height = _panelMiddle.Height - 100;
+                oldWidth = _drawPanel.Width;
+                int newWidth = (int)(_drawPanel.Height * (WIDTH_RATIO / HEIGHT_RATIO));
+                _drawPanel.Width = newWidth;
+                _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
+                scale = (double)newWidth / (double)oldWidth;
             }
             foreach (var shape in _shapeList)
             {
-                shape.SetPoint1(shape.GetX1()* scale, shape.GetY1() * scale);
+                shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
                 shape.SetPoint2(shape.GetX2() * scale, shape.GetY2() * scale);
             }
             UpdateButtonPage();
             _model.NotifyModelChanged();
         }
 
-        private void _buttonPage1_Click(object sender, EventArgs e)
+        //Page按鈕點擊事件
+        private void ButtonPageClick(object sender, EventArgs e)
         {
-
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        //Undo按鈕點擊事件
+        private void UndoButtonClick(object sender, EventArgs e)
         {
             _model.Undo();
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        //Redo按鈕點擊事件
+        private void RedoButtonClick(object sender, EventArgs e)
         {
             _model.Redo();
         }

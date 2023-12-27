@@ -108,6 +108,8 @@ public class Shape : Shapes
         this._x1 += deltaX;
         this._y1 += deltaY;
     }
+
+    //複製
     public virtual Shape Clone()
     {
         Shape clonedShape = new Shape(this._shapeName, this._x1, this._y1, this._x2, this._y2);

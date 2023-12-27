@@ -1036,7 +1036,7 @@
         SrXpebOEueGoWYUshKqqKvlcUvFmCWHZ1tXVyQd5LoqS5Mt/kAC/AbXevMJi5LHiAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="_toolStripUndoButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAALkAAAC0CAYAAADIM42CAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACIqSURBVHhe7Z13rGVV9cefvQuKwiBIsZAx6tixISKgoiKi
@@ -1188,7 +1188,7 @@
         w9LaTd8o1xvJb23+D4MD3sPA20dgAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="_toolStripRedoutton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAE4gAABOICAYAAABdmIfLAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAP+lSURBVHhe7NwxAQAADMOg+Tfd2cgBQrgBAAAAAAAAAAAA

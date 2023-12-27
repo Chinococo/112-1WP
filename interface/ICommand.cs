@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PowerPoint
+﻿namespace PowerPoint
 {
     public interface ICommand
     {
-        void Excute();
-        void Unexcute();
-
+        //執行
+        void Execute();
+        //回復
+        void UndoExecute();
     }
 }

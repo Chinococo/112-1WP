@@ -9,6 +9,7 @@ namespace PowerPoint.PresentationModel
         private const int HALF = 2;
         private const int BIAS = 5;
         private const int SIZE = 5;
+
         public WindowsFormsGraphicsAdaptor(Graphics graphics)
         {
             this._graphics = graphics;

@@ -31,6 +31,8 @@ public class Line : Shape
             graphics.DrawBorder(_x1, _y1, _x2, _y2);
         }
     }
+
+    //複製
     public override Shape Clone()
     {
         Line clonedShape = new Line(this._x1, this._y1, this._x2, this._y2);

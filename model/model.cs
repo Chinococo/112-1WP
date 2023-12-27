@@ -18,8 +18,9 @@ public class Model
 
     // 私有字段，存儲界面上的控件
     private Factory _factory = new Factory();
-    private List<ICommand> command=new List<ICommand>();
-    private int excuteIndex = -1;
+
+    private List<ICommand> _command = new List<ICommand>();
+    private int _executeIndex = -1;
     private double _lastClickX;
     private double _lastClickY;
     private BindingList<Shape> _shapeList;
@@ -34,7 +35,7 @@ public class Model
     private string _shapeToolButtonState = "";
     private double _firstPointX;
     private double _firstPointY;
-    private Shape prev;
+    private Shape _previous;
     private bool _isPressed = false;
     private bool _isSelect = false;
     private int _selectIndex = -1;
@@ -58,7 +59,7 @@ public class Model
     }
 
     // 拿zoom數值
-    public bool GetZoom()
+    public bool IsZoom()
     {
         return _zoom;
     }
@@ -96,18 +97,19 @@ public class Model
             _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
         }
         _shapeState = state;
-        UpdateExcuteId();
-        command.Add(new AddCommand(this, _shapeList[_shapeList.Count - 1].Clone()));
-        excuteIndex += 1;
+        UpdateExecuteId();
+        _command.Add(new AddCommand(this, _shapeList[_shapeList.Count - 1].Clone()));
+        _executeIndex += 1;
         // 通知模型發生變化
         NotifyModelChanged();
     }
 
-    public void UpdateExcuteId()
+    //去除部必要指令
+    public void UpdateExecuteId()
     {
-        while (command.Count - 1 != excuteIndex)
+        while (_command.Count - 1 != _executeIndex)
         {
-            command.RemoveAt(command.Count - 1);
+            _command.RemoveAt(_command.Count - 1);
         }
     }
 
@@ -116,12 +118,11 @@ public class Model
     {
         if (_shapeList.Count > index)
         {
-            UpdateExcuteId();
-            command.Add(new DeleteCommand(this, _shapeList[index].Clone(), index));
-            excuteIndex += 1;
+            UpdateExecuteId();
+            _command.Add(new DeleteCommand(this, _shapeList[index].Clone(), index));
+            _executeIndex += 1;
             _shapeList.RemoveAt(index);
         }
-           
 
         // 通知模型發生變化
         NotifyModelChanged();
@@ -164,7 +165,7 @@ public class Model
                 {
                     _selectIndex = i;
                     _isSelect = true;
-                    prev = _shapeList[_selectIndex].Clone();
+                    _previous = _shapeList[_selectIndex].Clone();
                     break; // 找到第一個匹配的形狀後退出循環
                 }
             }
@@ -202,7 +203,6 @@ public class Model
             Shape temp = _shapeList[_selectIndex];
             double deltaX = pressX - _firstPointX;
             double deltaY = pressY - _firstPointY;
-            Console.WriteLine($"deltaX: {deltaX}, pressY: {deltaX}");
             temp.SetPoint2(temp.GetX2() + deltaX, temp.GetY2() + deltaY);
             _firstPointX = pressX;
             _firstPointY = pressY;
@@ -227,9 +227,9 @@ public class Model
     // 滑鼠左鍵釋放事件處理（用於選擇點）
     public void ReleasedPointerPoint(double pressX, double pressY)
     {
-        UpdateExcuteId();
-        command.Add(new MoveCommand(this, prev, _shapeList[_selectIndex].Clone(), _selectIndex));
-        excuteIndex += 1;
+        UpdateExecuteId();
+        _command.Add(new MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
+        _executeIndex += 1;
         _isSelect = false;
         _isPressed = false;
         // 通知模型發生變化
@@ -245,9 +245,9 @@ public class Model
         {
             _hint = _factory.CreateShape(_shapeToolButtonState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
-        UpdateExcuteId();
-        command.Add(new DrawCommand(this, _hint.Clone()));
-        excuteIndex += 1;
+        UpdateExecuteId();
+        _command.Add(new DrawCommand(this, _hint.Clone()));
+        _executeIndex += 1;
         if (_hint != null)
             _shapeList.Add(_hint);
         NotifyModelChanged();
@@ -278,7 +278,6 @@ public class Model
     }
 
     // 根據當前形狀類型繪製所有形狀
-    // 根據當前形狀類型繪製所有形狀de
     public void Draw(CustomGraphics graphics)
     {
         graphics.ClearAll();
@@ -327,15 +326,11 @@ public class Model
     // 按鈕刪除 Click 事件處理
     public void DeleteButtonClick()
     {
-        // 您的刪除邏輯在這裡執行
-        // 例如，您可能想從 _shapeList 中刪除所選形狀
-
-        // 假設 _selectedIndex 是您要刪除的形狀的索引
         if (_selectIndex >= 0 && _selectIndex < _shapeList.Count)
         {
-            UpdateExcuteId();
-            command.Add(new DeleteCommand(this,_shapeList[_selectIndex].Clone(), _selectIndex));
-            excuteIndex += 1;
+            UpdateExecuteId();
+            _command.Add(new DeleteCommand(this, _shapeList[_selectIndex].Clone(), _selectIndex));
+            _executeIndex += 1;
             _shapeList.RemoveAt(_selectIndex);
         }
         // 通知模型發生變化
@@ -368,37 +363,36 @@ public class Model
     // 切換繪製狀態
     public void Undo()
     {
-        if (excuteIndex < 0)
+        if (_executeIndex < 0)
             return;
         else
         {
-            command[excuteIndex].Unexcute();
-            excuteIndex -= 1;
+            _command[_executeIndex].UndoExecute();
+            _executeIndex -= 1;
             NotifyModelChanged();
         }
-            
-
     }
 
     // 切換繪製狀態
     public void Redo()
     {
-        if (excuteIndex>=command.Count-1)
+        if (_executeIndex >= _command.Count - 1)
             return;
         else
         {
-            command[excuteIndex+1].Excute();
-            excuteIndex += 1;
+            _command[_executeIndex + 1].Execute();
+            _executeIndex += 1;
             NotifyModelChanged();
         }
-            
-
     }
-    public void InserByIndex(int index,Shape temp)
+
+    //新增物件by索引
+    public void InsertByIndex(int index, Shape temp)
     {
         this._shapeList.Insert(index, temp);
     }
 
+    //新增物件by索引
     public void MoveByIndex(int index, Shape temp)
     {
         this._shapeList[index] = temp;
