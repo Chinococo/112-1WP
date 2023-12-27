@@ -126,21 +126,26 @@ public class Model
         {
             _lastClickX = pressX;
             _lastClickY = pressY;
-            _selectIndex = -1;
-            _isSelect = false;
-            for (int i = _shapeList.Count - 1; i >= 0; i--)
-            {
-                Shape shape = _shapeList[i];
-                if (IsPointWithinBoundingBox(pressX, pressY, shape))
-                {
-                    _selectIndex = i;
-                    _isSelect = true;
-                    _previous = _shapeList[_selectIndex].Clone();
-                    break; // 找到第一個匹配的形狀後退出循環
-                }
-            }
+            FindSelectIndex(pressX,pressY);
         }
         NotifyModelChanged();
+    }
+
+    //找到選取物件index
+    public void FindSelectIndex(double pressX, double pressY)
+    {
+        _selectIndex = -1;
+        _isSelect = false;
+        for (int i = _shapeList.Count - 1; i >= 0; i--)
+        {
+            if (IsPointWithinBoundingBox(pressX, pressY, _shapeList[i]))
+            {
+                _selectIndex = i;
+                _isSelect = true;
+                _previous = _shapeList[_selectIndex].Clone();
+                break; // 找到第一個匹配的形狀後退出循環
+            }
+        }
     }
 
     // 滑鼠移動事件處理（用於繪製形狀）
@@ -280,11 +285,15 @@ public class Model
     }
 
     // 拿ExecuteIndex
-    public void UpdateExecuteIndex(int index)
+    public void SetExecuteIndex(int index)
     {
         this._executeIndex = index;
     }
 
+    /// <summary>
+    /// 更新按鈕狀態
+    /// </summary>
+    /// <param name="state"></param>
     public void SetShapeToolButtonState(string state)
     {
         this._shapeToolButtonState = state;

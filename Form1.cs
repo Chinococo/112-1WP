@@ -240,7 +240,7 @@ namespace PowerPoint
         //清除畫面強制比例
         private void EnforceAspectRatio()
         {
-            float targetAspectRatio = WIDTH_RATIO / HEIGHT_RATIO;  // 目標的寬高比例
+            float targetAspectRatio = WIDTH_RATIO / HEIGHT_RATIO;// 目標的寬高比例
             float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
 
             if (currentAspectRatio != targetAspectRatio)
@@ -273,34 +273,33 @@ namespace PowerPoint
         //Panel更新事件
         private void Panel3SizeChanged(object sender, EventArgs e)
         {
-            // Perform actions or update something when the panel size changes
-            // For example, you can display the new size in the console
-            // For example, you can display the new size in the console
             _panelMiddle.Location = new Point(_panelLeft.Location.X + _panelLeft.Width, _panelLeft.Location.Y);
-            int oldWidth = _drawPanel.Width;
             int oldHeight = _drawPanel.Height;
-
             _drawPanel.Width = _panelMiddle.Width - 100;
             int newHeight = (int)(_drawPanel.Width * RATIO);
             _drawPanel.Height = newHeight;
             _drawPanel.Location = new Point(50, (_panelMiddle.Height - newHeight) / 2);
-            double scale = (double)newHeight / (double)oldHeight;
             if (_drawPanel.Size.Height > _panelMiddle.Height - 100)
             {
                 _drawPanel.Height = _panelMiddle.Height - 100;
-                oldWidth = _drawPanel.Width;
                 int newWidth = (int)(_drawPanel.Height * (WIDTH_RATIO / HEIGHT_RATIO));
                 _drawPanel.Width = newWidth;
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
-                scale = (double)newWidth / (double)oldWidth;
+                
             }
+            ScaleShape((double)_drawPanel.Height / (double)oldHeight);
+            UpdateButtonPage();
+            _model.NotifyModelChanged();
+        }
+
+        //照著比例放大
+        private void ScaleShape(double scale)
+        {
             foreach (var shape in _shapeList)
             {
                 shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
                 shape.SetPoint2(shape.GetX2() * scale, shape.GetY2() * scale);
             }
-            UpdateButtonPage();
-            _model.NotifyModelChanged();
         }
 
         //Page按鈕點擊事件
