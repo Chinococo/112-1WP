@@ -1,14 +1,14 @@
 ﻿namespace PowerPoint.Object
 {
     // Represents the drawing state for handling mouse events in a drawing application.
-    internal class MoveCommand : ICommand
+    internal class ResizeCommand : ICommand
     {
         private Model _model;
         private Shape _previous;
         private Shape _next;
         private int _index;
 
-        public MoveCommand(Model model, Shape previous, Shape next, int index)
+        public ResizeCommand(Model model, Shape previous, Shape next, int index)
         {
             this._model = model;
             this._previous = previous;

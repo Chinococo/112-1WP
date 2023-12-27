@@ -188,8 +188,17 @@ public class Model
     {
         UpdateExecuteId();
         if (_selectIndex >= 0)
-            _command.Add(new MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
-        _executeIndex += 1;
+        {
+            if (_zoom && _isPressed)
+            {
+                _command.Add(new ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
+            }
+            else if(_isSelect && _selectIndex >= 0)
+            {
+                _command.Add(new MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
+            }
+            _executeIndex += 1;
+        }
         _isSelect = false;
         _isPressed = false;
         NotifyModelChanged();
@@ -267,7 +276,7 @@ public class Model
     }
 
     //新增物件by索引
-    public void MoveByIndex(int index, Shape temp)
+    public void MondifyByIndex(int index, Shape temp)
     {
         this._shapeList[index] = temp;
     }
