@@ -12,8 +12,9 @@ namespace PowerPoint
     {
         private Model _model;// 模型
         private Factory _factory;// 工廠
-        private BindingList<Shape> _shapeList = new BindingList<Shape>();// 形狀列表
+        private List<BindingList<Shape>> _shapeList =new List<BindingList<Shape>>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
+        private int activePageIndex = 0;
         private DoubleBufferedPanel _drawPanel = new DoubleBufferedPanel();
         private const string SYMBOL_LINE = "線";
         private const string SYMBOL_RECTANGLE = "矩形";
@@ -25,14 +26,16 @@ namespace PowerPoint
         private const float RATIO = HEIGHT_RATIO / WIDTH_RATIO; // 目標的寬高比例
         private const int SPLITER_WIDTH = 10;
         private List<ICommand> _command = new List<ICommand>();
+        private Button _activeButtonPage;
 
         //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
             InitializeComponent();
             _factory = new Factory();
-            _model = new Model(_shapeList, _command);
-            _displayDataGrid.DataSource = _shapeList;
+            AddNewButton();
+            _model = new Model(_shapeList[activePageIndex], _command);
+            _displayDataGrid.DataSource = _shapeList[activePageIndex];
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
@@ -56,7 +59,8 @@ namespace PowerPoint
             _panelMiddle.Controls.Add(_drawPanel);
             _splitLeft.Width = SPLITER_WIDTH;
             _splitRight.Width = SPLITER_WIDTH;
-
+            
+            _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
             //_doubleBufferedPanel.Location = new System.Drawing.Point(
             //    _groupBox2.Location.X + _groupBox2.Width,
             //    _groupBox2.Location.Y
@@ -64,7 +68,7 @@ namespace PowerPoint
             //Controls.Add(_doubleBufferedPanel);
 
             // 初始化呈現模型和模型
-            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList, _command);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _command);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
@@ -111,7 +115,7 @@ namespace PowerPoint
             _presentationModel.MovedPointer(e.X, e.Y);
             if (_model.GetSelectIndex() != -1 && _shapeList.Count > _model.GetSelectIndex())
             {
-                Shape selectedShape = _shapeList[_model.GetSelectIndex()];
+                Shape selectedShape = _shapeList[activePageIndex][_model.GetSelectIndex()];
                 bool isMouseInGrip = e.X >= selectedShape.GetX2() - TOUCH_SIZE && e.Y >= selectedShape.GetY2() - TOUCH_SIZE;
                 if (isMouseInGrip)
                 {
@@ -131,8 +135,8 @@ namespace PowerPoint
         public void HandleCanvasPaint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             _presentationModel.Draw(e.Graphics);
-            _buttonPage1.Image = _presentationModel.GetBitmap();
-            _buttonPage1.Refresh();
+            _activeButtonPage.Image = _presentationModel.GetBitmap();
+            _activeButtonPage.Refresh();
         }
 
         // Canvas 更新事件
@@ -201,8 +205,8 @@ namespace PowerPoint
             {
                 Bitmap bitmap = new Bitmap(_drawPanel.Width, _drawPanel.Height);
                 _drawPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _drawPanel.Width, _drawPanel.Height));
-                _buttonPage1.BackgroundImage = bitmap;
-                _buttonPage1.BackgroundImageLayout = ImageLayout.Zoom;
+                _activeButtonPage.BackgroundImage = bitmap;
+                _activeButtonPage.BackgroundImageLayout = ImageLayout.Zoom;
             }
         }
 
@@ -296,7 +300,7 @@ namespace PowerPoint
         //照著比例放大
         private void ScaleShape(double scale)
         {
-            foreach (var shape in _shapeList)
+            foreach (var shape in _shapeList[activePageIndex])
             {
                 shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
                 shape.SetPoint2(shape.GetX2() * scale, shape.GetY2() * scale);
@@ -322,8 +326,17 @@ namespace PowerPoint
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            AddNewButton();
+        }
+        private void AddNewButton()
+        {
             Button btn = new Button();
+            _shapeList.Add(new BindingList<Shape>());
             btn.TabIndex = _groupBox2.Controls.Count;
+            btn.Height = 180;
+            btn.BackgroundImage = CreateLightYellowBitmap(_drawPanel.Width, _drawPanel.Height);
+            btn.BackgroundImageLayout = ImageLayout.Zoom;
+            btn.Click += PageButtonClick;
             btn.Dock = DockStyle.Top;
             var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
             _groupBox2.Controls.Clear();  // Clear existing buttons
@@ -333,6 +346,31 @@ namespace PowerPoint
                 _groupBox2.Controls.Add(existingButtons[i]);
             }
         }
+        private void PageButtonClick(object sender, EventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            if (clickedButton != null)
+            {
+                _activeButtonPage = clickedButton;
+                activePageIndex = clickedButton.TabIndex;
+                Console.WriteLine(clickedButton.TabIndex);
+                _model.SetShapeList(_shapeList[activePageIndex]);
+                _presentationModel.SetShapeList(_shapeList[activePageIndex]);
+                _displayDataGrid.DataSource = _shapeList[activePageIndex];
+                _model.NotifyModelChanged();
+            }
+        }
+        private Bitmap CreateLightYellowBitmap(int width, int height)
+        {
+            Bitmap bitmap = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                // Fill the bitmap with yellow color
+                g.FillRectangle(Brushes.LightYellow, 0, 0, width, height);
+            }
+            return bitmap;
+        }
+
     }
 
 }

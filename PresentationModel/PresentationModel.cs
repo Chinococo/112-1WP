@@ -1,5 +1,6 @@
 ﻿using PowerPoint.Command;
 using PowerPoint.Object;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -138,6 +139,11 @@ namespace PowerPoint.PresentationModel
             _model.SetExecuteIndex(index + 1);
             // 通知模型發生變化
             _model.NotifyModelChanged();
+        }
+
+        public void SetShapeList(BindingList<Shape> shapeList)
+        {
+            this._shapeList = shapeList;
         }
     }
 }

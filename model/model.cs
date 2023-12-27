@@ -42,6 +42,10 @@ public class Model
         this._shapeList = shapeList;
         this._command = command;
     }
+    public void SetShapeList(BindingList<Shape> shapeList)
+    {
+        this._shapeList = shapeList;
+    }
 
     /// <summary>
     /// 更新zoom
