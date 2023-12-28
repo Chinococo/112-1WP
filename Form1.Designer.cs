@@ -31,9 +31,6 @@ namespace PowerPoint
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this._displayDataGrid = new System.Windows.Forms.DataGridView();
-            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._insertButton = new System.Windows.Forms.Button();
             this._shapeComboBox = new System.Windows.Forms.ComboBox();
             this._groupBox = new System.Windows.Forms.GroupBox();
@@ -54,6 +51,9 @@ namespace PowerPoint
             this._panelMiddle = new System.Windows.Forms.Panel();
             this._splitLeft = new System.Windows.Forms.Splitter();
             this._splitRight = new System.Windows.Forms.Splitter();
+            this._deleteCloumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._shapeCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._infoCloumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
             this._menuStrip.SuspendLayout();
@@ -65,6 +65,9 @@ namespace PowerPoint
             // _displayDataGrid
             // 
             this._displayDataGrid.AllowUserToAddRows = false;
+            this._displayDataGrid.AllowUserToDeleteRows = false;
+            this._displayDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._displayDataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this._displayDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._displayDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -72,7 +75,7 @@ namespace PowerPoint
             this._shapeCloumn,
             this._infoCloumn});
             this._displayDataGrid.Location = new System.Drawing.Point(9, 102);
-            this._displayDataGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._displayDataGrid.Margin = new System.Windows.Forms.Padding(4);
             this._displayDataGrid.Name = "_displayDataGrid";
             this._displayDataGrid.ReadOnly = true;
             this._displayDataGrid.RowHeadersVisible = false;
@@ -82,38 +85,10 @@ namespace PowerPoint
             this._displayDataGrid.TabIndex = 0;
             this._displayDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DisplayDataGridCellContentClick);
             // 
-            // _deleteCloumn
-            // 
-            this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this._deleteCloumn.DataPropertyName = "delete";
-            this._deleteCloumn.HeaderText = "刪除";
-            this._deleteCloumn.MinimumWidth = 8;
-            this._deleteCloumn.Name = "_deleteCloumn";
-            this._deleteCloumn.ReadOnly = true;
-            this._deleteCloumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // _shapeCloumn
-            // 
-            this._shapeCloumn.DataPropertyName = "shape";
-            this._shapeCloumn.HeaderText = "形狀";
-            this._shapeCloumn.MinimumWidth = 8;
-            this._shapeCloumn.Name = "_shapeCloumn";
-            this._shapeCloumn.ReadOnly = true;
-            this._shapeCloumn.Width = 40;
-            // 
-            // _infoCloumn
-            // 
-            this._infoCloumn.DataPropertyName = "information";
-            this._infoCloumn.HeaderText = "資訊";
-            this._infoCloumn.MinimumWidth = 8;
-            this._infoCloumn.Name = "_infoCloumn";
-            this._infoCloumn.ReadOnly = true;
-            this._infoCloumn.Width = 150;
-            // 
             // _insertButton
             // 
             this._insertButton.Location = new System.Drawing.Point(9, 32);
-            this._insertButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._insertButton.Margin = new System.Windows.Forms.Padding(4);
             this._insertButton.Name = "_insertButton";
             this._insertButton.Size = new System.Drawing.Size(114, 62);
             this._insertButton.TabIndex = 1;
@@ -133,7 +108,7 @@ namespace PowerPoint
             "矩形",
             "橢圓"});
             this._shapeComboBox.Location = new System.Drawing.Point(158, 48);
-            this._shapeComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._shapeComboBox.Margin = new System.Windows.Forms.Padding(4);
             this._shapeComboBox.Name = "_shapeComboBox";
             this._shapeComboBox.Size = new System.Drawing.Size(132, 26);
             this._shapeComboBox.TabIndex = 2;
@@ -145,10 +120,10 @@ namespace PowerPoint
             this._groupBox.Controls.Add(this._shapeComboBox);
             this._groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this._groupBox.Location = new System.Drawing.Point(0, 0);
-            this._groupBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._groupBox.Margin = new System.Windows.Forms.Padding(4);
             this._groupBox.Name = "_groupBox";
-            this._groupBox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this._groupBox.Size = new System.Drawing.Size(518, 703);
+            this._groupBox.Padding = new System.Windows.Forms.Padding(4);
+            this._groupBox.Size = new System.Drawing.Size(518, 713);
             this._groupBox.TabIndex = 3;
             this._groupBox.TabStop = false;
             this._groupBox.Text = "資料顯示";
@@ -158,10 +133,10 @@ namespace PowerPoint
             this._groupBox2.AutoSize = true;
             this._groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this._groupBox2.Location = new System.Drawing.Point(0, 0);
-            this._groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this._groupBox2.Name = "_groupBox2";
-            this._groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this._groupBox2.Size = new System.Drawing.Size(309, 703);
+            this._groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this._groupBox2.Size = new System.Drawing.Size(309, 713);
             this._groupBox2.TabIndex = 4;
             this._groupBox2.TabStop = false;
             this._groupBox2.Text = "投影片選擇";
@@ -174,8 +149,7 @@ namespace PowerPoint
             this._toolStripMenuItem});
             this._menuStrip.Location = new System.Drawing.Point(0, 0);
             this._menuStrip.Name = "_menuStrip";
-            this._menuStrip.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
-            this._menuStrip.Size = new System.Drawing.Size(1252, 36);
+            this._menuStrip.Size = new System.Drawing.Size(1252, 31);
             this._menuStrip.TabIndex = 5;
             this._menuStrip.Text = "menuStrip1";
             // 
@@ -204,10 +178,10 @@ namespace PowerPoint
             this._toolStripUndoButton,
             this._toolStripRedoButton,
             this.toolStripButton1});
-            this._toolStrip1.Location = new System.Drawing.Point(0, 36);
+            this._toolStrip1.Location = new System.Drawing.Point(0, 31);
             this._toolStrip1.Name = "_toolStrip1";
             this._toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this._toolStrip1.Size = new System.Drawing.Size(1252, 38);
+            this._toolStrip1.Size = new System.Drawing.Size(1252, 33);
             this._toolStrip1.TabIndex = 6;
             this._toolStrip1.Text = "toolStrip1";
             // 
@@ -217,7 +191,7 @@ namespace PowerPoint
             this._toolStripEllipseButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripEllipseButton.Image")));
             this._toolStripEllipseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripEllipseButton.Name = "_toolStripEllipseButton";
-            this._toolStripEllipseButton.Size = new System.Drawing.Size(34, 33);
+            this._toolStripEllipseButton.Size = new System.Drawing.Size(34, 28);
             this._toolStripEllipseButton.Text = "_toolStripCirecleButton";
             this._toolStripEllipseButton.Click += new System.EventHandler(this.ToolStripEllipseButtonClick);
             // 
@@ -285,26 +259,26 @@ namespace PowerPoint
             // 
             this._panelLeft.Controls.Add(this._groupBox2);
             this._panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this._panelLeft.Location = new System.Drawing.Point(0, 74);
-            this._panelLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._panelLeft.Location = new System.Drawing.Point(0, 64);
+            this._panelLeft.Margin = new System.Windows.Forms.Padding(4);
             this._panelLeft.Name = "_panelLeft";
-            this._panelLeft.Size = new System.Drawing.Size(309, 703);
+            this._panelLeft.Size = new System.Drawing.Size(309, 713);
             this._panelLeft.TabIndex = 7;
             // 
             // _panelRight
             // 
             this._panelRight.Controls.Add(this._groupBox);
             this._panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this._panelRight.Location = new System.Drawing.Point(734, 74);
-            this._panelRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._panelRight.Location = new System.Drawing.Point(734, 64);
+            this._panelRight.Margin = new System.Windows.Forms.Padding(4);
             this._panelRight.Name = "_panelRight";
-            this._panelRight.Size = new System.Drawing.Size(518, 703);
+            this._panelRight.Size = new System.Drawing.Size(518, 713);
             this._panelRight.TabIndex = 9;
             // 
             // _panelMiddle
             // 
             this._panelMiddle.Location = new System.Drawing.Point(309, 82);
-            this._panelMiddle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._panelMiddle.Margin = new System.Windows.Forms.Padding(4);
             this._panelMiddle.Name = "_panelMiddle";
             this._panelMiddle.Size = new System.Drawing.Size(402, 694);
             this._panelMiddle.TabIndex = 10;
@@ -312,10 +286,10 @@ namespace PowerPoint
             // _splitLeft
             // 
             this._splitLeft.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this._splitLeft.Location = new System.Drawing.Point(309, 74);
-            this._splitLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._splitLeft.Location = new System.Drawing.Point(309, 64);
+            this._splitLeft.Margin = new System.Windows.Forms.Padding(4);
             this._splitLeft.Name = "_splitLeft";
-            this._splitLeft.Size = new System.Drawing.Size(4, 703);
+            this._splitLeft.Size = new System.Drawing.Size(4, 713);
             this._splitLeft.TabIndex = 11;
             this._splitLeft.TabStop = false;
             // 
@@ -323,12 +297,43 @@ namespace PowerPoint
             // 
             this._splitRight.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this._splitRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this._splitRight.Location = new System.Drawing.Point(719, 74);
-            this._splitRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._splitRight.Location = new System.Drawing.Point(719, 64);
+            this._splitRight.Margin = new System.Windows.Forms.Padding(4);
             this._splitRight.Name = "_splitRight";
-            this._splitRight.Size = new System.Drawing.Size(15, 703);
+            this._splitRight.Size = new System.Drawing.Size(15, 713);
             this._splitRight.TabIndex = 12;
             this._splitRight.TabStop = false;
+            // 
+            // _deleteCloumn
+            // 
+            this._deleteCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this._deleteCloumn.DataPropertyName = "delete";
+            this._deleteCloumn.FillWeight = 30F;
+            this._deleteCloumn.HeaderText = "刪除";
+            this._deleteCloumn.MinimumWidth = 8;
+            this._deleteCloumn.Name = "_deleteCloumn";
+            this._deleteCloumn.ReadOnly = true;
+            this._deleteCloumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this._deleteCloumn.Width = 80;
+            // 
+            // _shapeCloumn
+            // 
+            this._shapeCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this._shapeCloumn.DataPropertyName = "shape";
+            this._shapeCloumn.HeaderText = "形狀";
+            this._shapeCloumn.MinimumWidth = 8;
+            this._shapeCloumn.Name = "_shapeCloumn";
+            this._shapeCloumn.ReadOnly = true;
+            this._shapeCloumn.Width = 80;
+            // 
+            // _infoCloumn
+            // 
+            this._infoCloumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this._infoCloumn.DataPropertyName = "information";
+            this._infoCloumn.HeaderText = "資訊";
+            this._infoCloumn.MinimumWidth = 8;
+            this._infoCloumn.Name = "_infoCloumn";
+            this._infoCloumn.ReadOnly = true;
             // 
             // Form1
             // 
@@ -343,7 +348,7 @@ namespace PowerPoint
             this.Controls.Add(this._toolStrip1);
             this.Controls.Add(this._menuStrip);
             this.MainMenuStrip = this._menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
@@ -386,10 +391,10 @@ namespace PowerPoint
         private System.Windows.Forms.DataGridViewButtonColumn _deleteButtonColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeButtonColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoButtonColumn;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

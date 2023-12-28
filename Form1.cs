@@ -279,6 +279,7 @@ namespace PowerPoint
         //清除畫面強制比例
         private void EnforceAspectRatio()
         {
+            /*
             float targetAspectRatio = WIDTH_RATIO / HEIGHT_RATIO;// 目標的寬高比例
             float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
 
@@ -288,6 +289,7 @@ namespace PowerPoint
                 int newWidth = (int)(this.Height * targetAspectRatio);
                 this.Width = newWidth;
             }
+            */
             _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH, _panelRight.Height);
         }
 
