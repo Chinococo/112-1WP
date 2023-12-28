@@ -11,9 +11,7 @@ using System.Drawing;
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
-
     public delegate void ModelChangedEventHandler();
-
     private Factory _factory = new Factory();
     private Shape _previous;
     private List<ICommand> _command;
@@ -217,11 +215,14 @@ public class Model
         {
             _hint = _factory.CreateShape(_shapeToolButtonState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
-        UpdateExecuteId();
-        _command.Add(new DrawCommand(this, _hint.Clone()));
-        _executeIndex += 1;
         if (_hint != null)
+        {
             _shapeList.Add(_hint);
+            UpdateExecuteId();
+            _command.Add(new DrawCommand(this, _hint.Clone()));
+            _executeIndex += 1;
+        }
+
         NotifyModelChanged();
         _hint = null;
     }
@@ -338,5 +339,10 @@ public class Model
             _hint = _factory.CreateShape(NAME_RECTANGLE);
             _shapeToolButtonState = NAME_RECTANGLE;
         }
+    }
+
+    public void SaveToCsv()
+    {
+
     }
 }

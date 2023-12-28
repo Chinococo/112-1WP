@@ -14,6 +14,7 @@ namespace PowerPoint
         private Model _model;// 模型
         private Factory _factory;// 工廠
         private List<BindingList<Shape>> _shapeList = new List<BindingList<Shape>>();// 形狀列表
+        private List<Size> _drawPanelSizeList = new List<Size>();//
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
         private int activePageIndex = 0;
         private DoubleBufferedPanel _drawPanel = new DoubleBufferedPanel();
@@ -91,6 +92,7 @@ namespace PowerPoint
             if (e.ColumnIndex == 1) // 替換 deleteColumnIndex 為“删除”按鈕所在的列索引
             {
                 _model.DeleteLineByIndex(e.RowIndex);
+                _drawPanelSizeList.RemoveAt(e.RowIndex);
             }
         }
 
@@ -226,6 +228,8 @@ namespace PowerPoint
                 else
                 {
                     _shapeList.RemoveAt(activePageIndex);
+                    _drawPanelSizeList.RemoveAt(activePageIndex);
+                    _drawPanel.Size = _drawPanelSizeList[activePageIndex];
                     List<Button> sortedButtons = _groupBox2.Controls
                         .OfType<Button>()
                         .OrderBy(button => button.TabIndex)
@@ -323,6 +327,7 @@ namespace PowerPoint
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
             }
             ScaleShape((double)_drawPanel.Height / (double)oldHeight);
+            _drawPanelSizeList[activePageIndex] = _drawPanel.Size;
             UpdateButtonPage();
             _model.NotifyModelChanged();
         }
@@ -372,6 +377,7 @@ namespace PowerPoint
             var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
             _groupBox2.Controls.Clear();  // Clear existing buttons
             _groupBox2.Controls.Add(btn);
+            _drawPanelSizeList.Add(new Size(320,180));
             for (int i = 0; i < existingButtons.Count; i++)
             {
                 _groupBox2.Controls.Add(existingButtons[i]);
@@ -405,6 +411,8 @@ namespace PowerPoint
                 _model.SetShapeList(_shapeList[activePageIndex]);
                 _presentationModel.SetShapeList(_shapeList[activePageIndex]);
                 _displayDataGrid.DataSource = _shapeList[activePageIndex];
+                _drawPanel.Size = _drawPanelSizeList[activePageIndex];
+                _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH - 3, _panelRight.Height);
                 _model.NotifyModelChanged();
             }
         }
