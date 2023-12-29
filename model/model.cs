@@ -11,11 +11,12 @@ using System.Drawing;
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
+
     public delegate void ModelChangedEventHandler();
+
     private Factory _factory = new Factory();
     private Shape _previous;
-    private List<ICommand> _command;
-    private int _executeIndex = -1;
+    ControlManger _controlManger;
     private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
     private string _shapeToolButtonState = "";
@@ -35,10 +36,10 @@ public class Model
     private const string NAME_ELLIPSE = "Ellipse";
 
     // 構造函數，初始化模型
-    public Model(BindingList<Shape> shapeList, List<ICommand> command)
+    public Model(BindingList<Shape> shapeList, ControlManger controlManger)
     {
         this._shapeList = shapeList;
-        this._command = command;
+        this._controlManger = controlManger;
     }
     public void SetShapeList(BindingList<Shape> shapeList)
     {
@@ -76,23 +77,13 @@ public class Model
         NotifyModelChanged();
     }
 
-    //去除部必要指令
-    public void UpdateExecuteId()
-    {
-        while (_command.Count - 1 != _executeIndex)
-        {
-            _command.RemoveAt(_command.Count - 1);
-        }
-    }
 
     // 刪除特定列的物件
     public void DeleteLineByIndex(int index)
     {
         if (_shapeList.Count > index)
-        {
-            UpdateExecuteId();
-            _command.Add(new DeleteCommand(this, _shapeList[index].Clone(), index));
-            _executeIndex += 1;
+        { 
+            _controlManger.DeleteCommand(this, _shapeList[index], index);
             _shapeList.RemoveAt(index);
         }
 
@@ -145,6 +136,7 @@ public class Model
                 _selectIndex = i;
                 _isSelect = true;
                 _previous = _shapeList[_selectIndex].Clone();
+                Console.WriteLine("Find {0}", _selectIndex);
                 break; // 找到第一個匹配的形狀後退出循環
             }
         }
@@ -188,18 +180,16 @@ public class Model
     // 滑鼠左鍵釋放事件處理（用於選擇點）
     public void ReleasedPointerPoint(double pressX, double pressY)
     {
-        UpdateExecuteId();
         if (_selectIndex >= 0)
         {
             if (_zoom && _isPressed)
             {
-                _command.Add(new ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
+                _controlManger.ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
             }
             else if(_isSelect && _selectIndex >= 0)
             {
-                _command.Add(new MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex));
+                _controlManger.MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
             }
-            _executeIndex += 1;
         }
         _isSelect = false;
         _isPressed = false;
@@ -215,14 +205,13 @@ public class Model
         {
             _hint = _factory.CreateShape(_shapeToolButtonState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
+        
         if (_hint != null)
         {
             _shapeList.Add(_hint);
-            UpdateExecuteId();
-            _command.Add(new DrawCommand(this, _hint.Clone()));
-            _executeIndex += 1;
+            _controlManger.DrawCommand(this, _hint.Clone());
         }
-
+           
         NotifyModelChanged();
         _hint = null;
     }
@@ -286,23 +275,6 @@ public class Model
         this._shapeList[index] = temp;
     }
 
-    // 拿去Command
-    public List<ICommand> GetCommand()
-    {
-        return _command;
-    }
-
-    // 拿ExecuteIndex
-    public int GetExecuteIndex()
-    {
-        return _executeIndex;
-    }
-
-    // 拿ExecuteIndex
-    public void SetExecuteIndex(int index)
-    {
-        this._executeIndex = index;
-    }
 
     /// <summary>
     /// 更新按鈕狀態
@@ -339,10 +311,5 @@ public class Model
             _hint = _factory.CreateShape(NAME_RECTANGLE);
             _shapeToolButtonState = NAME_RECTANGLE;
         }
-    }
-
-    public void SaveToCsv()
-    {
-
     }
 }

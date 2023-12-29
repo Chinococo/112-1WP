@@ -15,7 +15,7 @@ namespace PowerPoint.PresentationModel
         private const string IMAGE = "image.png";
         private IState _state; // 表示當前狀態的接口
         private BindingList<Shape> _shapeList;
-        private List<ICommand> _command;
+        private ControlManger _controlManger;
         private const string LINE = "線";
         private const string RECTANGLE = "矩形";
         private const string ELLIPSE = "橢圓";
@@ -24,11 +24,11 @@ namespace PowerPoint.PresentationModel
         private const string NAME_ELLIPSE = "Ellipse";
         private string _shapeState = "";
 
-        public PresentationModel(Model model, BindingList<Shape> shapeList, List<ICommand> command)
+        public PresentationModel(Model model, BindingList<Shape> shapeList, ControlManger controlManger)
         {
             this._model = model;
             this._shapeList = shapeList;
-            this._command = command;
+            this._controlManger = controlManger;
         }
 
         // Draw事件
@@ -79,45 +79,14 @@ namespace PowerPoint.PresentationModel
                 _state = new PointState(_model);
         }
 
-        // 切換繪製狀態
-        public void Undo()
-        {
-
-            if (_model.GetExecuteIndex() < 0)
-                return;
-            else
-            {
-                _command[_model.GetExecuteIndex()].UndoExecute();
-                _model.SetExecuteIndex(_model.GetExecuteIndex() - 1);
-                _model.NotifyModelChanged();
-            }
-        }
-
-        // 切換繪製狀態
-        public void Redo()
-        {
-            int index = _model.GetExecuteIndex();
-            if (index >= _command.Count - 1)
-                return;
-            else
-            {
-                _command[index + 1].Execute();
-                _model.SetExecuteIndex(index + 1);
-                _model.NotifyModelChanged();
-            }
-        }
 
         // 按鈕刪除 Click 事件處理
         public void DeleteButtonClick()
         {
             int selectIndex = _model.GetSelectIndex();
-            int executeIndex = _model.GetExecuteIndex();
             if (selectIndex >= 0 && selectIndex < _shapeList.Count)
             {
-                _model.UpdateExecuteId();
-                _command.Add(new DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex));
-                _model.SetExecuteIndex(executeIndex + 1);
-                _shapeList.RemoveAt(selectIndex);
+                 _controlManger.DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex);
             }
             // 通知模型發生變化
             _model.NotifyModelChanged();
@@ -132,12 +101,8 @@ namespace PowerPoint.PresentationModel
                 _shapeList.Add(_factory.CreateShape(NAME_RECTANGLE));
             else if (state == ELLIPSE)
                 _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
-            int index = _model.GetExecuteIndex();
             _shapeState = state;
-            _model.UpdateExecuteId();
-            _command.Add(new AddCommand(_model, _shapeList[_shapeList.Count - 1].Clone()));
-            _model.SetExecuteIndex(index + 1);
-            // 通知模型發生變化
+            _controlManger.AddCommand(_model, _shapeList[_shapeList.Count - 1].Clone());
             _model.NotifyModelChanged();
         }
 

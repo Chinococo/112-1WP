@@ -14,7 +14,6 @@ namespace PowerPoint
         private Model _model;// 模型
         private Factory _factory;// 工廠
         private List<BindingList<Shape>> _shapeList = new List<BindingList<Shape>>();// 形狀列表
-        private List<Size> _drawPanelSizeList = new List<Size>();//
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
         private int activePageIndex = 0;
         private DoubleBufferedPanel _drawPanel = new DoubleBufferedPanel();
@@ -27,7 +26,7 @@ namespace PowerPoint
         private const float HEIGHT_RATIO = 9.0f; // 目標的寬高比例
         private const float RATIO = HEIGHT_RATIO / WIDTH_RATIO; // 目標的寬高比例
         private const int SPLITER_WIDTH = 10;
-        private List<ICommand> _command = new List<ICommand>();
+        ControlManger _controlManger;
         private Button _activeButtonPage;
 
         //Panel _canvas = new DoubleBufferedPanel();
@@ -37,16 +36,13 @@ namespace PowerPoint
             InitializeComponent();
             _factory = new Factory();
             AddNewButton();
-            _model = new Model(_shapeList[activePageIndex], _command);
+            _controlManger = new ControlManger(_model);
+            _model = new Model(_shapeList[activePageIndex], _controlManger);
             _displayDataGrid.DataSource = _shapeList[activePageIndex];
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
-            // 設定 Canvas（畫布）的相關屬性和事件處理程序
-            // ...
-
-            //panel3.Dock = DockStyle.Fill;
-            _panelMiddle.BorderStyle = BorderStyle.FixedSingle; // Set the border style
+            _panelMiddle.BorderStyle = BorderStyle.FixedSingle;
             _drawPanel.BackColor = System.Drawing.Color.LightYellow;
             _drawPanel.MouseDown += HandleCanvasPressed;
             _drawPanel.MouseUp += HandleCanvasReleased;
@@ -55,23 +51,14 @@ namespace PowerPoint
             _drawPanel.MouseEnter += DrawingAreaMouseEnter;
             _drawPanel.MouseLeave += DrawingAreaMouseLeave;
             _drawPanel.Anchor = AnchorStyles.None; // Center the control
-            //_doubleBufferedPanel.Dock = DockStyle.Left;
             _panelLeft.SizeChanged += Panel1SizeChanged;
             _panelRight.SizeChanged += Panel2SizeChanged;
             _panelMiddle.SizeChanged += Panel3SizeChanged;
             _panelMiddle.Controls.Add(_drawPanel);
             _splitLeft.Width = SPLITER_WIDTH;
             _splitRight.Width = SPLITER_WIDTH;
-
             _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
-            //_doubleBufferedPanel.Location = new System.Drawing.Point(
-            //    _groupBox2.Location.X + _groupBox2.Width,
-            //    _groupBox2.Location.Y
-            //);
-            //Controls.Add(_doubleBufferedPanel);
-
-            // 初始化呈現模型和模型
-            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _command);
+            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _controlManger);
             _model._modelChanged += HandleModelChanged;
             UpdateButtonPage();
         }
@@ -92,7 +79,6 @@ namespace PowerPoint
             if (e.ColumnIndex == 1) // 替換 deleteColumnIndex 為“删除”按鈕所在的列索引
             {
                 _model.DeleteLineByIndex(e.RowIndex);
-                _drawPanelSizeList.RemoveAt(e.RowIndex);
             }
         }
 
@@ -121,8 +107,10 @@ namespace PowerPoint
         public void HandleCanvasMoved(object sender, MouseEventArgs e)
         {
             _presentationModel.MovedPointer(e.X, e.Y);
-            if (_model.GetSelectIndex() != -1 && _shapeList.Count > _model.GetSelectIndex())
+            Console.WriteLine("{0} {1}",_shapeList[activePageIndex].Count,_model.GetSelectIndex());
+            if (_model.GetSelectIndex() != -1 && _shapeList[activePageIndex].Count > _model.GetSelectIndex())
             {
+                Console.WriteLine("Now choose{0}", _model.GetSelectIndex());
                 Shape selectedShape = _shapeList[activePageIndex][_model.GetSelectIndex()];
                 bool isMouseInGrip = e.X >= selectedShape.GetX2() - TOUCH_SIZE && e.Y >= selectedShape.GetY2() - TOUCH_SIZE;
                 if (isMouseInGrip)
@@ -228,8 +216,6 @@ namespace PowerPoint
                 else
                 {
                     _shapeList.RemoveAt(activePageIndex);
-                    _drawPanelSizeList.RemoveAt(activePageIndex);
-                    _drawPanel.Size = _drawPanelSizeList[activePageIndex];
                     List<Button> sortedButtons = _groupBox2.Controls
                         .OfType<Button>()
                         .OrderBy(button => button.TabIndex)
@@ -279,7 +265,6 @@ namespace PowerPoint
         //清除畫面強制比例
         private void EnforceAspectRatio()
         {
-            /*
             float targetAspectRatio = WIDTH_RATIO / HEIGHT_RATIO;// 目標的寬高比例
             float currentAspectRatio = (float)this.Width / this.Height; // 當前的寬高比例
 
@@ -289,7 +274,6 @@ namespace PowerPoint
                 int newWidth = (int)(this.Height * targetAspectRatio);
                 this.Width = newWidth;
             }
-            */
             _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH, _panelRight.Height);
         }
 
@@ -329,7 +313,6 @@ namespace PowerPoint
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
             }
             ScaleShape((double)_drawPanel.Height / (double)oldHeight);
-            _drawPanelSizeList[activePageIndex] = _drawPanel.Size;
             UpdateButtonPage();
             _model.NotifyModelChanged();
         }
@@ -352,13 +335,13 @@ namespace PowerPoint
         //Undo按鈕點擊事件
         private void UndoButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.Undo();
+            _controlManger.UndoExcute();
         }
 
         //Redo按鈕點擊事件
         private void RedoButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.Redo();
+            _controlManger.Excute();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -379,7 +362,6 @@ namespace PowerPoint
             var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
             _groupBox2.Controls.Clear();  // Clear existing buttons
             _groupBox2.Controls.Add(btn);
-            _drawPanelSizeList.Add(new Size(320,180));
             for (int i = 0; i < existingButtons.Count; i++)
             {
                 _groupBox2.Controls.Add(existingButtons[i]);
@@ -413,8 +395,6 @@ namespace PowerPoint
                 _model.SetShapeList(_shapeList[activePageIndex]);
                 _presentationModel.SetShapeList(_shapeList[activePageIndex]);
                 _displayDataGrid.DataSource = _shapeList[activePageIndex];
-                _drawPanel.Size = _drawPanelSizeList[activePageIndex];
-                _panelMiddle.Size = new Size(Width - _panelRight.Width - _panelLeft.Width - SPLITER_WIDTH - 3, _panelRight.Height);
                 _model.NotifyModelChanged();
             }
         }
