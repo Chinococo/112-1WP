@@ -87,6 +87,7 @@ namespace PowerPoint.PresentationModel
             if (selectIndex >= 0 && selectIndex < _shapeList.Count)
             {
                  _controlManger.DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex);
+                _shapeList.RemoveAt(selectIndex);
             }
             // 通知模型發生變化
             _model.NotifyModelChanged();

@@ -2,6 +2,7 @@
 using PowerPoint.Object;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,30 +22,55 @@ namespace PowerPoint
             UpdateExecuteId();
             _command.Add(new AddCommand(model, shape.Clone()));
             _excuteIndex += 1;
+            ShowCommand();
         }
         public void DeleteCommand(Model model, Shape shape,int index)
         {
             UpdateExecuteId();
             _command.Add(new DeleteCommand(model, shape.Clone(),index));
             _excuteIndex += 1;
+            ShowCommand();
+        }
+        public void DeleteCommand(Model model, BindingList<Shape> list, int index)
+        {
+            UpdateExecuteId();
+            _command.Add(new DeleteCommand(model, list, index));
+            _excuteIndex += 1;
+            ShowCommand();
         }
         public void ResizeCommand(Model model, Shape previous,Shape shape, int index)
         {
             UpdateExecuteId();
             _command.Add(new ResizeCommand(model,previous, shape.Clone(), index));
             _excuteIndex += 1;
+            ShowCommand();
         }
         public void MoveCommand(Model model, Shape previous, Shape shape, int index)
         {
             UpdateExecuteId();
             _command.Add(new MoveCommand(model, previous, shape.Clone(), index));
             _excuteIndex += 1;
+            ShowCommand();
         }
         public void DrawCommand(Model model, Shape shape)
         {
             UpdateExecuteId();
-            _command.Add(new DrawCommand(model, shape));
+            _command.Add(new DrawCommand(model, shape.Clone()));
             _excuteIndex += 1;
+            ShowCommand();
+        }
+        public void PageCommand(Model model)
+        {
+            UpdateExecuteId();
+            _command.Add(new AddPageCommand(model));
+            _excuteIndex += 1;
+            ShowCommand();
+        }
+        public void ShowCommand()
+        {
+            Console.WriteLine("現在狀態");
+            for (int i = 0; i < _command.Count; i++)
+                Console.WriteLine(_command[i]);
         }
         public ICommand Excute()
         {
@@ -62,7 +88,7 @@ namespace PowerPoint
             }
             else
             {
-                return _command[_excuteIndex+1];
+                return _command[_excuteIndex];
             }
             
             

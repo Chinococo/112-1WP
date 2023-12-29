@@ -12,7 +12,6 @@ namespace PowerPoint
     public partial class Form1 : Form
     {
         private Model _model;// 模型
-        private Factory _factory;// 工廠
         private List<BindingList<Shape>> _shapeList = new List<BindingList<Shape>>();// 形狀列表
         private List<Size> _drawPanelSizeList = new List<Size>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
@@ -29,22 +28,27 @@ namespace PowerPoint
         private const int SPLITER_WIDTH = 10;
         ControlManger _controlManger;
         private Button _activeButtonPage;
-
-        //Panel _canvas = new DoubleBufferedPanel();
         public Form1()
         {
             TestGoogleDrive();
             InitializeComponent();
-            _factory = new Factory();
             AddNewButton();
             _controlManger = new ControlManger();
             _model = new Model(_shapeList[activePageIndex], _controlManger);
             _displayDataGrid.DataSource = _shapeList[activePageIndex];
+            _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
+            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _controlManger);
+            SetInit();
+            UpdateButtonPage();
+        }
+        private void SetInit()
+        {
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
             _panelMiddle.BorderStyle = BorderStyle.FixedSingle;
             _drawPanel.BackColor = System.Drawing.Color.LightYellow;
+            _drawPanel.MinimumSize = new Size(16, 9);
             _drawPanel.MouseDown += HandleCanvasPressed;
             _drawPanel.MouseUp += HandleCanvasReleased;
             _drawPanel.MouseMove += HandleCanvasMoved;
@@ -57,13 +61,9 @@ namespace PowerPoint
             _panelRight.SizeChanged += Panel2SizeChanged;
             _panelMiddle.SizeChanged += Panel3SizeChanged;
             _panelMiddle.Controls.Add(_drawPanel);
-            
             _splitLeft.Width = SPLITER_WIDTH;
             _splitRight.Width = SPLITER_WIDTH;
-            _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
-            _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _controlManger);
             _model._modelChanged += HandleModelChanged;
-            UpdateButtonPage();
         }
         private void TestGoogleDrive()
         {
@@ -110,10 +110,8 @@ namespace PowerPoint
         public void HandleCanvasMoved(object sender, MouseEventArgs e)
         {
             _presentationModel.MovedPointer(e.X, e.Y);
-            Console.WriteLine("{0} {1}",_shapeList[activePageIndex].Count,_model.GetSelectIndex());
             if (_model.GetSelectIndex() != -1 && _shapeList[activePageIndex].Count > _model.GetSelectIndex())
             {
-                Console.WriteLine("Now choose{0}", _model.GetSelectIndex());
                 Shape selectedShape = _shapeList[activePageIndex][_model.GetSelectIndex()];
                 bool isMouseInGrip = e.X >= selectedShape.GetX2() - TOUCH_SIZE && e.Y >= selectedShape.GetY2() - TOUCH_SIZE;
                 if (isMouseInGrip)
@@ -143,6 +141,62 @@ namespace PowerPoint
         {
             Invalidate(true);
             UpdateButtonPage();
+            dynamic temp = _model.GetDeletePageByIndex();
+            if (temp.IsSuccess)
+            {
+                var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
+                _groupBox2.Controls.Clear();  // Clear existing buttons
+                _shapeList.RemoveAt(_shapeList.Count - 1);
+                _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
+                for (int i = 0; i < existingButtons.Count - 1; i++)
+                {
+                    if (temp.DeletePageIndex == i)
+                        continue;
+                    _groupBox2.Controls.Add(existingButtons[i]);
+                }
+            }
+            temp = _model.GetInsertPageByIndex();
+            if (temp.IsSuccess)
+            {
+                var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
+                _groupBox2.Controls.Clear();  // Clear existing buttons
+                _shapeList.RemoveAt(_shapeList.Count - 1);
+                _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
+                for (int i = 0; i < existingButtons.Count - 1; i++)
+                {
+                    if (temp.DeletePageIndex == i)
+                    {
+                        Button btn = new Button();
+                        _shapeList.Add(new BindingList<Shape>());
+                        _drawPanelSizeList.Add(_drawPanel.Size);
+                        btn.TabIndex = _groupBox2.Controls.Count;
+                        btn.Height = 180;
+                        _drawPanelSizeList.Add(_drawPanel.Size);
+                        btn.BackgroundImage = CreateLightYellowBitmap(_drawPanel.Width, _drawPanel.Height);
+                        btn.BackgroundImageLayout = ImageLayout.Zoom;
+                        btn.Click += PageButtonClick;
+                        btn.Dock = DockStyle.Top;
+                        _groupBox2.Controls.Add(btn);
+                    }
+                    _groupBox2.Controls.Add(existingButtons[i]);
+                }
+            }
+            if (_model.GetAddPage())
+            {
+                AddNewButton();
+            }
+            if (_model.GetDeletePage())
+            {
+                var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
+                _groupBox2.Controls.Clear();  // Clear existing buttons
+                _shapeList.RemoveAt(_shapeList.Count - 1);
+                _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
+                for (int i = 0; i < existingButtons.Count - 1; i++)
+                {
+                    _groupBox2.Controls.Add(existingButtons[i]);
+                }
+            }
+            
         }
 
         // 按下 toolstrip 按鈕事件
@@ -218,12 +272,12 @@ namespace PowerPoint
                     _presentationModel.DeleteButtonClick();
                 else
                 {
+                    _controlManger.DeleteCommand(_model,_shapeList[activePageIndex], activePageIndex);
                     _shapeList.RemoveAt(activePageIndex);
                     List<Button> sortedButtons = _groupBox2.Controls
                         .OfType<Button>()
                         .OrderBy(button => button.TabIndex)
                         .ToList();
-                    Console.WriteLine("原本頁面索引{0}", sortedButtons[activePageIndex].TabIndex);
                     _groupBox2.Controls.Remove(sortedButtons[activePageIndex]);
                     ButtonRefresh();
                     if (activePageIndex >= _shapeList.Count)
@@ -237,6 +291,7 @@ namespace PowerPoint
                     _presentationModel.SetShapeList(_shapeList[activePageIndex]);
                     _displayDataGrid.DataSource = _shapeList[activePageIndex];
                     UpdateButtonPage();
+                    
                     _model.NotifyModelChanged();
                 }
             }
@@ -329,8 +384,10 @@ namespace PowerPoint
         {
             foreach (var shape in _shapeList[activePageIndex])
             {
-                shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
-                shape.SetPoint2(shape.GetX2() * scale, shape.GetY2() * scale);
+                if((shape.GetX1() * scale)>0&& (shape.GetY1() * scale)>0)
+                    shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
+                if ((shape.GetX2() * scale) > 0 && (shape.GetY2() * scale) > 0)
+                    shape.SetPoint2(shape.GetX2() * scale, shape.GetY2() * scale);
             }
         }
 
@@ -356,13 +413,14 @@ namespace PowerPoint
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             AddNewButton();
+            _controlManger.PageCommand(_model);
         }
 
         private void AddNewButton()
         {
             Button btn = new Button();
             _shapeList.Add(new BindingList<Shape>());
-
+            _drawPanelSizeList.Add(_drawPanel.Size);
             btn.TabIndex = _groupBox2.Controls.Count;
             btn.Height = 180;
             _drawPanelSizeList.Add(_drawPanel.Size);
@@ -389,7 +447,6 @@ namespace PowerPoint
             _groupBox2.Controls.Clear();  // Clear existing buttons
             for (int i = 0; i < sortedButtons.Count; i++)
             {
-                Console.WriteLine("orginal {0} now {1}", sortedButtons[i].TabIndex, sortedButtons.Count - i - 1);
                 sortedButtons[i].TabIndex = sortedButtons.Count - i - 1;
                 _groupBox2.Controls.Add(sortedButtons[i]);
             }
@@ -402,7 +459,6 @@ namespace PowerPoint
             {
                 _activeButtonPage = clickedButton;
                 activePageIndex = clickedButton.TabIndex;
-                Console.WriteLine(clickedButton.TabIndex);
                 _model.SetShapeList(_shapeList[activePageIndex]);
                 _presentationModel.SetShapeList(_shapeList[activePageIndex]);
                 _displayDataGrid.DataSource = _shapeList[activePageIndex];

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 
 // Model 類，負責應用邏輯和數據管理
 public class Model
@@ -13,9 +14,75 @@ public class Model
     public event ModelChangedEventHandler _modelChanged;
 
     public delegate void ModelChangedEventHandler();
-
-    private Factory _factory = new Factory();
     private Shape _previous;
+    private Factory _factory = new Factory();
+    private bool AddPage = false;
+    private bool DeletePage = false;
+    private bool _deletePageByIndex = false;
+    private bool _insertPageByIndex = false;
+    BindingList<Shape> deletePageList;
+    int deletePageIndex = -1;
+    public void AddNewPage()
+    {
+        AddPage = true;
+    }
+    public bool GetAddPage()
+    {
+        if (AddPage)
+        {
+            AddPage = false;
+            return true;
+        }
+        return false;
+    }
+
+
+    public void DeleteNewPage()
+    {
+        DeletePage = true;
+    }
+    public bool GetDeletePage()
+    {
+        if (DeletePage)
+        {
+            DeletePage = false;
+            return true;
+        }
+        return false;
+    }
+
+    public void DeletePageByIndex(int index)
+    {
+        _deletePageByIndex = true;
+        deletePageIndex = index;
+    }
+
+    public void InsertPageByIndex(BindingList<Shape> list, int index)
+    {
+        _insertPageByIndex = true;
+        deletePageList = list;
+        deletePageIndex = index;
+    }
+    public object GetInsertPageByIndex()
+    {
+        if (_insertPageByIndex)
+        {
+            _insertPageByIndex = false;
+            return new { IsSuccess = true, DeletePageIndex = deletePageIndex, DeletePageList = deletePageList };
+        }
+
+        return new { IsSuccess = false };
+    }
+
+    public object GetDeletePageByIndex()
+    {
+        if (_insertPageByIndex)
+        {
+            _insertPageByIndex = false;
+            return new { IsSuccess = true, DeletePageList = deletePageList };
+        }
+        return new { IsSuccess = false };
+    }
     ControlManger _controlManger;
     private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
