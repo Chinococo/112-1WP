@@ -14,6 +14,7 @@ namespace PowerPoint
         private Model _model;// 模型
         private Factory _factory;// 工廠
         private List<BindingList<Shape>> _shapeList = new List<BindingList<Shape>>();// 形狀列表
+        private List<Size> _drawPanelSizeList = new List<Size>();// 形狀列表
         private PresentationModel.PresentationModel _presentationModel;// 呈現模型
         private int activePageIndex = 0;
         private DoubleBufferedPanel _drawPanel = new DoubleBufferedPanel();
@@ -51,10 +52,12 @@ namespace PowerPoint
             _drawPanel.MouseEnter += DrawingAreaMouseEnter;
             _drawPanel.MouseLeave += DrawingAreaMouseLeave;
             _drawPanel.Anchor = AnchorStyles.None; // Center the control
+            _drawPanelSizeList.Add(_drawPanel.Size);
             _panelLeft.SizeChanged += Panel1SizeChanged;
             _panelRight.SizeChanged += Panel2SizeChanged;
             _panelMiddle.SizeChanged += Panel3SizeChanged;
             _panelMiddle.Controls.Add(_drawPanel);
+            
             _splitLeft.Width = SPLITER_WIDTH;
             _splitRight.Width = SPLITER_WIDTH;
             _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
@@ -298,6 +301,12 @@ namespace PowerPoint
         //Panel更新事件
         private void Panel3SizeChanged(object sender, EventArgs e)
         {
+            FitPanel();
+            UpdateButtonPage();
+            _model.NotifyModelChanged();
+        }
+        public void FitPanel()
+        {
             _panelMiddle.Location = new Point(_panelLeft.Location.X + _panelLeft.Width, _panelLeft.Location.Y);
             int oldHeight = _drawPanel.Height;
             _drawPanel.Width = _panelMiddle.Width - 100;
@@ -312,11 +321,9 @@ namespace PowerPoint
                 _drawPanel.Width = newWidth;
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
             }
+            _drawPanelSizeList[activePageIndex] = _drawPanel.Size;
             ScaleShape((double)_drawPanel.Height / (double)oldHeight);
-            UpdateButtonPage();
-            _model.NotifyModelChanged();
         }
-
         //照著比例放大
         private void ScaleShape(double scale)
         {
@@ -353,8 +360,10 @@ namespace PowerPoint
         {
             Button btn = new Button();
             _shapeList.Add(new BindingList<Shape>());
+
             btn.TabIndex = _groupBox2.Controls.Count;
             btn.Height = 180;
+            _drawPanelSizeList.Add(_drawPanel.Size);
             btn.BackgroundImage = CreateLightYellowBitmap(_drawPanel.Width, _drawPanel.Height);
             btn.BackgroundImageLayout = ImageLayout.Zoom;
             btn.Click += PageButtonClick;
@@ -395,6 +404,8 @@ namespace PowerPoint
                 _model.SetShapeList(_shapeList[activePageIndex]);
                 _presentationModel.SetShapeList(_shapeList[activePageIndex]);
                 _displayDataGrid.DataSource = _shapeList[activePageIndex];
+                _drawPanel.Size = _drawPanelSizeList[activePageIndex];
+                FitPanel();
                 _model.NotifyModelChanged();
             }
         }
