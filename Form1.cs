@@ -37,7 +37,7 @@ namespace PowerPoint
             InitializeComponent();
             _factory = new Factory();
             AddNewButton();
-            _controlManger = new ControlManger(_model);
+            _controlManger = new ControlManger();
             _model = new Model(_shapeList[activePageIndex], _controlManger);
             _displayDataGrid.DataSource = _shapeList[activePageIndex];
             this.KeyPreview = true;
@@ -342,13 +342,15 @@ namespace PowerPoint
         //Undo按鈕點擊事件
         private void UndoButtonClick(object sender, EventArgs e)
         {
-            _controlManger.UndoExcute();
+            _controlManger.UndoExcute().UndoExecute();
+            _model.NotifyModelChanged();
         }
 
         //Redo按鈕點擊事件
         private void RedoButtonClick(object sender, EventArgs e)
         {
-            _controlManger.Excute();
+            _controlManger.Excute().Execute();
+            _model.NotifyModelChanged();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

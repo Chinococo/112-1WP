@@ -12,11 +12,9 @@ namespace PowerPoint
     {
         private List<ICommand> _command;
         int _excuteIndex = 0;
-        Model _model;
-        public ControlManger(Model model)
+        public ControlManger()
         {
             _command = new List<ICommand>();
-            this._model = model;
         }
         public void AddCommand(Model model,Shape shape)
         {
@@ -48,17 +46,26 @@ namespace PowerPoint
             _command.Add(new DrawCommand(model, shape));
             _excuteIndex += 1;
         }
-        public void Excute()
+        public ICommand Excute()
         {
-            _command[_excuteIndex].Execute();
             _excuteIndex += 1;
-            _model.NotifyModelChanged();
+            return _command[_excuteIndex - 1];
+
+
         }
-        public void UndoExcute()
+        public ICommand UndoExcute()
         {
-            _command[_excuteIndex].UndoExecute();
             _excuteIndex -= 1;
-            _model.NotifyModelChanged();
+            if (_excuteIndex+1 == _command.Count)
+            {
+                return _command[_excuteIndex];
+            }
+            else
+            {
+                return _command[_excuteIndex+1];
+            }
+            
+            
         }
         public void UpdateExecuteId()
         {
