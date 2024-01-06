@@ -54,6 +54,7 @@ namespace PowerPoint
             this._panelMiddle = new System.Windows.Forms.Panel();
             this._splitLeft = new System.Windows.Forms.Splitter();
             this._splitRight = new System.Windows.Forms.Splitter();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
             this._menuStrip.SuspendLayout();
@@ -195,7 +196,8 @@ namespace PowerPoint
             this._toolStripCursorsButton,
             this._toolStripUndoButton,
             this._toolStripRedoButton,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this._toolStrip1.Location = new System.Drawing.Point(0, 24);
             this._toolStrip1.Name = "_toolStrip1";
             this._toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -317,6 +319,16 @@ namespace PowerPoint
             this._splitRight.TabIndex = 12;
             this._splitRight.TabStop = false;
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -373,6 +385,7 @@ namespace PowerPoint
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 

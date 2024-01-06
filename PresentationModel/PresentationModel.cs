@@ -1,7 +1,4 @@
-﻿using PowerPoint.Command;
-using PowerPoint.Object;
-using System;
-using System.Collections.Generic;
+﻿using PowerPoint.Object;
 using System.ComponentModel;
 using System.Drawing;
 
@@ -79,14 +76,13 @@ namespace PowerPoint.PresentationModel
                 _state = new PointState(_model);
         }
 
-
         // 按鈕刪除 Click 事件處理
         public void DeleteButtonClick()
         {
             int selectIndex = _model.GetSelectIndex();
             if (selectIndex >= 0 && selectIndex < _shapeList.Count)
             {
-                 _controlManger.DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex);
+                _controlManger.DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex);
                 _shapeList.RemoveAt(selectIndex);
             }
             // 通知模型發生變化

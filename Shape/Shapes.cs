@@ -1,6 +1,6 @@
 ﻿public class Shapes
 {
-    protected string _shapeName;
+    protected string _shapeName { get; }
     protected double _x1;
     protected double _y1;
     protected double _x2;
@@ -10,7 +10,7 @@
     {
         this._shapeName = shapeName;
     }
-
+    
     public Shapes(string shapeName, double x1, double y1, double x2, double y2)
     {
         this._shapeName = shapeName;

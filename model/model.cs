@@ -1,20 +1,19 @@
 ﻿// 引用必要的命名空間
 using HW2;
 using PowerPoint;
-using PowerPoint.Command;
-using PowerPoint.Object;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 
 // Model 類，負責應用邏輯和數據管理
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
+
     private Size deletePageSize;
+
     public delegate void ModelChangedEventHandler();
+
     private Shape _previous;
     private Factory _factory = new Factory();
     private bool AddPage = false;
@@ -23,17 +22,20 @@ public class Model
     private bool _insertPageByIndex = false;
     private bool _chaangeActivePageIndex = false;
     private int _activePageIndex = -1;
-    BindingList<Shape> deletePageList;
-    int deletePageIndex = -1;
+    private BindingList<Shape> deletePageList;
+    private int deletePageIndex = -1;
+
     public void AddNewPage()
     {
         AddPage = true;
     }
+
     public void ChangeActivePageIndex(int index)
     {
         _activePageIndex = index;
         _chaangeActivePageIndex = true;
     }
+
     public int UpdateActivePageIndex()
     {
         if (_chaangeActivePageIndex)
@@ -43,6 +45,7 @@ public class Model
         }
         return -1;
     }
+
     public bool GetAddPage()
     {
         if (AddPage)
@@ -53,11 +56,11 @@ public class Model
         return false;
     }
 
-
     public void DeleteNewPage()
     {
         DeletePage = true;
     }
+
     public bool GetDeletePage()
     {
         if (DeletePage)
@@ -74,15 +77,15 @@ public class Model
         deletePageIndex = index;
     }
 
-    public void InsertPageByIndex(BindingList<Shape> list, int index,Size pageSize)
+    public void InsertPageByIndex(BindingList<Shape> list, int index, Size pageSize)
     {
         _insertPageByIndex = true;
         deletePageList = list;
         deletePageIndex = index;
         deletePageSize = pageSize;
     }
-    
-    ControlManger _controlManger;
+
+    private ControlManger _controlManger;
     private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
     private string _shapeToolButtonState = "";
@@ -107,10 +110,12 @@ public class Model
         this._shapeList = shapeList;
         this._controlManger = controlManger;
     }
+
     public void SetShapeList(BindingList<Shape> shapeList)
     {
         this._shapeList = shapeList;
     }
+
     public UndoResult UndoDeletePage()
     {
         if (_insertPageByIndex)
@@ -129,6 +134,7 @@ public class Model
             PageIndex = -1
         };
     }
+
     public UndoResult RedoDeletePage()
     {
         if (_deletePageByIndex)
@@ -144,6 +150,7 @@ public class Model
             PageIndex = -1
         };
     }
+
     /// <summary>
     /// 更新zoom
     /// </summary>
@@ -175,12 +182,11 @@ public class Model
         NotifyModelChanged();
     }
 
-
     // 刪除特定列的物件
     public void DeleteLineByIndex(int index)
     {
         if (_shapeList.Count > index)
-        { 
+        {
             _controlManger.DeleteCommand(this, _shapeList[index], index);
             _shapeList.RemoveAt(index);
         }
@@ -217,7 +223,7 @@ public class Model
         {
             _lastClickX = pressX;
             _lastClickY = pressY;
-            FindSelectIndex(pressX,pressY);
+            FindSelectIndex(pressX, pressY);
         }
         NotifyModelChanged();
     }
@@ -284,7 +290,7 @@ public class Model
             {
                 _controlManger.ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
             }
-            else if(_isSelect && _selectIndex >= 0)
+            else if (_isSelect && _selectIndex >= 0)
             {
                 _controlManger.MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
             }
@@ -303,13 +309,13 @@ public class Model
         {
             _hint = _factory.CreateShape(_shapeToolButtonState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
         }
-        
+
         if (_hint != null)
         {
             _shapeList.Add(_hint);
             _controlManger.DrawCommand(this, _hint.Clone());
         }
-           
+
         NotifyModelChanged();
         _hint = null;
     }
@@ -372,7 +378,6 @@ public class Model
     {
         this._shapeList[index] = temp;
     }
-
 
     /// <summary>
     /// 更新按鈕狀態

@@ -11,12 +11,14 @@ namespace PowerPoint.Command
         private int _index;
         private BindingList<Shape> _list;
         private Size _pageSize;
+
         public DeleteCommand(Model model, Shape shape, int index)
         {
             this._model = model;
             this._shape = shape;
             this._index = index;
         }
+
         public DeleteCommand(Model model, BindingList<Shape> list, int index, Size pageSize)
         {
             this._model = model;
@@ -24,6 +26,7 @@ namespace PowerPoint.Command
             this._index = index;
             this._pageSize = pageSize;
         }
+
         // 執行以前的指令
         public void Execute()
         {
@@ -31,7 +34,6 @@ namespace PowerPoint.Command
                 _model.DeletePageByIndex(_index);
             else
                 _model.DeleteLineByIndex(_index);
-
         }
 
         // 還原成以前的指令

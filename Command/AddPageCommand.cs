@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PowerPoint.Command
+﻿namespace PowerPoint.Command
 {
-    class AddPageCommand : ICommand
+    internal class AddPageCommand : ICommand
     {
-        Model _model;
+        private Model _model;
+
         public AddPageCommand(Model model)
         {
             _model = model;
         }
+
         // 執行以前的指令
         public void Execute()
         {

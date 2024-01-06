@@ -5,34 +5,35 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PowerPoint
 {
     public class ControlManger
     {
         private List<ICommand> _command;
-        int _excuteIndex = 0;
+        private int _excuteIndex = 0;
+
         public ControlManger()
         {
             _command = new List<ICommand>();
         }
-        public void AddCommand(Model model,Shape shape)
+
+        public void AddCommand(Model model, Shape shape)
         {
             UpdateExecuteId();
             _command.Add(new AddCommand(model, shape.Clone()));
             _excuteIndex += 1;
             ShowCommand();
         }
-        public void DeleteCommand(Model model, Shape shape,int index)
+
+        public void DeleteCommand(Model model, Shape shape, int index)
         {
             UpdateExecuteId();
-            _command.Add(new DeleteCommand(model, shape.Clone(),index));
+            _command.Add(new DeleteCommand(model, shape.Clone(), index));
             _excuteIndex += 1;
             ShowCommand();
         }
+
         public void DeleteCommand(Model model, BindingList<Shape> list, int index, Size pageSize)
         {
             UpdateExecuteId();
@@ -40,13 +41,15 @@ namespace PowerPoint
             _excuteIndex += 1;
             ShowCommand();
         }
-        public void ResizeCommand(Model model, Shape previous,Shape shape, int index)
+
+        public void ResizeCommand(Model model, Shape previous, Shape shape, int index)
         {
             UpdateExecuteId();
-            _command.Add(new ResizeCommand(model,previous, shape.Clone(), index));
+            _command.Add(new ResizeCommand(model, previous, shape.Clone(), index));
             _excuteIndex += 1;
             ShowCommand();
         }
+
         public void MoveCommand(Model model, Shape previous, Shape shape, int index)
         {
             UpdateExecuteId();
@@ -54,6 +57,7 @@ namespace PowerPoint
             _excuteIndex += 1;
             ShowCommand();
         }
+
         public void DrawCommand(Model model, Shape shape)
         {
             UpdateExecuteId();
@@ -61,6 +65,7 @@ namespace PowerPoint
             _excuteIndex += 1;
             ShowCommand();
         }
+
         public void PageCommand(Model model)
         {
             UpdateExecuteId();
@@ -68,30 +73,32 @@ namespace PowerPoint
             _excuteIndex += 1;
             ShowCommand();
         }
-        public void ChageSelectIndexCommand(Model model,int prev,int next)
+
+        public void ChageSelectIndexCommand(Model model, int prev, int next)
         {
             UpdateExecuteId();
-            _command.Add(new ChageSelectIndexCommand(model,prev,next));
+            _command.Add(new ChageSelectIndexCommand(model, prev, next));
             _excuteIndex += 1;
             ShowCommand();
         }
+
         public void ShowCommand()
         {
             Console.WriteLine("現在狀態");
             for (int i = 0; i < _command.Count; i++)
                 Console.WriteLine(_command[i]);
         }
+
         public ICommand Excute()
         {
             _excuteIndex += 1;
             return _command[_excuteIndex - 1];
-
-
         }
+
         public ICommand UndoExcute()
         {
             _excuteIndex -= 1;
-            if (_excuteIndex+1 == _command.Count)
+            if (_excuteIndex + 1 == _command.Count)
             {
                 return _command[_excuteIndex];
             }
@@ -99,12 +106,11 @@ namespace PowerPoint
             {
                 return _command[_excuteIndex];
             }
-            
-            
         }
+
         public void UpdateExecuteId()
         {
-            while (_command.Count  != _excuteIndex)
+            while (_command.Count != _excuteIndex)
             {
                 _command.RemoveAt(_command.Count - 1);
             }

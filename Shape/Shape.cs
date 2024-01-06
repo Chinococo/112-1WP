@@ -6,6 +6,7 @@ public class Shape : Shapes
 {
     private const string DELETE = "刪除";
     private const string COORDINATES_FORMAT = "({0}, {1}), ({2}, {3})";
+    private const string COORDINATES_FORMAT2 = "{0},{1},{2},{3},{4}";
 
     // 建構函式，初始化 Shape 對象的形狀名稱
     public Shape(string shapeName) : base(shapeName)
@@ -54,6 +55,11 @@ public class Shape : Shapes
     public string GetInfo()
     {
         return string.Format(COORDINATES_FORMAT, _x1, _y1, _x2, _y2);
+    }
+    // 取得形狀資訊的方法
+    public string GetInfoCsv()
+    {
+        return string.Format(COORDINATES_FORMAT2,_shapeName, _x1, _y1, _x2, _y2);
     }
 
     // Draw 方法，等待被覆寫
