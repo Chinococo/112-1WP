@@ -1,4 +1,5 @@
-﻿using PowerPoint.Command;
+﻿using HW2.Command;
+using PowerPoint.Command;
 using PowerPoint.Object;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,13 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new AddPageCommand(model));
+            _excuteIndex += 1;
+            ShowCommand();
+        }
+        public void ChageSelectIndexCommand(Model model,int prev,int next)
+        {
+            UpdateExecuteId();
+            _command.Add(new ChageSelectIndexCommand(model,prev,next));
             _excuteIndex += 1;
             ShowCommand();
         }

@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AddPageCommand.cs" />
+    <Compile Include="Command\ChageSelectIndexCommand.cs" />
     <Compile Include="Command\ResizeCommand.cs" />
     <Compile Include="ControlManger.cs" />
     <Compile Include="DoubleBufferedPanel.cs">

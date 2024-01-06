@@ -21,11 +21,27 @@ public class Model
     private bool DeletePage = false;
     private bool _deletePageByIndex = false;
     private bool _insertPageByIndex = false;
+    private bool _chaangeActivePageIndex = false;
+    private int _activePageIndex = -1;
     BindingList<Shape> deletePageList;
     int deletePageIndex = -1;
     public void AddNewPage()
     {
         AddPage = true;
+    }
+    public void ChangeActivePageIndex(int index)
+    {
+        _activePageIndex = index;
+        _chaangeActivePageIndex = true;
+    }
+    public int UpdateActivePageIndex()
+    {
+        if (_chaangeActivePageIndex)
+        {
+            _chaangeActivePageIndex = false;
+            return _activePageIndex;
+        }
+        return -1;
     }
     public bool GetAddPage()
     {

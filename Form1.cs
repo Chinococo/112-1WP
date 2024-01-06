@@ -143,12 +143,8 @@ namespace PowerPoint
         {
             UpdateButtonPage();
             UndoResult _undoDeletePage = _model.UndoDeletePage();
-            Console.WriteLine(_undoDeletePage.PageIndex);
             if (_undoDeletePage.PageIndex!=-1)
             {
-                Console.WriteLine("需要回復");
-                Console.WriteLine(_undoDeletePage.PageIndex);
-                Console.WriteLine(_undoDeletePage.PageShape.Count);
                 _shapeList.Insert(_undoDeletePage.PageIndex, _undoDeletePage.PageShape);
                 _drawPanelSizeList.Insert(_undoDeletePage.PageIndex, _undoDeletePage.PageSize);
                 AddNewButton();
@@ -157,20 +153,24 @@ namespace PowerPoint
                 _model.NotifyModelChanged();
             }
             UndoResult _redoDeletePage = _model.RedoDeletePage();
-            Console.WriteLine(_redoDeletePage.PageIndex);
             if (_redoDeletePage.PageIndex != -1)
             {
-                Console.WriteLine("需要回復刪除");
-                Console.WriteLine(_redoDeletePage.PageIndex);
                 _shapeList.RemoveAt(_redoDeletePage.PageIndex);
                 _drawPanelSizeList.RemoveAt(_redoDeletePage.PageIndex);
                 _groupBox2.Controls.Remove(_groupBox2.Controls.OfType<Button>().ToList()[0]);
                 UpdatePageInformation();
                 _model.NotifyModelChanged();
             }
-            Console.WriteLine("現在頁碼{0}", _activeButtonPage);
-            for (int i = 0; i < _shapeList.Count; i++)
-                Console.WriteLine("頁碼{0}的shapeList的數量:{1}", i, _shapeList[i].Count);
+            int _updateActivePageIndex = _model.UpdateActivePageIndex();
+            if (_updateActivePageIndex != -1)
+            {
+                Console.WriteLine("切換索引{0}", _updateActivePageIndex);
+                activePageIndex = _updateActivePageIndex;
+                UpdatePageInformation();
+
+            }
+               
+
             Invalidate(true);
             UpdateButtonPage();
             if (_model.GetAddPage())
@@ -482,6 +482,10 @@ namespace PowerPoint
             if (clickedButton != null)
             {
                 _activeButtonPage = clickedButton;
+                if(activePageIndex != clickedButton.TabIndex)
+                {
+                    _controlManger.ChageSelectIndexCommand(_model, activePageIndex, clickedButton.TabIndex);
+                }
                 activePageIndex = clickedButton.TabIndex;
                 _model.SetShapeList(_shapeList[activePageIndex]);
                 _presentationModel.SetShapeList(_shapeList[activePageIndex]);
