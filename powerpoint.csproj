@@ -104,6 +104,7 @@
     <Compile Include="Shape\Rectangle.cs" />
     <Compile Include="Shape\Shape.cs" />
     <Compile Include="Shape\Shapes.cs" />
+    <Compile Include="UndoResult.cs" />
     <EmbeddedResource Include="DoubleBufferedPanel.resx">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </EmbeddedResource>

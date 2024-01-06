@@ -113,6 +113,21 @@ public class Model
             PageIndex = -1
         };
     }
+    public UndoResult RedoDeletePage()
+    {
+        if (_deletePageByIndex)
+        {
+            _deletePageByIndex = false;
+            return new UndoResult
+            {
+                PageIndex = deletePageIndex,
+            };
+        }
+        return new UndoResult
+        {
+            PageIndex = -1
+        };
+    }
     /// <summary>
     /// 更新zoom
     /// </summary>

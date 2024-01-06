@@ -28,9 +28,10 @@ namespace PowerPoint.Command
         public void Execute()
         {
             if (_list != null)
-                _model.DeleteLineByIndex(_index);
-            else
                 _model.DeletePageByIndex(_index);
+            else
+                _model.DeleteLineByIndex(_index);
+
         }
 
         // 還原成以前的指令

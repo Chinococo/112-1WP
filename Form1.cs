@@ -156,6 +156,18 @@ namespace PowerPoint
                 UpdatePageInformation();
                 _model.NotifyModelChanged();
             }
+            UndoResult _redoDeletePage = _model.RedoDeletePage();
+            Console.WriteLine(_redoDeletePage.PageIndex);
+            if (_redoDeletePage.PageIndex != -1)
+            {
+                Console.WriteLine("需要回復刪除");
+                Console.WriteLine(_redoDeletePage.PageIndex);
+                _shapeList.RemoveAt(_redoDeletePage.PageIndex);
+                _drawPanelSizeList.RemoveAt(_redoDeletePage.PageIndex);
+                _groupBox2.Controls.Remove(_groupBox2.Controls.OfType<Button>().ToList()[0]);
+                UpdatePageInformation();
+                _model.NotifyModelChanged();
+            }
             Console.WriteLine("現在頁碼{0}", _activeButtonPage);
             for (int i = 0; i < _shapeList.Count; i++)
                 Console.WriteLine("頁碼{0}的shapeList的數量:{1}", i, _shapeList[i].Count);
@@ -298,6 +310,10 @@ namespace PowerPoint
                        .OfType<Button>()
                        .OrderBy(button => button.TabIndex)
                        .ToList();
+            if (activePageIndex < 0)
+                activePageIndex = 0;
+            if (activePageIndex == _shapeList.Count)
+                activePageIndex = _shapeList.Count-1;
             _activeButtonPage = sortedButtons[activePageIndex];
             _model.SetShapeList(_shapeList[activePageIndex]);
             _presentationModel.SetShapeList(_shapeList[activePageIndex]);
