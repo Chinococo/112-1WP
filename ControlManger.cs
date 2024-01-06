@@ -3,6 +3,7 @@ using PowerPoint.Object;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,10 +32,10 @@ namespace PowerPoint
             _excuteIndex += 1;
             ShowCommand();
         }
-        public void DeleteCommand(Model model, BindingList<Shape> list, int index)
+        public void DeleteCommand(Model model, BindingList<Shape> list, int index, Size pageSize)
         {
             UpdateExecuteId();
-            _command.Add(new DeleteCommand(model, list, index));
+            _command.Add(new DeleteCommand(model, list, index, pageSize));
             _excuteIndex += 1;
             ShowCommand();
         }

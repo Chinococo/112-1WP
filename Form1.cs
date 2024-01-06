@@ -1,5 +1,7 @@
-﻿using PowerPoint.DrawingForm;
+﻿using HW2;
+using PowerPoint.DrawingForm;
 using PowerPoint.Drive;
+using PowerPoint.PresentationModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -139,14 +141,30 @@ namespace PowerPoint
         // Canvas 更新事件
         public void HandleModelChanged()
         {
+            UpdateButtonPage();
+            UndoResult _undoDeletePage = _model.UndoDeletePage();
+            Console.WriteLine(_undoDeletePage.PageIndex);
+            if (_undoDeletePage.PageIndex!=-1)
+            {
+                Console.WriteLine("需要回復");
+                Console.WriteLine(_undoDeletePage.PageIndex);
+                Console.WriteLine(_undoDeletePage.PageShape.Count);
+                _shapeList.Insert(_undoDeletePage.PageIndex, _undoDeletePage.PageShape);
+                _drawPanelSizeList.Insert(_undoDeletePage.PageIndex, _undoDeletePage.PageSize);
+                AddNewButton();
+                activePageIndex = _undoDeletePage.PageIndex;
+                UpdatePageInformation();
+                _model.NotifyModelChanged();
+            }
+            Console.WriteLine("現在頁碼{0}", _activeButtonPage);
+            for (int i = 0; i < _shapeList.Count; i++)
+                Console.WriteLine("頁碼{0}的shapeList的數量:{1}", i, _shapeList[i].Count);
             Invalidate(true);
             UpdateButtonPage();
-            //redo 新增按鈕
             if (_model.GetAddPage())
             {
                 AddNewButton();
             }
-            //undo 新增按鈕
             if (_model.GetDeletePage())
             {
                 var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
@@ -216,12 +234,29 @@ namespace PowerPoint
         //更新目前預覽圖狀態
         private void UpdateButtonPage()
         {
-            if (_drawPanel.Width > 0 && _drawPanel.Height > 0)
+            List<Button> sortedButtons = _groupBox2.Controls
+                        .OfType<Button>()
+                        .OrderBy(button => button.TabIndex)
+                        .ToList();
+            for (int i = 0; i < sortedButtons.Count && i < _drawPanelSizeList.Count && i < _shapeList.Count; i++)
             {
-                Bitmap bitmap = new Bitmap(_drawPanel.Width, _drawPanel.Height);
-                _drawPanel.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, _drawPanel.Width, _drawPanel.Height));
-                _activeButtonPage.BackgroundImage = bitmap;
-                _activeButtonPage.BackgroundImageLayout = ImageLayout.Zoom;
+                Bitmap bitmap = new Bitmap(_drawPanelSizeList[i].Width, _drawPanelSizeList[i].Height);
+
+                using (Graphics graphics = Graphics.FromImage(bitmap))
+                {
+                    graphics.Clear(Color.LightYellow);  // Set background color to yellow
+                    var windowsFormsGraphicsAdaptor = new WindowsFormsGraphicsAdaptor(graphics);
+
+                    for (int k = 0; k < _shapeList[i].Count; k++)
+                    {
+                        _shapeList[i][k].Draw(windowsFormsGraphicsAdaptor);
+                    }
+                }
+
+                Button temp = sortedButtons[i];
+
+                temp.BackgroundImage = bitmap;
+                temp.BackgroundImageLayout = ImageLayout.Zoom;
             }
         }
 
@@ -234,7 +269,7 @@ namespace PowerPoint
                     _presentationModel.DeleteButtonClick();
                 else
                 {
-                    _controlManger.DeleteCommand(_model,_shapeList[activePageIndex], activePageIndex);
+                    _controlManger.DeleteCommand(_model,_shapeList[activePageIndex], activePageIndex,_drawPanelSizeList[activePageIndex]);
                     _shapeList.RemoveAt(activePageIndex);
                     List<Button> sortedButtons = _groupBox2.Controls
                         .OfType<Button>()
@@ -250,17 +285,25 @@ namespace PowerPoint
                         .ToList();
                     if(activePageIndex<0)
                         activePageIndex=0;
-                    _activeButtonPage = sortedButtons[activePageIndex];
-                    _model.SetShapeList(_shapeList[activePageIndex]);
-                    _presentationModel.SetShapeList(_shapeList[activePageIndex]);
-                    _displayDataGrid.DataSource = _shapeList[activePageIndex];
+                    if (activePageIndex == _shapeList.Count)
+                        activePageIndex = _shapeList.Count-1;
                     UpdateButtonPage();
-                    
-                    _model.NotifyModelChanged();
+                    UpdatePageInformation();
                 }
             }
         }
-
+        void UpdatePageInformation()
+        {
+            List<Button> sortedButtons = _groupBox2.Controls
+                       .OfType<Button>()
+                       .OrderBy(button => button.TabIndex)
+                       .ToList();
+            _activeButtonPage = sortedButtons[activePageIndex];
+            _model.SetShapeList(_shapeList[activePageIndex]);
+            _presentationModel.SetShapeList(_shapeList[activePageIndex]);
+            _displayDataGrid.DataSource = _shapeList[activePageIndex];
+            _model.NotifyModelChanged();
+        }
         //更新toolstrip選取狀態
         public void UpdateToolStripButtonCheck(ToolStripButton temp)
         {
@@ -364,6 +407,7 @@ namespace PowerPoint
         private void UndoButtonClick(object sender, EventArgs e)
         {
             _controlManger.UndoExcute().UndoExecute();
+            UpdatePageInformation();
             _model.NotifyModelChanged();
         }
 

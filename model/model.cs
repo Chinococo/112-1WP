@@ -1,4 +1,5 @@
 ﻿// 引用必要的命名空間
+using HW2;
 using PowerPoint;
 using PowerPoint.Command;
 using PowerPoint.Object;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
-
+    private Size deletePageSize;
     public delegate void ModelChangedEventHandler();
     private Shape _previous;
     private Factory _factory = new Factory();
@@ -57,32 +58,14 @@ public class Model
         deletePageIndex = index;
     }
 
-    public void InsertPageByIndex(BindingList<Shape> list, int index)
+    public void InsertPageByIndex(BindingList<Shape> list, int index,Size pageSize)
     {
         _insertPageByIndex = true;
         deletePageList = list;
         deletePageIndex = index;
+        deletePageSize = pageSize;
     }
-    public object GetInsertPageByIndex()
-    {
-        if (_insertPageByIndex)
-        {
-            _insertPageByIndex = false;
-            return new { IsSuccess = true, DeletePageIndex = deletePageIndex, DeletePageList = deletePageList };
-        }
-
-        return new { IsSuccess = false };
-    }
-
-    public object GetDeletePageByIndex()
-    {
-        if (_insertPageByIndex)
-        {
-            _insertPageByIndex = false;
-            return new { IsSuccess = true, DeletePageList = deletePageList };
-        }
-        return new { IsSuccess = false };
-    }
+    
     ControlManger _controlManger;
     private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
@@ -112,7 +95,24 @@ public class Model
     {
         this._shapeList = shapeList;
     }
-
+    public UndoResult UndoDeletePage()
+    {
+        if (_insertPageByIndex)
+        {
+            _insertPageByIndex = false;
+            return new UndoResult
+            {
+                PageShape = deletePageList,
+                PageIndex = deletePageIndex,
+                PageSize = deletePageSize
+            };
+        }
+        return new UndoResult
+        {
+            PageShape = new BindingList<Shape>(),
+            PageIndex = -1
+        };
+    }
     /// <summary>
     /// 更新zoom
     /// </summary>
