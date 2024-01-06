@@ -141,50 +141,12 @@ namespace PowerPoint
         {
             Invalidate(true);
             UpdateButtonPage();
-            dynamic temp = _model.GetDeletePageByIndex();
-            if (temp.IsSuccess)
-            {
-                var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
-                _groupBox2.Controls.Clear();  // Clear existing buttons
-                _shapeList.RemoveAt(_shapeList.Count - 1);
-                _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
-                for (int i = 0; i < existingButtons.Count - 1; i++)
-                {
-                    if (temp.DeletePageIndex == i)
-                        continue;
-                    _groupBox2.Controls.Add(existingButtons[i]);
-                }
-            }
-            temp = _model.GetInsertPageByIndex();
-            if (temp.IsSuccess)
-            {
-                var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
-                _groupBox2.Controls.Clear();  // Clear existing buttons
-                _shapeList.RemoveAt(_shapeList.Count - 1);
-                _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
-                for (int i = 0; i < existingButtons.Count - 1; i++)
-                {
-                    if (temp.DeletePageIndex == i)
-                    {
-                        Button btn = new Button();
-                        _shapeList.Add(new BindingList<Shape>());
-                        _drawPanelSizeList.Add(_drawPanel.Size);
-                        btn.TabIndex = _groupBox2.Controls.Count;
-                        btn.Height = 180;
-                        _drawPanelSizeList.Add(_drawPanel.Size);
-                        btn.BackgroundImage = CreateLightYellowBitmap(_drawPanel.Width, _drawPanel.Height);
-                        btn.BackgroundImageLayout = ImageLayout.Zoom;
-                        btn.Click += PageButtonClick;
-                        btn.Dock = DockStyle.Top;
-                        _groupBox2.Controls.Add(btn);
-                    }
-                    _groupBox2.Controls.Add(existingButtons[i]);
-                }
-            }
+            //redo 新增按鈕
             if (_model.GetAddPage())
             {
                 AddNewButton();
             }
+            //undo 新增按鈕
             if (_model.GetDeletePage())
             {
                 var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
@@ -286,6 +248,8 @@ namespace PowerPoint
                         .OfType<Button>()
                         .OrderBy(button => button.TabIndex)
                         .ToList();
+                    if(activePageIndex<0)
+                        activePageIndex=0;
                     _activeButtonPage = sortedButtons[activePageIndex];
                     _model.SetShapeList(_shapeList[activePageIndex]);
                     _presentationModel.SetShapeList(_shapeList[activePageIndex]);

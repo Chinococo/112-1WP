@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PowerPoint.Object
+namespace PowerPoint.Command
 {
     // Represents the drawing state for handling mouse events in a drawing application.
     public class DeleteCommand : ICommand
