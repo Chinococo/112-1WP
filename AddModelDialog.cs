@@ -9,11 +9,13 @@ namespace HW2
     {
         private PresentationModel _presentationModel;
         private string _shape;
-
+        private const string FORM_NAME= "Main Form";
+        private const int WIDTH = 400;
+        private const int HEIGHT = 300;
         public AddModelDialog(PresentationModel presentationModel, string shape)
         {
-            this.Text = "Main Form";
-            this.Size = new System.Drawing.Size(400, 300);
+            this.Text = FORM_NAME;
+            this.Size = new System.Drawing.Size(WIDTH, HEIGHT);
             this._presentationModel = presentationModel;
             this._shape = shape;
             InitializeComponent();

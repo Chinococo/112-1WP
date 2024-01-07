@@ -9,11 +9,8 @@ using System.Drawing;
 public class Model
 {
     public event ModelChangedEventHandler _modelChanged;
-
     private Size deletePageSize;
-
     public delegate void ModelChangedEventHandler();
-
     private Shape _previous;
     private Factory _factory = new Factory();
     private bool AddPage = false;
@@ -24,7 +21,24 @@ public class Model
     private int _activePageIndex = -1;
     private BindingList<Shape> deletePageList;
     private int deletePageIndex = -1;
-
+    private ControlManger _controlManger;
+    private int _selectIndex = -1;
+    private BindingList<Shape> _shapeList;
+    private string _shapeToolButtonState = "";
+    private double _firstPointX;
+    private double _firstPointY;
+    private double _lastClickX;
+    private double _lastClickY;
+    private bool _isPressed = false;
+    private bool _isSelect = false;
+    private Shape _hint; 
+    private bool _zoom = false;
+    private const string LINE = "線";
+    private const string RECTANGLE = "矩形";
+    private const string ELLIPSE = "橢圓";
+    private const string NAME_LINE = "Line";
+    private const string NAME_RECTANGLE = "Rectangle";
+    private const string NAME_ELLIPSE = "Ellipse";
     public void AddNewPage()
     {
         AddPage = true;
@@ -85,25 +99,6 @@ public class Model
         deletePageSize = pageSize;
     }
 
-    private ControlManger _controlManger;
-    private int _selectIndex = -1;
-    private BindingList<Shape> _shapeList;
-    private string _shapeToolButtonState = "";
-    private double _firstPointX;
-    private double _firstPointY;
-    private double _lastClickX;
-    private double _lastClickY;
-    private bool _isPressed = false;
-    private bool _isSelect = false;
-    private Shape _hint; // 用於顯示提示形狀的變數
-    private bool _zoom = false;
-    private const string LINE = "線";
-    private const string RECTANGLE = "矩形";
-    private const string ELLIPSE = "橢圓";
-    private const string NAME_LINE = "Line";
-    private const string NAME_RECTANGLE = "Rectangle";
-    private const string NAME_ELLIPSE = "Ellipse";
-
     // 構造函數，初始化模型
     public Model(BindingList<Shape> shapeList, ControlManger controlManger)
     {
@@ -151,20 +146,12 @@ public class Model
         };
     }
 
-    /// <summary>
-    /// 更新zoom
-    /// </summary>
-    /// <param name="zoom"></param>
+    //設定是否再縮放
     public void SetZoom(bool zoom)
     {
         this._zoom = zoom;
     }
 
-    // 拿zoom數值
-    public bool IsZoom()
-    {
-        return _zoom;
-    }
 
     // 新增 DataGrid 資料
     public void PopLine()
@@ -320,14 +307,6 @@ public class Model
         _hint = null;
     }
 
-    // 清除所有形狀並解除按壓
-    public void Clear()
-    {
-        _isPressed = false;
-        _shapeList.Clear();
-        // 通知模型發生變化
-        NotifyModelChanged();
-    }
 
     // 通知畫面需要更新事件
     public void NotifyModelChanged()
@@ -377,15 +356,6 @@ public class Model
     public void MondifyByIndex(int index, Shape temp)
     {
         this._shapeList[index] = temp;
-    }
-
-    /// <summary>
-    /// 更新按鈕狀態
-    /// </summary>
-    /// <param name="state"></param>
-    public void SetShapeToolButtonState(string state)
-    {
-        this._shapeToolButtonState = state;
     }
 
     // 清除狀態（解除按壓等）

@@ -48,8 +48,8 @@ namespace PowerPoint
 
         private void SetInit()
         {
-            //_toolStripUndoButton.Enabled = _controlManger.UndoButtonStatus();
-            //_toolStripRedoButton.Enabled = _controlManger.RedoButtonStatus();
+            _toolStripUndoButton.Enabled = _controlManger.UndoButtonStatus();
+            _toolStripRedoButton.Enabled = _controlManger.RedoButtonStatus();
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
