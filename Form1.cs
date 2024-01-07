@@ -1,4 +1,4 @@
-﻿using HW2;
+﻿using Dialog;
 using PowerPoint.DrawingForm;
 using PowerPoint.Drive;
 using PowerPoint.PresentationModel;
@@ -48,8 +48,8 @@ namespace PowerPoint
 
         private void SetInit()
         {
-            _toolStripUndoButton.Enabled = _controlManger.UndoButtonStatus();
-            _toolStripRedoButton.Enabled = _controlManger.RedoButtonStatus();
+            _toolStripUndoButton.Enabled = _controlManger.IsUndoButtonStatus();
+            _toolStripRedoButton.Enabled = _controlManger.IsRedoButtonStatus();
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
@@ -408,7 +408,7 @@ namespace PowerPoint
         //Undo按鈕點擊事件
         private void UndoButtonClick(object sender, EventArgs e)
         {
-            _controlManger.UndoExcute().UndoExecute();
+            _controlManger.UndoExecute().UndoExecute();
             UpdatePageInformation();
             _model.NotifyModelChanged();
         }
@@ -416,7 +416,7 @@ namespace PowerPoint
         //Redo按鈕點擊事件
         private void RedoButtonClick(object sender, EventArgs e)
         {
-            _controlManger.Excute().Execute();
+            _controlManger.Execute().Execute();
             _model.NotifyModelChanged();
         }
 
@@ -424,7 +424,7 @@ namespace PowerPoint
         {
             AddNewButton();
             _controlManger.PageCommand(_model);
-            _controlManger.ChageSelectIndexCommand(_model, activePageIndex, _shapeList.Count - 1);
+            _controlManger.ChangeSelectIndexCommand(_model, activePageIndex, _shapeList.Count - 1);
             activePageIndex = _shapeList.Count - 1;
             UpdatePageInformation();
             _controlManger.ShowCommand();
@@ -475,7 +475,7 @@ namespace PowerPoint
                 _activeButtonPage = clickedButton;
                 if (activePageIndex != clickedButton.TabIndex)
                 {
-                    _controlManger.ChageSelectIndexCommand(_model, activePageIndex, clickedButton.TabIndex);
+                    _controlManger.ChangeSelectIndexCommand(_model, activePageIndex, clickedButton.TabIndex);
                 }
                 activePageIndex = clickedButton.TabIndex;
                 UpdatePageInformation();

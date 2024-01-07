@@ -1,4 +1,4 @@
-﻿using HW2.Command;
+﻿using Dialog.Command;
 using PowerPoint.Command;
 using PowerPoint.Object;
 using System;
@@ -74,10 +74,10 @@ namespace PowerPoint
             ShowCommand();
         }
 
-        public void ChageSelectIndexCommand(Model model, int prev, int next)
+        public void ChangeSelectIndexCommand(Model model, int prev, int next)
         {
             UpdateExecuteId();
-            _command.Add(new ChageSelectIndexCommand(model, prev, next));
+            _command.Add(new ChangeSelectIndexCommand(model, prev, next));
             _excuteIndex += 1;
             ShowCommand();
         }
@@ -89,13 +89,13 @@ namespace PowerPoint
                 Console.WriteLine(_command[i]);
         }
 
-        public ICommand Excute()
+        public ICommand Execute()
         {
             _excuteIndex += 1;
             return _command[_excuteIndex - 1];
         }
 
-        public ICommand UndoExcute()
+        public ICommand UndoExecute()
         {
             _excuteIndex -= 1;
             if (_excuteIndex + 1 == _command.Count)
@@ -116,12 +116,12 @@ namespace PowerPoint
             }
         }
 
-        public bool UndoButtonStatus()
+        public bool IsUndoButtonStatus()
         {
             return _excuteIndex != 0;
         }
 
-        public bool RedoButtonStatus()
+        public bool IsRedoButtonStatus()
         {
             return _excuteIndex < _command.Count;
         }

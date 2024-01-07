@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace HW2
+namespace Dialog
 {
     public class UndoResult
     {

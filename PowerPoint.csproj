@@ -78,7 +78,7 @@
       <DependentUpon>AddModelDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Command\AddPageCommand.cs" />
-    <Compile Include="Command\ChageSelectIndexCommand.cs" />
+    <Compile Include="Command\ChangeSelectIndexCommand.cs" />
     <Compile Include="Command\ResizeCommand.cs" />
     <Compile Include="ControlManger.cs" />
     <Compile Include="CsvData.cs" />

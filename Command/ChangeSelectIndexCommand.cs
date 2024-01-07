@@ -1,17 +1,17 @@
 ﻿using PowerPoint;
 
-namespace HW2.Command
+namespace Dialog.Command
 {
-    public class ChageSelectIndexCommand : ICommand
+    public class ChangeSelectIndexCommand : ICommand
     {
         private Model _model;
-        private int _prevIndex;
+        private int _previousIndex;
         private int _nextIndex;
 
-        public ChageSelectIndexCommand(Model model, int prevIndex, int nextIndex)
+        public ChangeSelectIndexCommand(Model model, int prevIndex, int nextIndex)
         {
             this._model = model;
-            this._prevIndex = prevIndex;
+            this._previousIndex = prevIndex;
             this._nextIndex = nextIndex;
         }
 
@@ -24,7 +24,7 @@ namespace HW2.Command
         // 還原成以前的指令
         public void UndoExecute()
         {
-            _model.ChangeActivePageIndex(_prevIndex);
+            _model.ChangeActivePageIndex(_previousIndex);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace PowerPoint.Drive
 {
     public class GoogleDriveService
     {
-        private static readonly string[] SCOPES = new[] { DriveService.Scope.DriveFile, DriveService.Scope.Drive };
+        private static readonly string[] _scopes = new[] { DriveService.Scope.DriveFile, DriveService.Scope.Drive };
         private DriveService _service;
         private const int KB = 0x400;
         private const int DOWNLOAD_CHUNK_SIZE = 256 * KB;
@@ -23,6 +23,8 @@ namespace PowerPoint.Drive
         private string _applicationName;
         private string _clientSecretFileName;
         private UserCredential _credential;
+        const string SPLASH = @"\";
+        private const string LOAD_DATA_NAME = "LoadData.csv";
 
         /// <summary>
         /// 創造一個Google Drive Service
@@ -51,7 +53,7 @@ namespace PowerPoint.Drive
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     clientSecrets.Secrets,
-                    SCOPES,
+                    _scopes,
                     USER,
                     CancellationToken.None,
                     new FileDataStore(credentialPath, true)
@@ -62,7 +64,8 @@ namespace PowerPoint.Drive
             {
                 HttpClientInitializer = credential,
                 ApplicationName = applicationName
-            });
+            }
+            );
 
             _credential = credential;
             DateTime now = DateTime.Now;
@@ -145,10 +148,10 @@ namespace PowerPoint.Drive
         /// </summary>
         /// <param name="uploadFileName">上傳的檔案名稱 </param>
         /// <param name="contentType">上傳的檔案種類，請參考MIME Type : http://www.iana.org/assignments/media-types/media-types.xhtml </param>
-        /// <param name="uploadProgressEventHandeler"> 上傳進度改變時呼叫的函式</param>
+        /// <param name="uploadProgressEventHandler"> 上傳進度改變時呼叫的函式</param>
         /// <param name="responseReceivedEventHandler">收到回應時呼叫的函式 </param>
         /// <returns>上傳成功，回傳上傳成功的 Google Drive 格式之File</returns>
-        public async Task<Google.Apis.Drive.v2.Data.File> UploadFile(string uploadFileName, string contentType, Action<IUploadProgress> uploadProgressEventHandeler = null, Action<Google.Apis.Drive.v2.Data.File> responseReceivedEventHandler = null)
+        public async Task<Google.Apis.Drive.v2.Data.File> UploadFile(string uploadFileName, string contentType, Action<IUploadProgress> uploadProgressEventHandler = null, Action<Google.Apis.Drive.v2.Data.File> responseReceivedEventHandler = null)
         {
             FileStream uploadStream = new FileStream(uploadFileName, FileMode.Open, FileAccess.Read);
             const char SPLASH = '\\';
@@ -160,12 +163,14 @@ namespace PowerPoint.Drive
             else
                 title = uploadFileName;
 
-            Google.Apis.Drive.v2.Data.File fileToInsert = new Google.Apis.Drive.v2.Data.File { Title = title };
+            Google.Apis.Drive.v2.Data.File fileToInsert = new Google.Apis.Drive.v2.Data.File { 
+                Title = title 
+            };
             FilesResource.InsertMediaUpload insertRequest = _service.Files.Insert(fileToInsert, uploadStream, contentType);
             insertRequest.ChunkSize = FilesResource.InsertMediaUpload.MinimumChunkSize * 2;
 
-            if (uploadProgressEventHandeler != null)
-                insertRequest.ProgressChanged += uploadProgressEventHandeler;
+            if (uploadProgressEventHandler != null)
+                insertRequest.ProgressChanged += uploadProgressEventHandler;
 
             if (responseReceivedEventHandler != null)
                 insertRequest.ResponseReceived += responseReceivedEventHandler;
@@ -194,8 +199,6 @@ namespace PowerPoint.Drive
         /// <param name="downloadProgressChangedEventHandeler">當下載進度改變時，呼叫這個函式</param>
         public void DownloadFile(Google.Apis.Drive.v2.Data.File fileToDownload, string downloadPath, Action<IDownloadProgress> downloadProgressChangedEventHandeler = null)
         {
-            const string SPLASH = @"\";
-
             CheckCredentialTimeStamp();
             if (!String.IsNullOrEmpty(fileToDownload.DownloadUrl))
             {
@@ -203,7 +206,7 @@ namespace PowerPoint.Drive
                 {
                     Task<byte[]> downloadByte = _service.HttpClient.GetByteArrayAsync(fileToDownload.DownloadUrl);
                     byte[] byteArray = downloadByte.Result;
-                    string downloadPosition = downloadPath + SPLASH + "LoadData.csv";
+                    string downloadPosition = downloadPath + SPLASH + LOAD_DATA_NAME;
                     System.IO.File.WriteAllBytes(downloadPosition, byteArray);
                 }
                 catch (Exception exception)

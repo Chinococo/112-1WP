@@ -1,4 +1,4 @@
-﻿using HW2;
+﻿using Dialog;
 using PowerPoint.Object;
 using System;
 using System.Collections.Generic;

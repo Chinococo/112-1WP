@@ -1,5 +1,5 @@
 ﻿// 引用必要的命名空間
-using HW2;
+using Dialog;
 using PowerPoint;
 using System;
 using System.ComponentModel;

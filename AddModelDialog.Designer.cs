@@ -1,5 +1,5 @@
 ﻿
-namespace HW2
+namespace Dialog
 {
     partial class AddModelDialog
     {
@@ -49,7 +49,7 @@ namespace HW2
             this._okButton.TabIndex = 0;
             this._okButton.Text = "OK";
             this._okButton.UseVisualStyleBackColor = true;
-            this._okButton.Click += new System.EventHandler(this._okButton_Click);
+            this._okButton.Click += new System.EventHandler(this.AddButtonClick);
             // 
             // _cancelButton
             // 
@@ -59,7 +59,7 @@ namespace HW2
             this._cancelButton.TabIndex = 0;
             this._cancelButton.Text = "Cancel";
             this._cancelButton.UseVisualStyleBackColor = true;
-            this._cancelButton.Click += new System.EventHandler(this._cancelButton_Click);
+            this._cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
             // 
             // _informationX1
             // 
