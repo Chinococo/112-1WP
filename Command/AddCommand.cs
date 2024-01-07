@@ -16,12 +16,14 @@
         public void Execute()
         {
             _model.AddNewLine(_shape);
+            _model.NotifyModelChanged();
         }
 
         //還原
         public void UndoExecute()
         {
             _model.PopLine();
+            _model.NotifyModelChanged();
         }
     }
 }

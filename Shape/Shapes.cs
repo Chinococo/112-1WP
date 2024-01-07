@@ -1,8 +1,10 @@
 ﻿public class Shapes
 {
-    protected string _shapeName { 
+    protected string _shapeName
+    {
         get;
     }
+
     protected double _x1;
     protected double _y1;
     protected double _x2;

@@ -25,6 +25,15 @@ namespace PowerPoint.PresentationModel
         private const string NAME_RECTANGLE = "Rectangle";
         private const string NAME_ELLIPSE = "Ellipse";
         private string _shapeState = "";
+        private const int PANEL_INDEX_INDEX = 0;
+        private const int DRAW_WIDTH_INDEX = 1;
+        private const int DRAW_HEIGHT_INDEX = 2;
+        private const int SHAPE_TYPE_INDEX = 3;
+        private const int X1_INDEX = 4;
+        private const int Y1_INDEX = 5;
+        private const int X2_INDEX = 6;
+        private const int Y2_INDEX = 7;
+        private const char SPLITER = ',';
 
         public PresentationModel(Model model, BindingList<Shape> shapeList, ControlManager controlManager)
         {
@@ -128,8 +137,8 @@ namespace PowerPoint.PresentationModel
                 for (int k = 0; k < shapeList[i].Count; k++)
                 {
                     string[] data = { i.ToString(), drawPanelSizeList[0].Width.ToString(), drawPanelSizeList[0].Height.ToString() };
-                    string[] temp = shapeList[i][k].GetInfoCsv().Split(',');
-                    data = data.Concat(temp).ToArray(); ;
+                    string[] temp = shapeList[i][k].GetInfoCsv().Split(SPLITER);
+                    data = data.Concat(temp).ToArray();
                     WriteToCsv(FILE_PATH, null, data);
                 }
             }
@@ -161,28 +170,21 @@ namespace PowerPoint.PresentationModel
         {
             try
             {
-                // Read all lines from the CSV file
                 string[] lines = File.ReadAllLines(filePath);
-
-                // Skip header if present
                 lines = lines.ToArray();
-
-                // Process lines using LINQ
                 List<CsvData> dataList = lines
-                    .Select(line => line.Split(','))
+                    .Select(line => line.Split(SPLITER))
                     .Select(fields => new CsvData
                     {
-                        PanelIndex = int.Parse(fields[0]),
-                        DrawWidth = int.Parse(fields[1]),
-                        DrawHeight = int.Parse(fields[2]),
-                        ShapeType = fields[3],
-                        X1 = int.Parse(fields[4]),
-                        Y1 = int.Parse(fields[5]),
-                        X2 = int.Parse(fields[6]),
-                        Y2 = int.Parse(fields[7])
-                    })
-                    .ToList();
-
+                        PanelIndex = int.Parse(fields[PANEL_INDEX_INDEX]),
+                        DrawWidth = int.Parse(fields[DRAW_WIDTH_INDEX]),
+                        DrawHeight = int.Parse(fields[DRAW_HEIGHT_INDEX]),
+                        ShapeType = fields[SHAPE_TYPE_INDEX],
+                        X1 = int.Parse(fields[X1_INDEX]),
+                        Y1 = int.Parse(fields[Y1_INDEX]),
+                        X2 = int.Parse(fields[X2_INDEX]),
+                        Y2 = int.Parse(fields[Y2_INDEX])
+                    }).ToList();
                 return dataList;
             }
             catch (Exception ex)

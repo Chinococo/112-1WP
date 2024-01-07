@@ -13,6 +13,7 @@ namespace PowerPoint
         private List<ICommand> _command;
         private int _executeIndex = 0;
         private const string NOW_STATUS = "現在狀態";
+
         public ControlManager()
         {
             _command = new List<ICommand>();
@@ -131,12 +132,14 @@ namespace PowerPoint
         //UndoButtonStatus
         public bool IsUndoButtonStatus()
         {
+            Console.WriteLine("IsUndoButtonStatus");
             return _executeIndex != 0;
         }
 
         //RedoButtonStatu
         public bool IsRedoButtonStatus()
         {
+            Console.WriteLine("IsRedoButtonStatus");
             return _executeIndex < _command.Count;
         }
     }

@@ -14,6 +14,7 @@ namespace Dialog
         private const int HEIGHT = 300;
         private const string ERROR_TITLE = "Invalid input. Please enter valid integers for X1, Y1, X2, and Y2.";
         private const string ERROR_MESSAGE = "Error";
+
         public AddModelDialog(PresentationModel presentationModel, string shape)
         {
             this.Text = FORM_NAME;
@@ -41,7 +42,7 @@ namespace Dialog
             }
             catch (FormatException)
             {
-                MessageBox.Show(ERROR_TITLE,ERROR_MESSAGE , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ERROR_TITLE, ERROR_MESSAGE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

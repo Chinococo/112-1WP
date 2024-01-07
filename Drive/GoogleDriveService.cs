@@ -1,9 +1,7 @@
 ﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Download;
 using Google.Apis.Drive.v2;
 using Google.Apis.Drive.v2.Data;
 using Google.Apis.Services;
-using Google.Apis.Upload;
 using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
@@ -27,7 +25,8 @@ namespace PowerPoint.Drive
         private const string LOAD_DATA_NAME = "LoadData.csv";
         private const int TWICE = 2;
         private const int SLEEP_TIME = 10000;
-
+        const string USER = "user";
+        const string CREDENTIAL_FOLDER = ".credential/";
         /// <summary>
         /// 創造一個Google Drive Service
         /// </summary>
@@ -43,17 +42,12 @@ namespace PowerPoint.Drive
         //建立服務
         private void CreateNewService(string applicationName, string clientSecretFileName)
         {
-            const string USER = "user";
-            const string CREDENTIAL_FOLDER = ".credential/";
             UserCredential credential;
-
             using (FileStream stream = new FileStream(clientSecretFileName, FileMode.Open, FileAccess.Read))
             {
                 GoogleClientSecrets clientSecrets = GoogleClientSecrets.FromStream(stream);
-
                 string credentialPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                 credentialPath = Path.Combine(credentialPath, CREDENTIAL_FOLDER + applicationName);
-
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     clientSecrets.Secrets,
                     _scopes,
@@ -62,14 +56,12 @@ namespace PowerPoint.Drive
                     new FileDataStore(credentialPath, true)
                 ).Result;
             }
-
             DriveService service = new DriveService(
                 new BaseClientService.Initializer()
                 {
                     HttpClientInitializer = credential,
                     ApplicationName = applicationName
-                }
-            );
+                });
 
             _credential = credential;
             DateTime now = DateTime.Now;
@@ -165,7 +157,7 @@ namespace PowerPoint.Drive
             else
                 title = uploadFileName;
 
-            Google.Apis.Drive.v2.Data.File fileToInsert = 
+            Google.Apis.Drive.v2.Data.File fileToInsert =
                 new Google.Apis.Drive.v2.Data.File
                 {
                     Title = title

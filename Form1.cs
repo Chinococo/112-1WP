@@ -35,6 +35,8 @@ namespace PowerPoint
         private const int MIN_HEIGHT = 9;
         private const int SPLITER_BUFFER = 100;
         private const int TWICE = 2;
+        string SAVE_DATA_NAME = "SaveData.csv";
+        string LOAD_DATA_NAME = "LoadData.csv";
         public Form1()
         {
             InitializeComponent();
@@ -49,10 +51,9 @@ namespace PowerPoint
             UpdatePageInformation();
         }
 
+        //初始化
         private void SetInitial()
         {
-            //_toolStripUndoButton.Enabled = _controlManger.IsUndoButtonStatus();
-            //_toolStripRedoButton.Enabled = _controlManger.IsRedoButtonStatus();
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
@@ -145,7 +146,29 @@ namespace PowerPoint
         // Canvas 更新事件
         public void HandleModelChanged()
         {
+            Task.Run(async () =>
+            {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        //if(_controlManger.IsUndoButtonStatus()!= _toolStripUndoButton.Enabled)
+                        //    _toolStripUndoButton.Enabled = _controlManger.IsUndoButtonStatus();
+                        //if(_controlManger.IsRedoButtonStatus() != _toolStripRedoButton.Enabled)
+                        //    _toolStripRedoButton.Enabled = _controlManger.IsRedoButtonStatus();
+                    });
+            });
             UpdateButtonPage();
+            HandleUndoDeletePage();
+            HandleRedoDeletePage();
+            HandleUpdateActivePageIndex();
+            Invalidate(true);
+            UpdateButtonPage();
+            HandleAddPage();
+            HandleDeletePage();
+        }
+
+        // Canvas 更新事件
+        private void HandleUndoDeletePage()
+        {
             UndoResult undoDeletePage = _model.UndoDeletePage();
             if (undoDeletePage.PageIndex != -1)
             {
@@ -156,6 +179,11 @@ namespace PowerPoint
                 UpdatePageInformation();
                 _model.NotifyModelChanged();
             }
+        }
+
+        // Canvas 更新事件
+        private void HandleRedoDeletePage()
+        {
             UndoResult redoDeletePage = _model.RedoDeletePage();
             if (redoDeletePage.PageIndex != -1)
             {
@@ -165,6 +193,11 @@ namespace PowerPoint
                 UpdatePageInformation();
                 _model.NotifyModelChanged();
             }
+        }
+
+        // Canvas 更新事件
+        private void HandleUpdateActivePageIndex()
+        {
             int updateActivePageIndex = _model.UpdateActivePageIndex();
             if (updateActivePageIndex != -1)
             {
@@ -172,18 +205,26 @@ namespace PowerPoint
                 activePageIndex = updateActivePageIndex;
                 UpdatePageInformation();
             }
+        }
 
-            Invalidate(true);
-            UpdateButtonPage();
+        // Canvas 更新事件
+        private void HandleAddPage()
+        {
             if (_model.GetAddPage())
             {
                 AddNewButton();
             }
+        }
+
+        // Canvas 更新事件
+        private void HandleDeletePage()
+        {
             if (_model.GetDeletePage())
             {
                 var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
                 _groupBox2.Controls.Clear();
                 _shapeList.RemoveAt(_shapeList.Count - 1);
+                activePageIndex = _shapeList.Count - 1;
                 _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
                 for (int i = 0; i < existingButtons.Count - 1; i++)
                 {
@@ -279,33 +320,59 @@ namespace PowerPoint
             if (e.KeyCode == Keys.Delete)
             {
                 if (_model.GetSelectIndex() >= 0)
+                {
                     _presentationModel.DeleteButtonClick();
+                }
                 else
                 {
-                    _controlManger.DeleteCommand(_model, _shapeList[activePageIndex], activePageIndex, _drawPanelSizeList[activePageIndex]);
-                    _shapeList.RemoveAt(activePageIndex);
-                    List<Button> sortedButtons = _groupBox2.Controls
-                        .OfType<Button>()
-                        .OrderBy(button => button.TabIndex)
-                        .ToList();
-                    _groupBox2.Controls.Remove(sortedButtons[activePageIndex]);
-                    ButtonRefresh();
-                    if (activePageIndex >= _shapeList.Count)
-                        activePageIndex -= 1;
-                    sortedButtons = _groupBox2.Controls
-                        .OfType<Button>()
-                        .OrderBy(button => button.TabIndex)
-                        .ToList();
-                    if (activePageIndex < 0)
-                        activePageIndex = 0;
-                    if (activePageIndex == _shapeList.Count)
-                        activePageIndex = _shapeList.Count - 1;
-                    UpdateButtonPage();
-                    UpdatePageInformation();
+                    HandleDeleteKey();
                 }
             }
         }
 
+        //鍵盤偵測事件
+        private void HandleDeleteKey()
+        {
+            _controlManger.DeleteCommand(_model, _shapeList[activePageIndex], activePageIndex, _drawPanelSizeList[activePageIndex]);
+            _shapeList.RemoveAt(activePageIndex);
+
+            List<Button> sortedButtons = SortButtonsByTabIndex();
+            _groupBox2.Controls.Remove(sortedButtons[activePageIndex]);
+
+            ButtonRefresh();
+
+            HandleActivePageIndex(sortedButtons);
+
+            UpdateButtonPage();
+            UpdatePageInformation();
+        }
+
+        //鍵盤偵測事件
+        private List<Button> SortButtonsByTabIndex()
+        {
+            return _groupBox2.Controls
+                .OfType<Button>()
+                .OrderBy(button => button.TabIndex)
+                .ToList();
+        }
+
+        //鍵盤偵測事件
+        private void HandleActivePageIndex(List<Button> sortedButtons)
+        {
+            if (activePageIndex >= _shapeList.Count)
+                activePageIndex -= 1;
+
+            sortedButtons = SortButtonsByTabIndex();
+
+            if (activePageIndex < 0)
+                activePageIndex = 0;
+
+            if (activePageIndex == _shapeList.Count)
+                activePageIndex = _shapeList.Count - 1;
+        }
+
+
+        //更新所以頁面
         private void UpdatePageInformation()
         {
             List<Button> sortedButtons = _groupBox2.Controls
@@ -373,6 +440,7 @@ namespace PowerPoint
             _model.NotifyModelChanged();
         }
 
+        //更新大小
         public void FitPanel()
         {
             _panelMiddle.Location = new Point(_panelLeft.Location.X + _panelLeft.Width, _panelLeft.Location.Y);
@@ -421,7 +489,8 @@ namespace PowerPoint
             _model.NotifyModelChanged();
         }
 
-        private void toolStripButton1Click(object sender, EventArgs e)
+        //新增頁面
+        private void toolStripAddPageButton1Click(object sender, EventArgs e)
         {
             AddNewButton();
             _controlManger.PageCommand(_model);
@@ -431,6 +500,7 @@ namespace PowerPoint
             _controlManger.ShowCommand();
         }
 
+        //新增按鈕
         private void AddNewButton()
         {
             Button button = new Button();
@@ -447,12 +517,11 @@ namespace PowerPoint
             _groupBox2.Controls.Clear();
             _groupBox2.Controls.Add(button);
             for (int i = 0; i < existingButtons.Count; i++)
-            {
                 _groupBox2.Controls.Add(existingButtons[i]);
-            }
             activePageIndex = _shapeList.Count - 1;
         }
 
+        //更新按鈕狀態
         private void ButtonRefresh()
         {
             List<Button> sortedButtons = _groupBox2.Controls
@@ -468,6 +537,7 @@ namespace PowerPoint
             }
         }
 
+        //更新按鈕事件
         private void PageButtonClick(object sender, EventArgs e)
         {
             Button clickedButton = sender as Button;
@@ -485,6 +555,7 @@ namespace PowerPoint
             }
         }
 
+        //創建黃色背景
         private Bitmap CreateLightYellowBitmap(int width, int height)
         {
             Bitmap bitmap = new Bitmap(width, height);
@@ -494,29 +565,25 @@ namespace PowerPoint
             }
             return bitmap;
         }
-
+        //上傳檔案
         private async void toolStripButton2_Click(object sender, EventArgs e)
         {
             _toolStripUploadButton.Enabled = false;
             GoogleDriveService googleDrive = new GoogleDriveService("DrawTest", "clientSecret.json");
-            string filePath = "SaveData.csv";
             try
             {
                 _presentationModel.SaveByFileToCSV(_shapeList, _drawPanelSizeList);
             }
             catch (Exception ex)
             {
-                // 存檔失敗，彈出模態對話框通知使用者
                 MessageBox.Show("儲存失敗：" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Run the file upload on a background thread
             Task.Run(async () =>
             {
                 try
                 {
-                    await googleDrive.UploadFile(filePath, "text/csv").ConfigureAwait(false);
+                    await googleDrive.UploadFile(SAVE_DATA_NAME, "text/csv").ConfigureAwait(false);
                     this.Invoke((MethodInvoker)delegate
                     {
                         Console.WriteLine("上船完成");
@@ -525,38 +592,56 @@ namespace PowerPoint
                 }
                 catch (Exception ex)
                 {
-                    // 存檔失敗，彈出模態對話框通知使用者
                     MessageBox.Show("上傳失敗：" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             });
             Console.WriteLine("先去執行其他的");
         }
 
+        //Load圖案
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
+            LoadGoogleDriveData();
+            LoadCsvData();
+            UpdatePageAndButton();
+            FitPanel();
+            _model.NotifyModelChanged();
+        }
+
+        //Load圖案
+        private void LoadGoogleDriveData()
+        {
             GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
-            string filePath = "LoadData.csv";
             List<Google.Apis.Drive.v2.Data.File> search = _service.ListRootFileAndFolder();
-            if (search.Count > 0)
-                _service.DownloadFile(search[0], "./");
-            List<CsvData> csvDatas = _presentationModel.ReadCsvFile(filePath);
+            if (search.Count == 0)
+                return;
+            _service.DownloadFile(search[0], "./");
+        }
+
+        //Load圖案
+        private void LoadCsvData()
+        {
+            List<CsvData> csvDatas = _presentationModel.ReadCsvFile(LOAD_DATA_NAME);
             _shapeList.Clear();
             _drawPanelSizeList.Clear();
             _groupBox2.Controls.Clear();
+
             for (int i = 0; i < csvDatas.Count; i++)
             {
                 while (_shapeList.Count <= csvDatas[i].PanelIndex)
-                {
                     AddNewButton();
-                }
+
                 _drawPanelSizeList[csvDatas[i].PanelIndex] = new Size(csvDatas[i].DrawWidth, csvDatas[i].DrawHeight);
                 _shapeList[csvDatas[i].PanelIndex].Add(new Factory().CreateShape(csvDatas[i].ShapeType, new Point(csvDatas[i].X1, csvDatas[i].Y1), new Point(csvDatas[i].X2, csvDatas[i].Y2)));
             }
+        }
+
+        //Load圖案
+        private void UpdatePageAndButton()
+        {
             activePageIndex = 0;
             UpdatePageInformation();
             UpdateButtonPage();
-            FitPanel();
-            _model.NotifyModelChanged();
         }
     }
 }

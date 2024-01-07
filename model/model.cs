@@ -7,7 +7,6 @@ using System.Drawing;
 
 // Model 類，負責應用邏輯和數據管理
 public class Model
-
 {
     public delegate void ModelChangedEventHandler();
     public event ModelChangedEventHandler _modelChanged;
@@ -18,7 +17,7 @@ public class Model
     private bool _deletePage = false;
     private bool _deletePageByIndex = false;
     private bool _insertPageByIndex = false;
-    private bool _chaangeActivePageIndex = false;
+    private bool _changeActivePageIndex = false;
     private int _activePageIndex = -1;
     private BindingList<Shape> _deletePageList;
     private int _deletePageIndex = -1;
@@ -32,7 +31,7 @@ public class Model
     private double _lastClickY;
     private bool _isPressed = false;
     private bool _isSelect = false;
-    private Shape _hint; 
+    private Shape _hint;
     private bool _zoom = false;
     private const string LINE = "線";
     private const string RECTANGLE = "矩形";
@@ -51,15 +50,15 @@ public class Model
     public void ChangeActivePageIndex(int index)
     {
         _activePageIndex = index;
-        _chaangeActivePageIndex = true;
+        _changeActivePageIndex = true;
     }
 
     //更新頁面索引
     public int UpdateActivePageIndex()
     {
-        if (_chaangeActivePageIndex)
+        if (_changeActivePageIndex)
         {
-            _chaangeActivePageIndex = false;
+            _changeActivePageIndex = false;
             return _activePageIndex;
         }
         return -1;
@@ -68,13 +67,11 @@ public class Model
     //新增頁面
     public bool GetAddPage()
     {
-        if (_addPage)
-        {
-            _addPage = false;
-            return true;
-        }
-        return false;
+        bool result = _addPage;
+        _addPage = false;
+        return result;
     }
+
 
     //刪除頁面
     public void DeleteNewPage()
@@ -85,12 +82,9 @@ public class Model
     //刪除頁面資訊
     public bool GetDeletePage()
     {
-        if (_deletePage)
-        {
-            _deletePage = false;
-            return true;
-        }
-        return false;
+        bool result = _deletePage;
+        _deletePage = false;
+        return result;
     }
 
     //使用index刪除頁面
@@ -125,37 +119,22 @@ public class Model
     //設定刪除頁面
     public UndoResult UndoDeletePage()
     {
-        if (_insertPageByIndex)
-        {
-            _insertPageByIndex = false;
-            return new UndoResult
-            {
-                PageShape = _deletePageList,
-                PageIndex = _deletePageIndex,
-                PageSize = _deletePageSize
-            };
-        }
+        _insertPageByIndex = false;
         return new UndoResult
         {
-            PageShape = new BindingList<Shape>(),
-            PageIndex = -1
+            PageShape = _deletePageList,
+            PageIndex = _deletePageIndex,
+            PageSize = _deletePageSize
         };
     }
 
     //設定還原刪除頁面資訊
     public UndoResult RedoDeletePage()
     {
-        if (_deletePageByIndex)
-        {
-            _deletePageByIndex = false;
-            return new UndoResult
-            {
-                PageIndex = _deletePageIndex,
-            };
-        }
+        _deletePageByIndex = false;
         return new UndoResult
         {
-            PageIndex = -1
+            PageIndex = _deletePageIndex,
         };
     }
 
@@ -169,16 +148,12 @@ public class Model
     public void PopLine()
     {
         _shapeList.RemoveAt(_shapeList.Count - 1);
-        // 通知模型發生變化
-        NotifyModelChanged();
     }
 
     // 新增 DataGrid 資料
     public void AddNewLine(Shape shape)
     {
         _shapeList.Add(shape);
-        // 通知模型發生變化
-        NotifyModelChanged();
     }
 
     // 刪除特定列的物件
@@ -189,8 +164,6 @@ public class Model
             _controlManager.DeleteCommand(this, _shapeList[index], index);
             _shapeList.RemoveAt(index);
         }
-
-        // 通知模型發生變化
         NotifyModelChanged();
     }
 
@@ -198,7 +171,6 @@ public class Model
     public void PressPointerDrawing(double pressX, double pressY)
     {
         if (_hint != null)
-        {
             if (pressX > 0 && pressY > 0 && _hint != null)
             {
                 _firstPointX = pressX;
@@ -206,7 +178,6 @@ public class Model
                 _hint.SetPoint1(_firstPointX, _firstPointY);
                 _isPressed = true;
             }
-        }
     }
 
     // 滑鼠左鍵按下事件處理（用於選擇點）
@@ -233,7 +204,6 @@ public class Model
         _selectIndex = -1;
         _isSelect = false;
         for (int i = _shapeList.Count - 1; i >= 0; i--)
-        {
             if (IsPointWithinBoundingBox(pressX, pressY, _shapeList[i]))
             {
                 _selectIndex = i;
@@ -241,21 +211,16 @@ public class Model
                 _previous = _shapeList[_selectIndex].Clone();
                 break;
             }
-        }
+        
     }
 
     // 滑鼠移動事件處理（用於繪製形狀）
     public void MovedPointerDrawing(double pressX, double pressY)
     {
         if (_isPressed)
-        {
             if (_hint != null)
-            {
                 _hint.SetPoint2(pressX, pressY);
-                // 通知模型發生變化
-                NotifyModelChanged();
-            }
-        }
+        NotifyModelChanged();
     }
 
     // 滑鼠移動事件處理（用於移動形狀）
@@ -263,10 +228,7 @@ public class Model
     {
         if (_zoom && _isPressed)
         {
-            Shape temp = _shapeList[_selectIndex];
-            double deltaX = pressX - _firstPointX;
-            double deltaY = pressY - _firstPointY;
-            temp.SetPoint2(temp.GetX2() + deltaX, temp.GetY2() + deltaY);
+            _shapeList[_selectIndex].SetPoint2(_shapeList[_selectIndex].GetX2() + pressX - _firstPointX, _shapeList[_selectIndex].GetY2() + pressY - _firstPointY);
             _firstPointX = pressX;
             _firstPointY = pressY;
         }
@@ -283,16 +245,10 @@ public class Model
     public void ReleasedPointerPoint(double pressX, double pressY)
     {
         if (_selectIndex >= 0)
-        {
             if (_zoom && _isPressed)
-            {
                 _controlManager.ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
-            }
-            else if (_isSelect && _selectIndex >= 0)
-            {
+            else if (_isSelect && _selectIndex >= 0)       
                 _controlManager.MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
-            }
-        }
         _isSelect = false;
         _isPressed = false;
         NotifyModelChanged();
@@ -304,16 +260,12 @@ public class Model
         _isSelect = false;
         _isPressed = false;
         if (_hint != null)
-        {
             _hint = _factory.CreateShape(_shapeToolButtonState, new Point((int)_firstPointX, (int)_firstPointY), new Point((int)pressX, (int)pressY));
-        }
-
         if (_hint != null)
         {
             _shapeList.Add(_hint);
             _controlManager.DrawCommand(this, _hint.Clone());
         }
-
         NotifyModelChanged();
         _hint = null;
     }
@@ -329,13 +281,8 @@ public class Model
     public void Draw(CustomGraphics graphics)
     {
         graphics.ClearAll();
-        int index = 0; // 从第一个形状开始
-        foreach (Shape shape in _shapeList)
-        {
-            shape.Draw(graphics, index == _selectIndex);
-            index++;
-        }
-
+        for (int index = 0; index < _shapeList.Count; index++)
+            _shapeList[index].Draw(graphics, index == _selectIndex);
         if (_isPressed && _hint != null)
             _hint.Draw(graphics);
     }
@@ -379,20 +326,12 @@ public class Model
     // 更新工具欄按鈕選中狀態
     public void UpdateToolStripButtonCheck(string temp)
     {
+        _hint = _factory.CreateShape(temp);
         if (temp == ELLIPSE)
-        {
-            _hint = _factory.CreateShape(NAME_ELLIPSE);
-            _shapeToolButtonState = NAME_ELLIPSE;
-        }
+           _shapeToolButtonState = NAME_ELLIPSE;
         else if (temp == LINE)
-        {
-            _hint = _factory.CreateShape(NAME_LINE);
             _shapeToolButtonState = NAME_LINE;
-        }
         else if (temp == RECTANGLE)
-        {
-            _hint = _factory.CreateShape(NAME_RECTANGLE);
             _shapeToolButtonState = NAME_RECTANGLE;
-        }
     }
 }
