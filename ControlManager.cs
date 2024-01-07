@@ -8,12 +8,12 @@ using System.Drawing;
 
 namespace PowerPoint
 {
-    public class ControlManger
+    public class ControlManager
     {
         private List<ICommand> _command;
-        private int _excuteIndex = 0;
-
-        public ControlManger()
+        private int _executeIndex = 0;
+        private const string NOW_STATUS = "現在狀態";
+        public ControlManager()
         {
             _command = new List<ICommand>();
         }
@@ -22,7 +22,7 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new AddCommand(model, shape.Clone()));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
@@ -30,7 +30,7 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new DeleteCommand(model, shape.Clone(), index));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
@@ -38,7 +38,7 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new DeleteCommand(model, list, index, pageSize));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
@@ -46,7 +46,7 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new ResizeCommand(model, previous, shape.Clone(), index));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
@@ -54,7 +54,7 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new MoveCommand(model, previous, shape.Clone(), index));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
@@ -62,7 +62,7 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new DrawCommand(model, shape.Clone()));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
@@ -70,47 +70,47 @@ namespace PowerPoint
         {
             UpdateExecuteId();
             _command.Add(new AddPageCommand(model));
-            _excuteIndex += 1;
+            _executeIndex += 1;
             ShowCommand();
         }
 
-        public void ChangeSelectIndexCommand(Model model, int prev, int next)
+        public void ChangeSelectIndexCommand(Model model, int previous, int next)
         {
             UpdateExecuteId();
-            _command.Add(new ChangeSelectIndexCommand(model, prev, next));
-            _excuteIndex += 1;
+            _command.Add(new ChangeSelectIndexCommand(model, previous, next));
+            _executeIndex += 1;
             ShowCommand();
         }
 
         public void ShowCommand()
         {
-            Console.WriteLine("現在狀態");
+            Console.WriteLine(NOW_STATUS);
             for (int i = 0; i < _command.Count; i++)
                 Console.WriteLine(_command[i]);
         }
 
         public ICommand Execute()
         {
-            _excuteIndex += 1;
-            return _command[_excuteIndex - 1];
+            _executeIndex += 1;
+            return _command[_executeIndex - 1];
         }
 
         public ICommand UndoExecute()
         {
-            _excuteIndex -= 1;
-            if (_excuteIndex + 1 == _command.Count)
+            _executeIndex -= 1;
+            if (_executeIndex + 1 == _command.Count)
             {
-                return _command[_excuteIndex];
+                return _command[_executeIndex];
             }
             else
             {
-                return _command[_excuteIndex];
+                return _command[_executeIndex];
             }
         }
 
         public void UpdateExecuteId()
         {
-            while (_command.Count != _excuteIndex)
+            while (_command.Count != _executeIndex)
             {
                 _command.RemoveAt(_command.Count - 1);
             }
@@ -118,12 +118,12 @@ namespace PowerPoint
 
         public bool IsUndoButtonStatus()
         {
-            return _excuteIndex != 0;
+            return _executeIndex != 0;
         }
 
         public bool IsRedoButtonStatus()
         {
-            return _excuteIndex < _command.Count;
+            return _executeIndex < _command.Count;
         }
     }
 }

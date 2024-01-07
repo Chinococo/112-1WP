@@ -17,7 +17,7 @@ namespace PowerPoint.PresentationModel
         private const string IMAGE = "image.png";
         private IState _state; // 表示當前狀態的接口
         private BindingList<Shape> _shapeList;
-        private ControlManger _controlManger;
+        private ControlManager _controlManger;
         private const string LINE = "線";
         private const string RECTANGLE = "矩形";
         private const string ELLIPSE = "橢圓";
@@ -26,7 +26,7 @@ namespace PowerPoint.PresentationModel
         private const string NAME_ELLIPSE = "Ellipse";
         private string _shapeState = "";
 
-        public PresentationModel(Model model, BindingList<Shape> shapeList, ControlManger controlManger)
+        public PresentationModel(Model model, BindingList<Shape> shapeList, ControlManager controlManger)
         {
             this._model = model;
             this._shapeList = shapeList;
@@ -115,13 +115,12 @@ namespace PowerPoint.PresentationModel
 
         public void SaveByFileToCSV(List<BindingList<Shape>> shapeList, List<Size> drawPanelSizeList)
         {
-            string filePath = "SaveData.csv";
-            if (File.Exists(filePath))
+            const string FILE_PATH = "SaveData.csv";
+            if (File.Exists(FILE_PATH))
             {
-                File.Delete(filePath);
+                File.Delete(FILE_PATH);
             }
             // Sample data to write to the CSV file
-            string[] headers = { "PanelIndex", "DrawWidth", "DrawHeight", "ShapeType", "x1", "y1", "x2", "y2" };
             for (int i = 0; i < shapeList.Count; i++)
             {
                 for (int k = 0; k < shapeList[i].Count; k++)
@@ -129,7 +128,7 @@ namespace PowerPoint.PresentationModel
                     string[] data = { i.ToString(), drawPanelSizeList[0].Width.ToString(), drawPanelSizeList[0].Height.ToString() };
                     string[] temp = shapeList[i][k].GetInfoCsv().Split(',');
                     data = data.Concat(temp).ToArray(); ;
-                    WriteToCsv(filePath, null, data);
+                    WriteToCsv(FILE_PATH, null, data);
                 }
             }
         }

@@ -8,10 +8,10 @@ namespace Dialog.Command
         private int _previousIndex;
         private int _nextIndex;
 
-        public ChangeSelectIndexCommand(Model model, int prevIndex, int nextIndex)
+        public ChangeSelectIndexCommand(Model model, int previousIndex, int nextIndex)
         {
             this._model = model;
-            this._previousIndex = prevIndex;
+            this._previousIndex = previousIndex;
             this._nextIndex = nextIndex;
         }
 

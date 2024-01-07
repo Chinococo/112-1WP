@@ -80,7 +80,7 @@
     <Compile Include="Command\AddPageCommand.cs" />
     <Compile Include="Command\ChangeSelectIndexCommand.cs" />
     <Compile Include="Command\ResizeCommand.cs" />
-    <Compile Include="ControlManger.cs" />
+    <Compile Include="ControlManager.cs" />
     <Compile Include="CsvData.cs" />
     <Compile Include="DoubleBufferedPanel.cs">
       <SubType>Component</SubType>

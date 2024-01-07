@@ -29,14 +29,15 @@ namespace PowerPoint
         private const float HEIGHT_RATIO = 9.0f; // 目標的寬高比例
         private const float RATIO = HEIGHT_RATIO / WIDTH_RATIO; // 目標的寬高比例
         private const int SPLITER_WIDTH = 10;
-        private ControlManger _controlManger;
+        private ControlManager _controlManger;
         private Button _activeButtonPage;
-
+        private const int MINWIDTH = 16;
+        private const int MINHEIGHT = 9;
         public Form1()
         {
             InitializeComponent();
             AddNewButton();
-            _controlManger = new ControlManger();
+            _controlManger = new ControlManager();
             _model = new Model(_shapeList[activePageIndex], _controlManger);
             _displayDataGrid.DataSource = _shapeList[activePageIndex];
             _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
@@ -48,14 +49,14 @@ namespace PowerPoint
 
         private void SetInit()
         {
-            _toolStripUndoButton.Enabled = _controlManger.IsUndoButtonStatus();
-            _toolStripRedoButton.Enabled = _controlManger.IsRedoButtonStatus();
+            //_toolStripUndoButton.Enabled = _controlManger.IsUndoButtonStatus();
+            //_toolStripRedoButton.Enabled = _controlManger.IsRedoButtonStatus();
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
             _panelMiddle.BorderStyle = BorderStyle.FixedSingle;
             _drawPanel.BackColor = System.Drawing.Color.LightYellow;
-            _drawPanel.MinimumSize = new Size(16, 9);
+            _drawPanel.MinimumSize = new Size(MINWIDTH, MINHEIGHT);
             _drawPanel.MouseDown += HandleCanvasPressed;
             _drawPanel.MouseUp += HandleCanvasReleased;
             _drawPanel.MouseMove += HandleCanvasMoved;
@@ -143,8 +144,6 @@ namespace PowerPoint
         public void HandleModelChanged()
         {
             UpdateButtonPage();
-            //_toolStripUndoButton.Enabled = _controlManger.UndoButtonStatus();
-            //_toolStripRedoButton.Enabled = _controlManger.RedoButtonStatus();
             UndoResult _undoDeletePage = _model.UndoDeletePage();
             if (_undoDeletePage.PageIndex != -1)
             {
@@ -181,7 +180,7 @@ namespace PowerPoint
             if (_model.GetDeletePage())
             {
                 var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
-                _groupBox2.Controls.Clear();  // Clear existing buttons
+                _groupBox2.Controls.Clear();
                 _shapeList.RemoveAt(_shapeList.Count - 1);
                 _drawPanelSizeList.RemoveAt(_drawPanelSizeList.Count - 1);
                 for (int i = 0; i < existingButtons.Count - 1; i++)
@@ -256,7 +255,7 @@ namespace PowerPoint
 
                 using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
-                    graphics.Clear(Color.LightYellow);  // Set background color to yellow
+                    graphics.Clear(Color.LightYellow);
                     var windowsFormsGraphicsAdaptor = new WindowsFormsGraphicsAdaptor(graphics);
 
                     for (int k = 0; k < _shapeList[i].Count; k++)
@@ -308,9 +307,9 @@ namespace PowerPoint
         private void UpdatePageInformation()
         {
             List<Button> sortedButtons = _groupBox2.Controls
-                       .OfType<Button>()
-                       .OrderBy(button => button.TabIndex)
-                       .ToList();
+                .OfType<Button>()
+                .OrderBy(button => button.TabIndex)
+                .ToList();
             if (activePageIndex < 0)
                 activePageIndex = 0;
             if (activePageIndex == _shapeList.Count)
@@ -443,7 +442,7 @@ namespace PowerPoint
             btn.Click += PageButtonClick;
             btn.Dock = DockStyle.Top;
             var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
-            _groupBox2.Controls.Clear();  // Clear existing buttons
+            _groupBox2.Controls.Clear();
             _groupBox2.Controls.Add(btn);
             for (int i = 0; i < existingButtons.Count; i++)
             {
@@ -459,7 +458,7 @@ namespace PowerPoint
                 .OrderBy(button => button.TabIndex)
                 .ToList();
             sortedButtons.Reverse();
-            _groupBox2.Controls.Clear();  // Clear existing buttons
+            _groupBox2.Controls.Clear();
             for (int i = 0; i < sortedButtons.Count; i++)
             {
                 sortedButtons[i].TabIndex = sortedButtons.Count - i - 1;
@@ -516,8 +515,11 @@ namespace PowerPoint
                 try
                 {
                     await _service.UploadFile(filePath, "text/csv").ConfigureAwait(false);
-                    Console.WriteLine("上船完成");
-                    toolStripButton2.Enabled = true;
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        Console.WriteLine("上船完成");
+                        toolStripButton2.Enabled = true;
+                    });
                 }
                 catch (Exception ex)
                 {

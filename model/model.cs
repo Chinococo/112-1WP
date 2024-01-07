@@ -7,10 +7,11 @@ using System.Drawing;
 
 // Model 類，負責應用邏輯和數據管理
 public class Model
+
 {
+    public delegate void ModelChangedEventHandler();
     public event ModelChangedEventHandler _modelChanged;
     private Size deletePageSize;
-    public delegate void ModelChangedEventHandler();
     private Shape _previous;
     private Factory _factory = new Factory();
     private bool AddPage = false;
@@ -21,7 +22,7 @@ public class Model
     private int _activePageIndex = -1;
     private BindingList<Shape> deletePageList;
     private int deletePageIndex = -1;
-    private ControlManger _controlManger;
+    private ControlManager _controlManger;
     private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
     private string _shapeToolButtonState = "";
@@ -39,17 +40,21 @@ public class Model
     private const string NAME_LINE = "Line";
     private const string NAME_RECTANGLE = "Rectangle";
     private const string NAME_ELLIPSE = "Ellipse";
+
+    //新增頁面
     public void AddNewPage()
     {
         AddPage = true;
     }
 
+    //更新頁面索引
     public void ChangeActivePageIndex(int index)
     {
         _activePageIndex = index;
         _chaangeActivePageIndex = true;
     }
 
+    //更新頁面索引
     public int UpdateActivePageIndex()
     {
         if (_chaangeActivePageIndex)
@@ -70,11 +75,13 @@ public class Model
         return false;
     }
 
+    //刪除頁面
     public void DeleteNewPage()
     {
         DeletePage = true;
     }
 
+    //刪除頁面資訊
     public bool GetDeletePage()
     {
         if (DeletePage)
@@ -85,12 +92,14 @@ public class Model
         return false;
     }
 
+    //使用index刪除頁面
     public void DeletePageByIndex(int index)
     {
         _deletePageByIndex = true;
         deletePageIndex = index;
     }
 
+    //使用index插入頁面
     public void InsertPageByIndex(BindingList<Shape> list, int index, Size pageSize)
     {
         _insertPageByIndex = true;
@@ -100,17 +109,19 @@ public class Model
     }
 
     // 構造函數，初始化模型
-    public Model(BindingList<Shape> shapeList, ControlManger controlManger)
+    public Model(BindingList<Shape> shapeList, ControlManager controlManger)
     {
         this._shapeList = shapeList;
         this._controlManger = controlManger;
     }
 
+    // 設定shapeList
     public void SetShapeList(BindingList<Shape> shapeList)
     {
         this._shapeList = shapeList;
     }
 
+    //設定刪除頁面
     public UndoResult UndoDeletePage()
     {
         if (_insertPageByIndex)
@@ -130,6 +141,7 @@ public class Model
         };
     }
 
+    //設定還原刪除頁面資訊
     public UndoResult RedoDeletePage()
     {
         if (_deletePageByIndex)
@@ -151,7 +163,6 @@ public class Model
     {
         this._zoom = zoom;
     }
-
 
     // 新增 DataGrid 資料
     public void PopLine()
@@ -227,8 +238,7 @@ public class Model
                 _selectIndex = i;
                 _isSelect = true;
                 _previous = _shapeList[_selectIndex].Clone();
-                Console.WriteLine("Find {0}", _selectIndex);
-                break; // 找到第一個匹配的形狀後退出循環
+                break;
             }
         }
     }
@@ -306,7 +316,6 @@ public class Model
         NotifyModelChanged();
         _hint = null;
     }
-
 
     // 通知畫面需要更新事件
     public void NotifyModelChanged()
