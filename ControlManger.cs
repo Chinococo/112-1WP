@@ -115,5 +115,15 @@ namespace PowerPoint
                 _command.RemoveAt(_command.Count - 1);
             }
         }
+
+        public bool UndoButtonStatus()
+        {
+            return _excuteIndex != 0;
+        }
+
+        public bool RedoButtonStatus()
+        {
+            return _excuteIndex < _command.Count;
+        }
     }
 }

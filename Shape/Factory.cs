@@ -7,10 +7,19 @@ public class Factory
     private const string NAME_RECTANGLE = "Rectangle";
     private const string NAME_ELLIPSE = "Ellipse";
     private const string NAME_ERROR = "Unsupported shape type";
+    private const string SYMBOL_LINE = "線";
+    private const string SYMBOL_RECTANGLE = "矩形";
+    private const string SYMBOL_ELLIPSE = "橢圓";
 
     //依照參數產出對應型態物件
     public Shape CreateShape(string shapeType)
     {
+        if (shapeType == SYMBOL_LINE)
+            shapeType = NAME_LINE;
+        if (shapeType == SYMBOL_RECTANGLE)
+            shapeType = NAME_RECTANGLE;
+        if (shapeType == SYMBOL_ELLIPSE)
+            shapeType = NAME_ELLIPSE;
         switch (shapeType)
         {
             case NAME_LINE:
@@ -31,6 +40,12 @@ public class Factory
 
     public Shape CreateShape(string shapeType, Point startPoint, Point endPoint)
     {
+        if (shapeType == SYMBOL_LINE)
+            shapeType = NAME_LINE;
+        if (shapeType == SYMBOL_RECTANGLE)
+            shapeType = NAME_RECTANGLE;
+        if (shapeType == SYMBOL_ELLIPSE)
+            shapeType = NAME_ELLIPSE;
         switch (shapeType)
         {
             case NAME_LINE:

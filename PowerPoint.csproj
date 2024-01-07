@@ -71,10 +71,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddModelDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddModelDialog.Designer.cs">
+      <DependentUpon>AddModelDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Command\AddPageCommand.cs" />
     <Compile Include="Command\ChageSelectIndexCommand.cs" />
     <Compile Include="Command\ResizeCommand.cs" />
     <Compile Include="ControlManger.cs" />
+    <Compile Include="CsvData.cs" />
     <Compile Include="DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -85,6 +92,7 @@
     <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Command\DeleteCommand.cs" />
     <Compile Include="Command\DrawCommand.cs" />
+    <Compile Include="PresentationModel\TextFieldParser.cs" />
     <Compile Include="State\DrawingState.cs" />
     <Compile Include="Shape\Ellipse.cs" />
     <Compile Include="Shape\Factory.cs" />
@@ -106,6 +114,9 @@
     <Compile Include="Shape\Shape.cs" />
     <Compile Include="Shape\Shapes.cs" />
     <Compile Include="UndoResult.cs" />
+    <EmbeddedResource Include="AddModelDialog.resx">
+      <DependentUpon>AddModelDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DoubleBufferedPanel.resx">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </EmbeddedResource>

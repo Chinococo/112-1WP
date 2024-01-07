@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PowerPoint
@@ -43,10 +43,13 @@ namespace PowerPoint
             _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _controlManger);
             SetInit();
             UpdateButtonPage();
+            UpdatePageInformation();
         }
 
         private void SetInit()
         {
+            //_toolStripUndoButton.Enabled = _controlManger.UndoButtonStatus();
+            //_toolStripRedoButton.Enabled = _controlManger.RedoButtonStatus();
             this.KeyPreview = true;
             this.KeyDown += DeleteKeyDown;
             this.Resize += FormResize;
@@ -70,52 +73,16 @@ namespace PowerPoint
             _model._modelChanged += HandleModelChanged;
         }
 
-        private void TestGoogleDrive()
-        {
-            GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
-            string filePath = "example.csv";
-
-            // Sample data to write to the CSV file
-            string[] headers = { "PanelIndex", "DrawWidth", "DrawHeight", "ShapeType", "x1", "y1", "x2", "y2" };
-            WriteToCsv(filePath, headers, null);
-            for (int i = 0; i < _shapeList.Count; i++)
-            {
-                for (int k = 0; k < _shapeList[i].Count; k++)
-                {
-                    string[] data = { i.ToString(), _drawPanelSizeList[0].Width.ToString(), _drawPanelSizeList[0].Height.ToString() };
-                    string[] temp = _shapeList[i][k].GetInfoCsv().Split(',');
-                    data = data.Concat(temp).ToArray(); ;
-                    WriteToCsv(filePath, null, data);
-                }
-            }
-            Console.WriteLine("CSV file created successfully.");
-            _service.UploadFile(filePath, "text/csv");
-        }
-
-        private static void WriteToCsv(string filePath, string[] headers, string[] data)
-        {
-            // Check if the file already exists
-            bool fileExists = File.Exists(filePath);
-
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                // Write headers if the file is newly created
-                if (!fileExists && headers != null)
-                {
-                    writer.WriteLine(string.Join(",", headers));
-                }
-                if (data != null)
-                {
-                    // Write data
-                    writer.WriteLine(string.Join(",", data));
-                }
-            }
-        }
-
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            _presentationModel.AddNewLine(_shapeComboBox.Text);
+            if (_shapeComboBox.Text == "")
+            {
+                MessageBox.Show("未選擇形狀");
+                return;
+            }
+            AddModelDialog test = new AddModelDialog(_presentationModel, _shapeComboBox.Text);
+            test.Show();
         }
 
         // DataGrid 按鈕觸發處理事件
@@ -176,6 +143,8 @@ namespace PowerPoint
         public void HandleModelChanged()
         {
             UpdateButtonPage();
+            //_toolStripUndoButton.Enabled = _controlManger.UndoButtonStatus();
+            //_toolStripRedoButton.Enabled = _controlManger.RedoButtonStatus();
             UndoResult _undoDeletePage = _model.UndoDeletePage();
             if (_undoDeletePage.PageIndex != -1)
             {
@@ -406,6 +375,7 @@ namespace PowerPoint
         public void FitPanel()
         {
             _panelMiddle.Location = new Point(_panelLeft.Location.X + _panelLeft.Width, _panelLeft.Location.Y);
+            _drawPanel.Size = _drawPanelSizeList[activePageIndex];
             int oldHeight = _drawPanel.Height;
             _drawPanel.Width = _panelMiddle.Width - 100;
             int newHeight = (int)(_drawPanel.Width * RATIO);
@@ -420,13 +390,13 @@ namespace PowerPoint
                 _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
             }
             _drawPanelSizeList[activePageIndex] = _drawPanel.Size;
-            ScaleShape((double)_drawPanel.Height / (double)oldHeight);
+            ScaleShape((double)_drawPanel.Height / (double)oldHeight, activePageIndex);
         }
 
         //照著比例放大
-        private void ScaleShape(double scale)
+        private void ScaleShape(double scale, int i)
         {
-            foreach (var shape in _shapeList[activePageIndex])
+            foreach (var shape in _shapeList[i])
             {
                 if ((shape.GetX1() * scale) > 0 && (shape.GetY1() * scale) > 0)
                     shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
@@ -454,6 +424,10 @@ namespace PowerPoint
         {
             AddNewButton();
             _controlManger.PageCommand(_model);
+            _controlManger.ChageSelectIndexCommand(_model, activePageIndex, _shapeList.Count - 1);
+            activePageIndex = _shapeList.Count - 1;
+            UpdatePageInformation();
+            _controlManger.ShowCommand();
         }
 
         private void AddNewButton()
@@ -475,6 +449,7 @@ namespace PowerPoint
             {
                 _groupBox2.Controls.Add(existingButtons[i]);
             }
+            activePageIndex = _shapeList.Count - 1;
         }
 
         private void ButtonRefresh()
@@ -503,10 +478,7 @@ namespace PowerPoint
                     _controlManger.ChageSelectIndexCommand(_model, activePageIndex, clickedButton.TabIndex);
                 }
                 activePageIndex = clickedButton.TabIndex;
-                _model.SetShapeList(_shapeList[activePageIndex]);
-                _presentationModel.SetShapeList(_shapeList[activePageIndex]);
-                _displayDataGrid.DataSource = _shapeList[activePageIndex];
-                _drawPanel.Size = _drawPanelSizeList[activePageIndex];
+                UpdatePageInformation();
                 FitPanel();
                 _model.NotifyModelChanged();
             }
@@ -517,15 +489,70 @@ namespace PowerPoint
             Bitmap bitmap = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                // Fill the bitmap with yellow color
                 g.FillRectangle(Brushes.LightYellow, 0, 0, width, height);
             }
             return bitmap;
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private async void toolStripButton2_Click(object sender, EventArgs e)
         {
-            TestGoogleDrive();
+            toolStripButton2.Enabled = false;
+            GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
+            string filePath = "SaveData.csv";
+            try
+            {
+                _presentationModel.SaveByFileToCSV(_shapeList, _drawPanelSizeList);
+            }
+            catch (Exception ex)
+            {
+                // 存檔失敗，彈出模態對話框通知使用者
+                MessageBox.Show("儲存失敗：" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Run the file upload on a background thread
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await _service.UploadFile(filePath, "text/csv").ConfigureAwait(false);
+                    Console.WriteLine("上船完成");
+                    toolStripButton2.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    // 存檔失敗，彈出模態對話框通知使用者
+                    MessageBox.Show("上傳失敗：" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            });
+            Console.WriteLine("先去執行其他的");
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
+            string filePath = "LoadData.csv";
+            List<Google.Apis.Drive.v2.Data.File> serach = _service.ListRootFileAndFolder();
+            if (serach.Count > 0)
+                _service.DownloadFile(serach[0], "./");
+            List<CsvData> csvDatas = _presentationModel.ReadCsvFile(filePath);
+            _shapeList.Clear();
+            _drawPanelSizeList.Clear();
+            _groupBox2.Controls.Clear();
+            for (int i = 0; i < csvDatas.Count; i++)
+            {
+                while (_shapeList.Count <= csvDatas[i].PanelIndex)
+                {
+                    AddNewButton();
+                }
+                _drawPanelSizeList[csvDatas[i].PanelIndex] = new Size(csvDatas[i].DrawWidth, csvDatas[i].DrawHeight);
+                _shapeList[csvDatas[i].PanelIndex].Add(new Factory().CreateShape(csvDatas[i].ShapeType, new Point(csvDatas[i].X1, csvDatas[i].Y1), new Point(csvDatas[i].X2, csvDatas[i].Y2)));
+            }
+            activePageIndex = 0;
+            UpdatePageInformation();
+            UpdateButtonPage();
+            FitPanel();
+            _model.NotifyModelChanged();
         }
     }
 }

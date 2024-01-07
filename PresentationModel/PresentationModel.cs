@@ -1,6 +1,11 @@
-﻿using PowerPoint.Object;
+﻿using HW2;
+using PowerPoint.Object;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 
 namespace PowerPoint.PresentationModel
 {
@@ -90,14 +95,14 @@ namespace PowerPoint.PresentationModel
         }
 
         // 新增 DataGrid 資料
-        public void AddNewLine(string state)
+        public void AddNewLine(string state, Point leftTop, Point rightBottom)
         {
             if (state == LINE)
-                _shapeList.Add(_factory.CreateShape(NAME_LINE));
+                _shapeList.Add(_factory.CreateShape(NAME_LINE, leftTop, rightBottom));
             else if (state == RECTANGLE)
-                _shapeList.Add(_factory.CreateShape(NAME_RECTANGLE));
+                _shapeList.Add(_factory.CreateShape(NAME_RECTANGLE, leftTop, rightBottom));
             else if (state == ELLIPSE)
-                _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE));
+                _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE, leftTop, rightBottom));
             _shapeState = state;
             _controlManger.AddCommand(_model, _shapeList[_shapeList.Count - 1].Clone());
             _model.NotifyModelChanged();
@@ -106,6 +111,81 @@ namespace PowerPoint.PresentationModel
         public void SetShapeList(BindingList<Shape> shapeList)
         {
             this._shapeList = shapeList;
+        }
+
+        public void SaveByFileToCSV(List<BindingList<Shape>> shapeList, List<Size> drawPanelSizeList)
+        {
+            string filePath = "SaveData.csv";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            // Sample data to write to the CSV file
+            string[] headers = { "PanelIndex", "DrawWidth", "DrawHeight", "ShapeType", "x1", "y1", "x2", "y2" };
+            for (int i = 0; i < shapeList.Count; i++)
+            {
+                for (int k = 0; k < shapeList[i].Count; k++)
+                {
+                    string[] data = { i.ToString(), drawPanelSizeList[0].Width.ToString(), drawPanelSizeList[0].Height.ToString() };
+                    string[] temp = shapeList[i][k].GetInfoCsv().Split(',');
+                    data = data.Concat(temp).ToArray(); ;
+                    WriteToCsv(filePath, null, data);
+                }
+            }
+        }
+
+        public static void WriteToCsv(string filePath, string[] headers, string[] data)
+        {
+            // Check if the file already exists
+            bool fileExists = File.Exists(filePath);
+
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                // Write headers if the file is newly created
+                if (!fileExists && headers != null)
+                {
+                    writer.WriteLine(string.Join(",", headers));
+                }
+                if (data != null)
+                {
+                    // Write data
+                    writer.WriteLine(string.Join(",", data));
+                }
+            }
+        }
+
+        public List<CsvData> ReadCsvFile(string filePath)
+        {
+            try
+            {
+                // Read all lines from the CSV file
+                string[] lines = File.ReadAllLines(filePath);
+
+                // Skip header if present
+                lines = lines.ToArray();
+
+                // Process lines using LINQ
+                List<CsvData> dataList = lines
+                    .Select(line => line.Split(','))
+                    .Select(fields => new CsvData
+                    {
+                        PanelIndex = int.Parse(fields[0]),
+                        DrawWidth = int.Parse(fields[1]),
+                        DrawHeight = int.Parse(fields[2]),
+                        ShapeType = fields[3],
+                        X1 = int.Parse(fields[4]),
+                        Y1 = int.Parse(fields[5]),
+                        X2 = int.Parse(fields[6]),
+                        Y2 = int.Parse(fields[7])
+                    })
+                    .ToList();
+
+                return dataList;
+            }
+            catch (Exception ex)
+            {
+                return new List<CsvData>();
+            }
         }
     }
 }

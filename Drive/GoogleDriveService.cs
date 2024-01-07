@@ -97,7 +97,7 @@ namespace PowerPoint.Drive
         public List<Google.Apis.Drive.v2.Data.File> ListRootFileAndFolder()
         {
             List<Google.Apis.Drive.v2.Data.File> returnList = new List<Google.Apis.Drive.v2.Data.File>();
-            const string ROOT_QUERY_STRING = "'root' in parents";
+            const string ROOT_QUERY_STRING = "'root' in parents and title = 'SaveData.csv'";
 
             try
             {
@@ -148,7 +148,7 @@ namespace PowerPoint.Drive
         /// <param name="uploadProgressEventHandeler"> 上傳進度改變時呼叫的函式</param>
         /// <param name="responseReceivedEventHandler">收到回應時呼叫的函式 </param>
         /// <returns>上傳成功，回傳上傳成功的 Google Drive 格式之File</returns>
-        public Google.Apis.Drive.v2.Data.File UploadFile(string uploadFileName, string contentType, Action<IUploadProgress> uploadProgressEventHandeler = null, Action<Google.Apis.Drive.v2.Data.File> responseReceivedEventHandler = null)
+        public async Task<Google.Apis.Drive.v2.Data.File> UploadFile(string uploadFileName, string contentType, Action<IUploadProgress> uploadProgressEventHandeler = null, Action<Google.Apis.Drive.v2.Data.File> responseReceivedEventHandler = null)
         {
             FileStream uploadStream = new FileStream(uploadFileName, FileMode.Open, FileAccess.Read);
             const char SPLASH = '\\';
@@ -182,7 +182,7 @@ namespace PowerPoint.Drive
             {
                 uploadStream.Close();
             }
-
+            Thread.Sleep(10000);
             return insertRequest.ResponseBody;
         }
 
@@ -203,7 +203,7 @@ namespace PowerPoint.Drive
                 {
                     Task<byte[]> downloadByte = _service.HttpClient.GetByteArrayAsync(fileToDownload.DownloadUrl);
                     byte[] byteArray = downloadByte.Result;
-                    string downloadPosition = downloadPath + SPLASH + fileToDownload.Title;
+                    string downloadPosition = downloadPath + SPLASH + "LoadData.csv";
                     System.IO.File.WriteAllBytes(downloadPosition, byteArray);
                 }
                 catch (Exception exception)
