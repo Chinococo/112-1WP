@@ -14,51 +14,30 @@ public class Factory
     //依照參數產出對應型態物件
     public Shape CreateShape(string shapeType)
     {
-        if (shapeType == SYMBOL_LINE)
-            shapeType = NAME_LINE;
-        if (shapeType == SYMBOL_RECTANGLE)
-            shapeType = NAME_RECTANGLE;
-        if (shapeType == SYMBOL_ELLIPSE)
-            shapeType = NAME_ELLIPSE;
-        switch (shapeType)
-        {
-            case NAME_LINE:
-                return new Line();
+        if (shapeType == NAME_LINE || shapeType == SYMBOL_LINE)
+            return new Line();
 
-            case NAME_RECTANGLE:
-                return new Rectangle();
+        if (shapeType == NAME_RECTANGLE || shapeType == SYMBOL_RECTANGLE)
+            return new Rectangle();
 
-            case NAME_ELLIPSE:
-                return new Ellipse();
-
-            default:
-                throw new ArgumentException(NAME_ERROR);
-        }
+        if (shapeType == NAME_ELLIPSE || shapeType == SYMBOL_ELLIPSE)
+            return new Ellipse();
+        throw new ArgumentException(NAME_ERROR);
     }
 
     //依照參數產出對應型態物件
 
     public Shape CreateShape(string shapeType, Point startPoint, Point endPoint)
     {
-        if (shapeType == SYMBOL_LINE)
-            shapeType = NAME_LINE;
-        if (shapeType == SYMBOL_RECTANGLE)
-            shapeType = NAME_RECTANGLE;
-        if (shapeType == SYMBOL_ELLIPSE)
-            shapeType = NAME_ELLIPSE;
-        switch (shapeType)
-        {
-            case NAME_LINE:
-                return new Line(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
+        if (shapeType == NAME_LINE || shapeType == SYMBOL_LINE)
+            return new Line(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
 
-            case NAME_RECTANGLE:
-                return new Rectangle(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
+        if (shapeType == NAME_RECTANGLE || shapeType == SYMBOL_RECTANGLE)
+            return new Rectangle(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
 
-            case NAME_ELLIPSE:
-                return new Ellipse(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
+        if (shapeType == NAME_ELLIPSE || shapeType == SYMBOL_ELLIPSE)
+            return new Ellipse(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
 
-            default:
-                throw new ArgumentException(NAME_ERROR);
-        }
+        throw new ArgumentException(NAME_ERROR);
     }
 }

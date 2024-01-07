@@ -31,8 +31,10 @@ namespace PowerPoint
         private const int SPLITER_WIDTH = 10;
         private ControlManager _controlManger;
         private Button _activeButtonPage;
-        private const int MINWIDTH = 16;
-        private const int MINHEIGHT = 9;
+        private const int MIN_WIDTH = 16;
+        private const int MIN_HEIGHT = 9;
+        private const int SPLITER_BUFFER = 100;
+        private const int TWICE = 2;
         public Form1()
         {
             InitializeComponent();
@@ -42,12 +44,12 @@ namespace PowerPoint
             _displayDataGrid.DataSource = _shapeList[activePageIndex];
             _activeButtonPage = _groupBox2.Controls.OfType<Button>().ToList()[0];
             _presentationModel = new PresentationModel.PresentationModel(_model, _shapeList[activePageIndex], _controlManger);
-            SetInit();
+            SetInitial();
             UpdateButtonPage();
             UpdatePageInformation();
         }
 
-        private void SetInit()
+        private void SetInitial()
         {
             //_toolStripUndoButton.Enabled = _controlManger.IsUndoButtonStatus();
             //_toolStripRedoButton.Enabled = _controlManger.IsRedoButtonStatus();
@@ -56,7 +58,7 @@ namespace PowerPoint
             this.Resize += FormResize;
             _panelMiddle.BorderStyle = BorderStyle.FixedSingle;
             _drawPanel.BackColor = System.Drawing.Color.LightYellow;
-            _drawPanel.MinimumSize = new Size(MINWIDTH, MINHEIGHT);
+            _drawPanel.MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
             _drawPanel.MouseDown += HandleCanvasPressed;
             _drawPanel.MouseUp += HandleCanvasReleased;
             _drawPanel.MouseMove += HandleCanvasMoved;
@@ -144,30 +146,30 @@ namespace PowerPoint
         public void HandleModelChanged()
         {
             UpdateButtonPage();
-            UndoResult _undoDeletePage = _model.UndoDeletePage();
-            if (_undoDeletePage.PageIndex != -1)
+            UndoResult undoDeletePage = _model.UndoDeletePage();
+            if (undoDeletePage.PageIndex != -1)
             {
-                _shapeList.Insert(_undoDeletePage.PageIndex, _undoDeletePage.PageShape);
-                _drawPanelSizeList.Insert(_undoDeletePage.PageIndex, _undoDeletePage.PageSize);
+                _shapeList.Insert(undoDeletePage.PageIndex, undoDeletePage.PageShape);
+                _drawPanelSizeList.Insert(undoDeletePage.PageIndex, undoDeletePage.PageSize);
                 AddNewButton();
-                activePageIndex = _undoDeletePage.PageIndex;
+                activePageIndex = undoDeletePage.PageIndex;
                 UpdatePageInformation();
                 _model.NotifyModelChanged();
             }
-            UndoResult _redoDeletePage = _model.RedoDeletePage();
-            if (_redoDeletePage.PageIndex != -1)
+            UndoResult redoDeletePage = _model.RedoDeletePage();
+            if (redoDeletePage.PageIndex != -1)
             {
-                _shapeList.RemoveAt(_redoDeletePage.PageIndex);
-                _drawPanelSizeList.RemoveAt(_redoDeletePage.PageIndex);
+                _shapeList.RemoveAt(redoDeletePage.PageIndex);
+                _drawPanelSizeList.RemoveAt(redoDeletePage.PageIndex);
                 _groupBox2.Controls.Remove(_groupBox2.Controls.OfType<Button>().ToList()[0]);
                 UpdatePageInformation();
                 _model.NotifyModelChanged();
             }
-            int _updateActivePageIndex = _model.UpdateActivePageIndex();
-            if (_updateActivePageIndex != -1)
+            int updateActivePageIndex = _model.UpdateActivePageIndex();
+            if (updateActivePageIndex != -1)
             {
-                Console.WriteLine("切換索引{0}", _updateActivePageIndex);
-                activePageIndex = _updateActivePageIndex;
+                Console.WriteLine("切換索引{0}", updateActivePageIndex);
+                activePageIndex = updateActivePageIndex;
                 UpdatePageInformation();
             }
 
@@ -376,26 +378,26 @@ namespace PowerPoint
             _panelMiddle.Location = new Point(_panelLeft.Location.X + _panelLeft.Width, _panelLeft.Location.Y);
             _drawPanel.Size = _drawPanelSizeList[activePageIndex];
             int oldHeight = _drawPanel.Height;
-            _drawPanel.Width = _panelMiddle.Width - 100;
+            _drawPanel.Width = _panelMiddle.Width - SPLITER_BUFFER;
             int newHeight = (int)(_drawPanel.Width * RATIO);
             _drawPanel.Height = newHeight;
             _drawPanel.Height = newHeight;
-            _drawPanel.Location = new Point(50, (_panelMiddle.Height - newHeight) / 2);
-            if (_drawPanel.Size.Height > _panelMiddle.Height - 100)
+            _drawPanel.Location = new Point(SPLITER_BUFFER / TWICE, (_panelMiddle.Height - newHeight) / TWICE);
+            if (_drawPanel.Size.Height > _panelMiddle.Height - SPLITER_BUFFER)
             {
-                _drawPanel.Height = _panelMiddle.Height - 100;
+                _drawPanel.Height = _panelMiddle.Height - SPLITER_BUFFER;
                 int newWidth = (int)(_drawPanel.Height * (WIDTH_RATIO / HEIGHT_RATIO));
                 _drawPanel.Width = newWidth;
-                _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / 2, 50);
+                _drawPanel.Location = new Point((_panelMiddle.Width - newWidth) / TWICE, SPLITER_BUFFER);
             }
             _drawPanelSizeList[activePageIndex] = _drawPanel.Size;
             ScaleShape((double)_drawPanel.Height / (double)oldHeight, activePageIndex);
         }
 
         //照著比例放大
-        private void ScaleShape(double scale, int i)
+        private void ScaleShape(double scale, int index)
         {
-            foreach (var shape in _shapeList[i])
+            foreach (var shape in _shapeList[index])
             {
                 if ((shape.GetX1() * scale) > 0 && (shape.GetY1() * scale) > 0)
                     shape.SetPoint1(shape.GetX1() * scale, shape.GetY1() * scale);
@@ -419,7 +421,7 @@ namespace PowerPoint
             _model.NotifyModelChanged();
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripButton1Click(object sender, EventArgs e)
         {
             AddNewButton();
             _controlManger.PageCommand(_model);
@@ -431,19 +433,19 @@ namespace PowerPoint
 
         private void AddNewButton()
         {
-            Button btn = new Button();
+            Button button = new Button();
             _shapeList.Add(new BindingList<Shape>());
             _drawPanelSizeList.Add(_drawPanel.Size);
-            btn.TabIndex = _groupBox2.Controls.Count;
-            btn.Height = 180;
+            button.TabIndex = _groupBox2.Controls.Count;
+            button.Height = 180;
             _drawPanelSizeList.Add(_drawPanel.Size);
-            btn.BackgroundImage = CreateLightYellowBitmap(_drawPanel.Width, _drawPanel.Height);
-            btn.BackgroundImageLayout = ImageLayout.Zoom;
-            btn.Click += PageButtonClick;
-            btn.Dock = DockStyle.Top;
+            button.BackgroundImage = CreateLightYellowBitmap(_drawPanel.Width, _drawPanel.Height);
+            button.BackgroundImageLayout = ImageLayout.Zoom;
+            button.Click += PageButtonClick;
+            button.Dock = DockStyle.Top;
             var existingButtons = _groupBox2.Controls.OfType<Button>().ToList();
             _groupBox2.Controls.Clear();
-            _groupBox2.Controls.Add(btn);
+            _groupBox2.Controls.Add(button);
             for (int i = 0; i < existingButtons.Count; i++)
             {
                 _groupBox2.Controls.Add(existingButtons[i]);
@@ -495,8 +497,8 @@ namespace PowerPoint
 
         private async void toolStripButton2_Click(object sender, EventArgs e)
         {
-            toolStripButton2.Enabled = false;
-            GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
+            _toolStripUploadButton.Enabled = false;
+            GoogleDriveService googleDrive = new GoogleDriveService("DrawTest", "clientSecret.json");
             string filePath = "SaveData.csv";
             try
             {
@@ -514,11 +516,11 @@ namespace PowerPoint
             {
                 try
                 {
-                    await _service.UploadFile(filePath, "text/csv").ConfigureAwait(false);
+                    await googleDrive.UploadFile(filePath, "text/csv").ConfigureAwait(false);
                     this.Invoke((MethodInvoker)delegate
                     {
                         Console.WriteLine("上船完成");
-                        toolStripButton2.Enabled = true;
+                        _toolStripUploadButton.Enabled = true;
                     });
                 }
                 catch (Exception ex)
@@ -534,9 +536,9 @@ namespace PowerPoint
         {
             GoogleDriveService _service = new GoogleDriveService("DrawTest", "clientSecret.json");
             string filePath = "LoadData.csv";
-            List<Google.Apis.Drive.v2.Data.File> serach = _service.ListRootFileAndFolder();
-            if (serach.Count > 0)
-                _service.DownloadFile(serach[0], "./");
+            List<Google.Apis.Drive.v2.Data.File> search = _service.ListRootFileAndFolder();
+            if (search.Count > 0)
+                _service.DownloadFile(search[0], "./");
             List<CsvData> csvDatas = _presentationModel.ReadCsvFile(filePath);
             _shapeList.Clear();
             _drawPanelSizeList.Clear();

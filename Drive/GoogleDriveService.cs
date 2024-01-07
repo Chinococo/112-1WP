@@ -40,6 +40,7 @@ namespace PowerPoint.Drive
             this.CreateNewService(applicationName, clientSecretFileName);
         }
 
+        //建立服務
         private void CreateNewService(string applicationName, string clientSecretFileName)
         {
             const string USER = "user";

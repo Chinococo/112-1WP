@@ -37,6 +37,7 @@ namespace PowerPoint
             this._insertButton = new System.Windows.Forms.Button();
             this._shapeComboBox = new System.Windows.Forms.ComboBox();
             this._groupBox = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this._groupBox2 = new System.Windows.Forms.GroupBox();
             this._menuStrip = new System.Windows.Forms.MenuStrip();
             this._toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,22 +49,21 @@ namespace PowerPoint
             this._toolStripCursorsButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripUndoButton = new System.Windows.Forms.ToolStripButton();
             this._toolStripRedoButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this._toolStripAddPageButton = new System.Windows.Forms.ToolStripButton();
+            this._toolStripUploadButton = new System.Windows.Forms.ToolStripButton();
+            this._toolStripDowloadButton = new System.Windows.Forms.ToolStripButton();
             this._panelLeft = new System.Windows.Forms.Panel();
             this._panelRight = new System.Windows.Forms.Panel();
             this._panelMiddle = new System.Windows.Forms.Panel();
             this._splitLeft = new System.Windows.Forms.Splitter();
             this._splitRight = new System.Windows.Forms.Splitter();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).BeginInit();
             this._groupBox.SuspendLayout();
+            this.panel1.SuspendLayout();
             this._menuStrip.SuspendLayout();
             this._toolStrip1.SuspendLayout();
             this._panelLeft.SuspendLayout();
             this._panelRight.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // _displayDataGrid
@@ -157,6 +157,15 @@ namespace PowerPoint
             this._groupBox.TabStop = false;
             this._groupBox.Text = "資料顯示";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this._displayDataGrid);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 81);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(339, 382);
+            this.panel1.TabIndex = 2;
+            // 
             // _groupBox2
             // 
             this._groupBox2.AutoSize = true;
@@ -204,9 +213,9 @@ namespace PowerPoint
             this._toolStripCursorsButton,
             this._toolStripUndoButton,
             this._toolStripRedoButton,
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3});
+            this._toolStripAddPageButton,
+            this._toolStripUploadButton,
+            this._toolStripDowloadButton});
             this._toolStrip1.Location = new System.Drawing.Point(0, 24);
             this._toolStrip1.Name = "_toolStrip1";
             this._toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -274,35 +283,35 @@ namespace PowerPoint
             this._toolStripRedoButton.Text = "toolStripButton2";
             this._toolStripRedoButton.Click += new System.EventHandler(this.RedoButtonClick);
             // 
-            // toolStripButton1
+            // _toolStripAddPageButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this._toolStripAddPageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripAddPageButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripAddPageButton.Image")));
+            this._toolStripAddPageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripAddPageButton.Name = "_toolStripAddPageButton";
+            this._toolStripAddPageButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripAddPageButton.Text = "toolStripButton1";
+            this._toolStripAddPageButton.Click += new System.EventHandler(this.toolStripButton1Click);
             // 
-            // toolStripButton2
+            // _toolStripUploadButton
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this._toolStripUploadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripUploadButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripUploadButton.Image")));
+            this._toolStripUploadButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripUploadButton.Name = "_toolStripUploadButton";
+            this._toolStripUploadButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripUploadButton.Text = "toolStripButton2";
+            this._toolStripUploadButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
-            // toolStripButton3
+            // _toolStripDowloadButton
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton3.Text = "toolStripButton3";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            this._toolStripDowloadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripDowloadButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripDowloadButton.Image")));
+            this._toolStripDowloadButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripDowloadButton.Name = "_toolStripDowloadButton";
+            this._toolStripDowloadButton.Size = new System.Drawing.Size(28, 28);
+            this._toolStripDowloadButton.Text = "toolStripButton3";
+            this._toolStripDowloadButton.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // _panelLeft
             // 
@@ -348,15 +357,6 @@ namespace PowerPoint
             this._splitRight.TabIndex = 12;
             this._splitRight.TabStop = false;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this._displayDataGrid);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 81);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(339, 382);
-            this.panel1.TabIndex = 2;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -375,6 +375,7 @@ namespace PowerPoint
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this._displayDataGrid)).EndInit();
             this._groupBox.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this._menuStrip.ResumeLayout(false);
             this._menuStrip.PerformLayout();
             this._toolStrip1.ResumeLayout(false);
@@ -382,7 +383,6 @@ namespace PowerPoint
             this._panelLeft.ResumeLayout(false);
             this._panelLeft.PerformLayout();
             this._panelRight.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -410,13 +410,16 @@ namespace PowerPoint
         private System.Windows.Forms.Panel _panelMiddle;
         private System.Windows.Forms.Splitter _splitLeft;
         private System.Windows.Forms.Splitter _splitRight;
+        private System.Windows.Forms.DataGridViewButtonColumn _deleteColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _shapeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _infoColumn;
+        private System.Windows.Forms.ToolStripButton _toolStripAddPageButton;
+        private System.Windows.Forms.ToolStripButton _toolStripUploadButton;
+        private System.Windows.Forms.ToolStripButton _toolStripDowloadButton;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridViewButtonColumn _deleteCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _shapeCloumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _infoCloumn;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.Panel panel1;
     }
 }
 

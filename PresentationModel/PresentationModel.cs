@@ -17,7 +17,7 @@ namespace PowerPoint.PresentationModel
         private const string IMAGE = "image.png";
         private IState _state; // 表示當前狀態的接口
         private BindingList<Shape> _shapeList;
-        private ControlManager _controlManger;
+        private ControlManager _controlManager;
         private const string LINE = "線";
         private const string RECTANGLE = "矩形";
         private const string ELLIPSE = "橢圓";
@@ -26,11 +26,11 @@ namespace PowerPoint.PresentationModel
         private const string NAME_ELLIPSE = "Ellipse";
         private string _shapeState = "";
 
-        public PresentationModel(Model model, BindingList<Shape> shapeList, ControlManager controlManger)
+        public PresentationModel(Model model, BindingList<Shape> shapeList, ControlManager controlManager)
         {
             this._model = model;
             this._shapeList = shapeList;
-            this._controlManger = controlManger;
+            this._controlManager = controlManager;
         }
 
         // Draw事件
@@ -87,7 +87,7 @@ namespace PowerPoint.PresentationModel
             int selectIndex = _model.GetSelectIndex();
             if (selectIndex >= 0 && selectIndex < _shapeList.Count)
             {
-                _controlManger.DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex);
+                _controlManager.DeleteCommand(_model, _shapeList[selectIndex].Clone(), selectIndex);
                 _shapeList.RemoveAt(selectIndex);
             }
             // 通知模型發生變化
@@ -104,15 +104,17 @@ namespace PowerPoint.PresentationModel
             else if (state == ELLIPSE)
                 _shapeList.Add(_factory.CreateShape(NAME_ELLIPSE, leftTop, rightBottom));
             _shapeState = state;
-            _controlManger.AddCommand(_model, _shapeList[_shapeList.Count - 1].Clone());
+            _controlManager.AddCommand(_model, _shapeList[_shapeList.Count - 1].Clone());
             _model.NotifyModelChanged();
         }
 
+        //設定ShapeList
         public void SetShapeList(BindingList<Shape> shapeList)
         {
             this._shapeList = shapeList;
         }
 
+        //儲存CSV
         public void SaveByFileToCSV(List<BindingList<Shape>> shapeList, List<Size> drawPanelSizeList)
         {
             const string FILE_PATH = "SaveData.csv";
@@ -133,6 +135,7 @@ namespace PowerPoint.PresentationModel
             }
         }
 
+        //寫入CSV
         public static void WriteToCsv(string filePath, string[] headers, string[] data)
         {
             // Check if the file already exists
@@ -153,6 +156,7 @@ namespace PowerPoint.PresentationModel
             }
         }
 
+        //讀取CSV
         public List<CsvData> ReadCsvFile(string filePath)
         {
             try

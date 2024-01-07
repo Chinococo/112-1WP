@@ -11,18 +11,18 @@ public class Model
 {
     public delegate void ModelChangedEventHandler();
     public event ModelChangedEventHandler _modelChanged;
-    private Size deletePageSize;
+    private Size _deletePageSize;
     private Shape _previous;
     private Factory _factory = new Factory();
-    private bool AddPage = false;
-    private bool DeletePage = false;
+    private bool _addPage = false;
+    private bool _deletePage = false;
     private bool _deletePageByIndex = false;
     private bool _insertPageByIndex = false;
     private bool _chaangeActivePageIndex = false;
     private int _activePageIndex = -1;
-    private BindingList<Shape> deletePageList;
-    private int deletePageIndex = -1;
-    private ControlManager _controlManger;
+    private BindingList<Shape> _deletePageList;
+    private int _deletePageIndex = -1;
+    private ControlManager _controlManager;
     private int _selectIndex = -1;
     private BindingList<Shape> _shapeList;
     private string _shapeToolButtonState = "";
@@ -44,7 +44,7 @@ public class Model
     //新增頁面
     public void AddNewPage()
     {
-        AddPage = true;
+        _addPage = true;
     }
 
     //更新頁面索引
@@ -65,11 +65,12 @@ public class Model
         return -1;
     }
 
+    //新增頁面
     public bool GetAddPage()
     {
-        if (AddPage)
+        if (_addPage)
         {
-            AddPage = false;
+            _addPage = false;
             return true;
         }
         return false;
@@ -78,15 +79,15 @@ public class Model
     //刪除頁面
     public void DeleteNewPage()
     {
-        DeletePage = true;
+        _deletePage = true;
     }
 
     //刪除頁面資訊
     public bool GetDeletePage()
     {
-        if (DeletePage)
+        if (_deletePage)
         {
-            DeletePage = false;
+            _deletePage = false;
             return true;
         }
         return false;
@@ -96,23 +97,23 @@ public class Model
     public void DeletePageByIndex(int index)
     {
         _deletePageByIndex = true;
-        deletePageIndex = index;
+        _deletePageIndex = index;
     }
 
     //使用index插入頁面
     public void InsertPageByIndex(BindingList<Shape> list, int index, Size pageSize)
     {
         _insertPageByIndex = true;
-        deletePageList = list;
-        deletePageIndex = index;
-        deletePageSize = pageSize;
+        _deletePageList = list;
+        _deletePageIndex = index;
+        _deletePageSize = pageSize;
     }
 
     // 構造函數，初始化模型
-    public Model(BindingList<Shape> shapeList, ControlManager controlManger)
+    public Model(BindingList<Shape> shapeList, ControlManager controlManager)
     {
         this._shapeList = shapeList;
-        this._controlManger = controlManger;
+        this._controlManager = controlManager;
     }
 
     // 設定shapeList
@@ -129,9 +130,9 @@ public class Model
             _insertPageByIndex = false;
             return new UndoResult
             {
-                PageShape = deletePageList,
-                PageIndex = deletePageIndex,
-                PageSize = deletePageSize
+                PageShape = _deletePageList,
+                PageIndex = _deletePageIndex,
+                PageSize = _deletePageSize
             };
         }
         return new UndoResult
@@ -149,7 +150,7 @@ public class Model
             _deletePageByIndex = false;
             return new UndoResult
             {
-                PageIndex = deletePageIndex,
+                PageIndex = _deletePageIndex,
             };
         }
         return new UndoResult
@@ -185,7 +186,7 @@ public class Model
     {
         if (_shapeList.Count > index)
         {
-            _controlManger.DeleteCommand(this, _shapeList[index], index);
+            _controlManager.DeleteCommand(this, _shapeList[index], index);
             _shapeList.RemoveAt(index);
         }
 
@@ -285,11 +286,11 @@ public class Model
         {
             if (_zoom && _isPressed)
             {
-                _controlManger.ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
+                _controlManager.ResizeCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
             }
             else if (_isSelect && _selectIndex >= 0)
             {
-                _controlManger.MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
+                _controlManager.MoveCommand(this, _previous, _shapeList[_selectIndex].Clone(), _selectIndex);
             }
         }
         _isSelect = false;
@@ -310,7 +311,7 @@ public class Model
         if (_hint != null)
         {
             _shapeList.Add(_hint);
-            _controlManger.DrawCommand(this, _hint.Clone());
+            _controlManager.DrawCommand(this, _hint.Clone());
         }
 
         NotifyModelChanged();
@@ -362,7 +363,7 @@ public class Model
     }
 
     //新增物件by索引
-    public void MondifyByIndex(int index, Shape temp)
+    public void ChangeByIndex(int index, Shape temp)
     {
         this._shapeList[index] = temp;
     }

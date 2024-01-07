@@ -19,13 +19,13 @@
         //執行以前的指令
         public void Execute()
         {
-            _model.MondifyByIndex(_index, _next);
+            _model.ChangeByIndex(_index, _next);
         }
 
         //還原以前的指令
         public void UndoExecute()
         {
-            _model.MondifyByIndex(_index, _previous);
+            _model.ChangeByIndex(_index, _previous);
         }
     }
 }

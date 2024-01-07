@@ -18,6 +18,7 @@ namespace PowerPoint
             _command = new List<ICommand>();
         }
 
+        //增加指令
         public void AddCommand(Model model, Shape shape)
         {
             UpdateExecuteId();
@@ -26,6 +27,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //刪除指令
         public void DeleteCommand(Model model, Shape shape, int index)
         {
             UpdateExecuteId();
@@ -34,6 +36,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //刪除指令
         public void DeleteCommand(Model model, BindingList<Shape> list, int index, Size pageSize)
         {
             UpdateExecuteId();
@@ -42,6 +45,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //重新設定大小指令
         public void ResizeCommand(Model model, Shape previous, Shape shape, int index)
         {
             UpdateExecuteId();
@@ -50,6 +54,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //移動指令
         public void MoveCommand(Model model, Shape previous, Shape shape, int index)
         {
             UpdateExecuteId();
@@ -58,6 +63,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //畫圖指令
         public void DrawCommand(Model model, Shape shape)
         {
             UpdateExecuteId();
@@ -66,6 +72,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //新增頁面指令
         public void PageCommand(Model model)
         {
             UpdateExecuteId();
@@ -74,6 +81,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //切換頁面指令
         public void ChangeSelectIndexCommand(Model model, int previous, int next)
         {
             UpdateExecuteId();
@@ -82,6 +90,7 @@ namespace PowerPoint
             ShowCommand();
         }
 
+        //顯示Command
         public void ShowCommand()
         {
             Console.WriteLine(NOW_STATUS);
@@ -89,12 +98,14 @@ namespace PowerPoint
                 Console.WriteLine(_command[i]);
         }
 
+        //執行
         public ICommand Execute()
         {
             _executeIndex += 1;
             return _command[_executeIndex - 1];
         }
 
+        //還原執行
         public ICommand UndoExecute()
         {
             _executeIndex -= 1;
@@ -108,6 +119,7 @@ namespace PowerPoint
             }
         }
 
+        //UpdateExecuteId
         public void UpdateExecuteId()
         {
             while (_command.Count != _executeIndex)
@@ -116,11 +128,13 @@ namespace PowerPoint
             }
         }
 
+        //UndoButtonStatus
         public bool IsUndoButtonStatus()
         {
             return _executeIndex != 0;
         }
 
+        //RedoButtonStatu
         public bool IsRedoButtonStatus()
         {
             return _executeIndex < _command.Count;
