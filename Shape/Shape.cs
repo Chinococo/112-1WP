@@ -56,10 +56,11 @@ public class Shape : Shapes
     {
         return string.Format(COORDINATES_FORMAT, _x1, _y1, _x2, _y2);
     }
+
     // 取得形狀資訊的方法
     public string GetInfoCsv()
     {
-        return string.Format(COORDINATES_FORMAT2,_shapeName, _x1, _y1, _x2, _y2);
+        return string.Format(COORDINATES_FORMAT2, _shapeName, _x1, _y1, _x2, _y2);
     }
 
     // Draw 方法，等待被覆寫

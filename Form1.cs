@@ -76,23 +76,23 @@ namespace PowerPoint
             string filePath = "example.csv";
 
             // Sample data to write to the CSV file
-            string[] headers = { "PanelIndex","DrawWidth", "DrawHeight", "ShapeType","x1","y1","x2","y2" };
+            string[] headers = { "PanelIndex", "DrawWidth", "DrawHeight", "ShapeType", "x1", "y1", "x2", "y2" };
             WriteToCsv(filePath, headers, null);
-            for (int i=0;i< _shapeList.Count; i++)
+            for (int i = 0; i < _shapeList.Count; i++)
             {
-                for(int k=0;k< _shapeList[i].Count; k++)
+                for (int k = 0; k < _shapeList[i].Count; k++)
                 {
                     string[] data = { i.ToString(), _drawPanelSizeList[0].Width.ToString(), _drawPanelSizeList[0].Height.ToString() };
                     string[] temp = _shapeList[i][k].GetInfoCsv().Split(',');
-                    data = data.Concat(temp).ToArray(); ; 
+                    data = data.Concat(temp).ToArray(); ;
                     WriteToCsv(filePath, null, data);
                 }
-                
             }
             Console.WriteLine("CSV file created successfully.");
             _service.UploadFile(filePath, "text/csv");
         }
-        static void WriteToCsv(string filePath, string[] headers, string[] data)
+
+        private static void WriteToCsv(string filePath, string[] headers, string[] data)
         {
             // Check if the file already exists
             bool fileExists = File.Exists(filePath);
@@ -104,13 +104,14 @@ namespace PowerPoint
                 {
                     writer.WriteLine(string.Join(",", headers));
                 }
-                if( data != null)
+                if (data != null)
                 {
                     // Write data
                     writer.WriteLine(string.Join(",", data));
                 }
             }
         }
+
         // 新增按鈕觸發事件
         private void InsertButtonClick(object sender, EventArgs e)
         {
@@ -125,7 +126,6 @@ namespace PowerPoint
                 _model.DeleteLineByIndex(e.RowIndex);
             }
         }
-
 
         // Canvas 被點擊事件
         public void HandleCanvasPressed(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -402,8 +402,6 @@ namespace PowerPoint
             UpdateButtonPage();
             _model.NotifyModelChanged();
         }
-
-
 
         public void FitPanel()
         {

@@ -10,7 +10,7 @@
     {
         this._shapeName = shapeName;
     }
-    
+
     public Shapes(string shapeName, double x1, double y1, double x2, double y2)
     {
         this._shapeName = shapeName;
